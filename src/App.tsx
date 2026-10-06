@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { ISLANDS_DATA } from './data/islandsData';
-import type { Island, Choice, PathStep, IslandEnding } from './types';
+import { STORY_DATA } from './data/storyData';
+import type { StoryIsland, StoryChoice } from './data/storyData';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { Header } from './components/Header';
 import { AstralWorldMap } from './components/AstralWorldMap';
@@ -11,193 +11,154 @@ import { TimelineVisualizer } from './components/TimelineVisualizer';
 import { CodexView } from './components/CodexView';
 import { audioEngine } from './utils/audioEngine';
 
-export type AppViewMode = 'overworld' | 'comic_stage' | 'timeline' | 'codex';
+export type AppViewMode = 'map' | 'stage' | 'timeline' | 'codex';
 
 export function App() {
-  // 1. Core State
-  const [activeIslandId, setActiveIslandId] = useState<string>('island-1');
-  const activeIsland: Island = ISLANDS_DATA.find(i => i.id === activeIslandId) || ISLANDS_DATA[0];
-
-  const [currentSceneId, setCurrentSceneId] = useState<string>(activeIsland.initialSceneId);
-  const currentScene = activeIsland.scenes[currentSceneId] || activeIsland.scenes[activeIsland.initialSceneId];
-
-  const [pathHistory, setPathHistory] = useState<PathStep[]>([]);
-  const [dharmaScore, setDharmaScore] = useState<number>(50);
-  const [karmaScore, setKarmaScore] = useState<number>(50);
+  // 1. App State
+  const [activeIsland, setActiveIsland] = useState<StoryIsland>(STORY_DATA[0]);
+  const [activeChoice, setActiveChoice] = useState<StoryChoice | null>(null);
+  const [viewMode, setViewMode] = useState<AppViewMode>('map');
   const [divergenceScore, setDivergenceScore] = useState<number>(0);
-
   const [audioEnabled, setAudioEnabled] = useState<boolean>(false);
-  const [viewMode, setViewMode] = useState<AppViewMode>('overworld');
-  const [activeEnding, setActiveEnding] = useState<IslandEnding | null>(null);
 
-  // Action Splash Sticker State
+  // Splash sticker animation state
   const [splashState, setSplashState] = useState<{ active: boolean; text: string; tag?: string }>({
     active: false,
     text: 'SHING!'
   });
 
-  // 2. Select Island / Breach Realm
-  const handleSelectIsland = (islandId: string) => {
-    const targetIsland = ISLANDS_DATA.find(i => i.id === islandId);
-    if (!targetIsland) return;
-
-    setActiveIslandId(islandId);
-    setCurrentSceneId(targetIsland.initialSceneId);
-    setPathHistory([]);
-    setDharmaScore(50);
-    setKarmaScore(50);
+  // 2. Launch Island Scenario (Screen 1 -> Screen 2)
+  const handleSelectIsland = (island: StoryIsland) => {
+    setActiveIsland(island);
+    setActiveChoice(null);
     setDivergenceScore(0);
-    setActiveEnding(null);
-
-    // Switch to Comic Book Stage
-    setViewMode('comic_stage');
-    audioEngine.setAtmospherePreset(targetIsland.atmosphere);
+    setViewMode('stage');
   };
 
-  // 3. Reset Current Island Path
-  const handleResetIsland = () => {
-    setCurrentSceneId(activeIsland.initialSceneId);
-    setPathHistory([]);
-    setDharmaScore(50);
-    setKarmaScore(50);
-    setDivergenceScore(0);
-    setActiveEnding(null);
+  // 3. Choice Selection (Screen 2 -> Screen 3)
+  const handleSelectChoice = (choice: StoryChoice) => {
+    let stickerText = 'SHING!';
+    let sfxType: 'slash' | 'thwack' | 'gong' | 'thunder' | 'divine' = 'slash';
+
+    if (choice.type === 'RADICAL') {
+      stickerText = 'KRZZZT!';
+      sfxType = 'thunder';
+    } else if (choice.type === 'SUBVERSIVE') {
+      stickerText = 'THWACK!';
+      sfxType = 'thwack';
+    } else {
+      stickerText = 'DIVINE SHINE!';
+      sfxType = 'divine';
+    }
+
+    audioEngine.playSoundFx(sfxType);
+    setSplashState({ active: true, text: stickerText, tag: choice.type });
+
+    setTimeout(() => {
+      setSplashState({ active: false, text: 'SHING!' });
+    }, 650);
+
+    setActiveChoice(choice);
+    setDivergenceScore(choice.divergence);
   };
 
-  // 4. Toggle Web Audio API Synthesizer
+  // Rewind choice to replay current scenario
+  const handleRewindChoice = () => {
+    setActiveChoice(null);
+    setDivergenceScore(0);
+  };
+
+  // Return to Astral Map
+  const handleReturnToMap = () => {
+    setActiveChoice(null);
+    setViewMode('map');
+  };
+
+  // Advance to next Island
+  const handleNextIsland = () => {
+    const currentIndex = STORY_DATA.findIndex(i => i.id === activeIsland.id);
+    if (currentIndex >= 0 && currentIndex < STORY_DATA.length - 1) {
+      handleSelectIsland(STORY_DATA[currentIndex + 1]);
+    }
+  };
+
+  const hasNextIsland = STORY_DATA.findIndex(i => i.id === activeIsland.id) < STORY_DATA.length - 1;
+
+  // Toggle Synthesizer Audio
   const handleToggleAudio = () => {
     audioEngine.init();
     const muted = audioEngine.toggleMute();
     setAudioEnabled(!muted);
   };
 
-  // 5. Choice Selection Handler
-  const handleSelectChoice = (choice: Choice) => {
-    let stickerText = 'SHING!';
-    let sfxType: 'slash' | 'thwack' | 'gong' | 'thunder' | 'divine' = 'slash';
-
-    if (choice.alignmentTag === 'Adharma (Selfish Gain)' || choice.soundFx === 'thunder') {
-      stickerText = 'KRZZZT!';
-      sfxType = 'thunder';
-    } else if (choice.alignmentTag === 'Swadharma (Duty)') {
-      stickerText = 'THWACK!';
-      sfxType = 'thwack';
-    } else if (choice.alignmentTag === 'Satya (Absolute Truth)') {
-      stickerText = 'DIVINE SHINE!';
-      sfxType = 'divine';
-    }
-
-    audioEngine.playSoundFx(sfxType);
-    setSplashState({ active: true, text: stickerText, tag: choice.alignmentTag });
-
-    setTimeout(() => {
-      setSplashState({ active: false, text: 'SHING!' });
-    }, 650);
-
-    const newDharma = Math.min(100, Math.max(0, dharmaScore + choice.deltaDharma));
-    const newKarma = Math.min(100, Math.max(0, karmaScore + choice.deltaKarma));
-    const newDivergence = Math.min(100, Math.max(0, divergenceScore + choice.divergenceImpact));
-
-    setDharmaScore(newDharma);
-    setKarmaScore(newKarma);
-    setDivergenceScore(newDivergence);
-
-    const newStep: PathStep = {
-      sceneId: currentSceneId,
-      choiceId: choice.id,
-      choiceLabel: choice.label,
-      alignmentTag: choice.alignmentTag,
-      divergenceScore: newDivergence,
-      deltaDharma: choice.deltaDharma,
-      deltaKarma: choice.deltaKarma
-    };
-
-    setPathHistory(prev => [...prev, newStep]);
-
-    if (choice.endingId && activeIsland.endings[choice.endingId]) {
-      setActiveEnding(activeIsland.endings[choice.endingId]);
-    } else if (choice.nextSceneId && activeIsland.scenes[choice.nextSceneId]) {
-      setCurrentSceneId(choice.nextSceneId);
-    }
-  };
-
-  // Advance to next Island
-  const handleNextIsland = () => {
-    const currentIndex = ISLANDS_DATA.findIndex(i => i.id === activeIslandId);
-    if (currentIndex >= 0 && currentIndex < ISLANDS_DATA.length - 1) {
-      handleSelectIsland(ISLANDS_DATA[currentIndex + 1].id);
-    }
-  };
-
-  const hasNextIsland = ISLANDS_DATA.findIndex(i => i.id === activeIslandId) < ISLANDS_DATA.length - 1;
-
   return (
     <div className="min-h-screen bg-[#090a0f] text-slate-100 flex flex-col font-ui relative overflow-x-hidden">
       
       {/* Background HTML5 Canvas Particles */}
-      <ParticleCanvas atmosphere={activeIsland.atmosphere} />
+      <ParticleCanvas atmosphere="embers" />
 
-      {/* Comic Action Splash Screen Overlay */}
+      {/* Comic Action Splash Sticker Overlay */}
       <ActionComicSplash
         active={splashState.active}
         soundText={splashState.text}
         tag={splashState.tag}
       />
 
-      {/* Navigation Header */}
+      {/* Header Navigation */}
       <Header
-        islands={ISLANDS_DATA}
-        activeIsland={activeIsland}
-        activeView={viewMode === 'overworld' ? 'sandbox' : (viewMode as any)}
-        onSelectIsland={handleSelectIsland}
+        islands={STORY_DATA as any}
+        activeIsland={activeIsland as any}
+        activeView={viewMode === 'map' ? 'sandbox' : (viewMode as any)}
+        onSelectIsland={(id) => {
+          const isl = STORY_DATA.find(i => i.id === id);
+          if (isl) handleSelectIsland(isl);
+        }}
         onSelectView={(v) => {
-          if (v === 'sandbox') setViewMode('comic_stage');
+          if (v === 'sandbox') setViewMode('stage');
           else setViewMode(v as AppViewMode);
         }}
         divergenceScore={divergenceScore}
         audioEnabled={audioEnabled}
         onToggleAudio={handleToggleAudio}
-        onResetIsland={handleResetIsland}
+        onResetIsland={handleRewindChoice}
       />
 
-      {/* View Switcher Main Container */}
+      {/* Main UX Stage Container */}
       <main className="flex-1 w-full z-10">
         
-        {/* VIEW 1: ASTRAL OVERWORLD COSMOS MAP */}
-        {viewMode === 'overworld' && (
+        {/* SCREEN 1: ASTRAL ISLAND MAP (HOME) */}
+        {viewMode === 'map' && (
           <AstralWorldMap
-            islands={ISLANDS_DATA}
+            islands={STORY_DATA}
             onSelectIsland={handleSelectIsland}
           />
         )}
 
-        {/* VIEW 2: COMIC BOOK STAGE */}
-        {viewMode === 'comic_stage' && (
+        {/* SCREEN 2: GRAPHIC NOVEL SCENARIO STAGE */}
+        {viewMode === 'stage' && (
           <div className="py-6 px-2 sm:px-4">
             <ComicBookStage
               island={activeIsland}
-              currentScene={currentScene}
-              pathHistory={pathHistory}
               divergenceScore={divergenceScore}
               onSelectChoice={handleSelectChoice}
-              onReturnToOverworld={() => setViewMode('overworld')}
+              onReturnToCosmos={handleReturnToMap}
             />
           </div>
         )}
 
-        {/* VIEW 3: MULTIVERSE TIMELINE MAP */}
+        {/* TIMELINE VISUALIZER VIEW */}
         {viewMode === 'timeline' && (
           <div className="py-6">
             <TimelineVisualizer
-              island={activeIsland}
-              currentSceneId={currentSceneId}
-              pathHistory={pathHistory}
-              onResetIsland={handleResetIsland}
+              island={activeIsland as any}
+              currentSceneId={activeIsland.id}
+              pathHistory={[]}
+              onResetIsland={handleRewindChoice}
             />
           </div>
         )}
 
-        {/* VIEW 4: LORE CODEX */}
+        {/* CODEX VIEW */}
         {viewMode === 'codex' && (
           <div className="py-6">
             <CodexView />
@@ -206,21 +167,18 @@ export function App() {
 
       </main>
 
-      {/* WHAT IF...? Special Issue Epilogue Modal */}
+      {/* SCREEN 3: RESOLUTION & DIVERGENCE EPILOGUE */}
       <ComicEpilogue
-        ending={activeEnding}
-        onRewindIssue={handleResetIsland}
-        onReturnToOverworld={() => {
-          setActiveEnding(null);
-          setViewMode('overworld');
-        }}
-        onNextIssue={handleNextIsland}
-        hasNextIssue={hasNextIsland}
+        island={activeIsland}
+        choice={activeChoice}
+        onRewindChoice={handleRewindChoice}
+        onReturnToAstralMap={handleReturnToMap}
+        onNextIsland={hasNextIsland ? handleNextIsland : undefined}
       />
 
       {/* Footer */}
       <footer className="w-full py-4 px-6 border-t-2 border-black bg-slate-950 text-center text-xs text-slate-500 font-mono z-10">
-        Dharmakshetra • Interactive Graphic-Novel Decision Game • Powered by React & Web Audio API
+        Mahabharata: Fractured Fates • Visual Novel Decision Engine • All Static Assets Mapped
       </footer>
     </div>
   );
