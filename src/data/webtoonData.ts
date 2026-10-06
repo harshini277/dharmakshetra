@@ -1,23 +1,27 @@
 export interface WebtoonPanel {
   id: string;
   bg: string;
-  charImg?: string;
+  charKey?: string;
   speaker?: string | null;
   dialogue?: string;
   caption?: string;
   sfx?: string;
 }
 
-export interface WebtoonChoice {
+export interface WebtoonChoiceOption {
   id: string;
   label: string;
   type: 'canon' | 'subversive' | 'radical';
   divergence: number;
-  continuationPanels: WebtoonPanel[];
-  epilogue: {
-    title: string;
-    summary: string;
-  };
+  nextPanelsSummary?: string;
+}
+
+export interface WebtoonAct {
+  actNumber: 1 | 2 | 3;
+  actTitle: string;
+  panels: WebtoonPanel[];
+  prompt: string;
+  choices: WebtoonChoiceOption[];
 }
 
 export interface WebtoonIsland {
@@ -27,9 +31,11 @@ export interface WebtoonIsland {
   coverImg: string;
   era: string;
   keyCharacters: string[];
-  initialPanels: WebtoonPanel[];
-  choicePrompt: string;
-  choices: WebtoonChoice[];
+  acts: WebtoonAct[];
+  epilogue: {
+    title: string;
+    summary: string;
+  };
 }
 
 export const webtoonIslands: WebtoonIsland[] = [
@@ -37,110 +43,144 @@ export const webtoonIslands: WebtoonIsland[] = [
     id: "island-1",
     title: "The Cursed Hunt of Shatashringa",
     parva: "Adi Parva",
-    coverImg: "/assets/map_bg.jpg",
+    coverImg: "/assets/bg_forest.jpg",
     era: "Dawn of the Kuru Lineage",
     keyCharacters: ["King Pandu", "Sage Kindama", "Queen Kunti"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1",
-        bg: "/assets/bg_forest.jpg",
-        speaker: null,
-        caption: "Deep in the misty peaks of Shatashringa, King Pandu hunts beneath the golden twilight canopy."
+        actNumber: 1,
+        actTitle: "Act I: The Inciting Dilemma",
+        panels: [
+          {
+            id: "p1_1",
+            bg: "/assets/bg_forest.jpg",
+            caption: "Deep in the misty peaks of Shatashringa, King Pandu hunts beneath the golden twilight canopy."
+          },
+          {
+            id: "p1_2",
+            bg: "/assets/bg_forest.jpg",
+            charKey: "pandu",
+            speaker: "King Pandu",
+            dialogue: "A rare deer mating in the sacred groves... my golden arrow shall not miss!",
+            sfx: "TWAAANG!"
+          },
+          {
+            id: "p1_3",
+            bg: "/assets/bg_forest.jpg",
+            charKey: "pandu",
+            speaker: "Sage Kindama (In Agony)",
+            dialogue: "Cruel king! You struck down a sage in the sacred act of love! Receive my dying curse: the moment you embrace your queens in passion, your life shall flee your mortal body!",
+            sfx: "KRZZZT!"
+          }
+        ],
+        prompt: "Decision Gate 1: Pandu stands cursed with instant death upon intimacy. How shall the King of Hastinapur respond?",
+        choices: [
+          {
+            id: "1_1A",
+            label: "Renounce the Crown for Forest Penance (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "1_1B",
+            label: "Remain Emperor & Seek Sages' Ritual Solution (Subversive)",
+            type: "subversive",
+            divergence: 40
+          },
+          {
+            id: "1_1C",
+            label: "Abdicate Entirely to Dhritarashtra Immediately (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p2",
-        bg: "/assets/bg_forest.jpg",
-        charImg: "/assets/pandu.png",
-        speaker: "King Pandu",
-        dialogue: "A rare deer mating in the sacred groves... my golden arrow shall not miss!",
-        sfx: "TWAAANG!"
+        actNumber: 2,
+        actTitle: "Act II: The Escalation & Divine Niyoga",
+        panels: [
+          {
+            id: "p2_1",
+            bg: "/assets/bg_forest.jpg",
+            charKey: "pandu",
+            speaker: "King Pandu",
+            dialogue: "Without male heirs, our lineage dies and ancestors suffer in darkness. Kunti, use your boons to invoke the gods!"
+          },
+          {
+            id: "p2_2",
+            bg: "/assets/bg_forest.jpg",
+            charKey: "draupadi",
+            speaker: "Queen Kunti",
+            dialogue: "Sage Durvasa granted me a mantra to summon any Deva. I shall invoke Dharma for righteousness, Vayu for strength, and Indra for martial glory."
+          }
+        ],
+        prompt: "Decision Gate 2: Kunti can invoke three Devas for sons. Which divine alignment should Kunti prioritize?",
+        choices: [
+          {
+            id: "1_2A",
+            label: "Invoke Dharma, Vayu, and Indra (Canonical Triad)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "1_2B",
+            label: "Invoke Surya First to Reveal Karna as Eldest Brother (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "1_2C",
+            label: "Share the Mantra with Madri & Hastinapur Queens (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p3",
-        bg: "/assets/bg_forest.jpg",
-        speaker: "Sage Kindama (In Agony)",
-        dialogue: "Cruel king! You struck down a sage in the sacred act of love! Receive my dying curse: the moment you embrace your queens in passion, your life shall flee your mortal body!",
-        sfx: "KRZZZT!"
+        actNumber: 3,
+        actTitle: "Act III: The Climax & Fatal Temptation",
+        panels: [
+          {
+            id: "p3_1",
+            bg: "/assets/bg_forest.jpg",
+            caption: "Years pass in the woodland sanctuary. Spring blooms in Shatashringa forest, unleashing irresistible desire."
+          },
+          {
+            id: "p3_2",
+            bg: "/assets/bg_forest.jpg",
+            charKey: "pandu",
+            speaker: "King Pandu",
+            dialogue: "Madri... the forest breeze carrying your laughter breaks my iron vow!",
+            sfx: "DHA-DHAM!"
+          }
+        ],
+        prompt: "Decision Gate 3: Pandu approaches Madri in passionate intoxication. How does fate intervene?",
+        choices: [
+          {
+            id: "1_3A",
+            label: "Pandu Succumbs to the Curse & Dies in Madri's Arms (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "1_3B",
+            label: "Kunti Intervenes in Time to Restrain Pandu (Subversive)",
+            type: "subversive",
+            divergence: 60
+          },
+          {
+            id: "1_3C",
+            label: "Pandu Overcomes Curse via Yogic Transmutation (Radical)",
+            type: "radical",
+            divergence: 90
+          }
+        ]
       }
     ],
-    choicePrompt: "Pandu stands cursed with instant death upon intimacy. How shall the King of Hastinapur respond?",
-    choices: [
-      {
-        id: "1A",
-        label: "The Forest Penance (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_1A",
-            bg: "/assets/bg_forest.jpg",
-            charImg: "/assets/pandu.png",
-            speaker: "King Pandu",
-            dialogue: "My crown is tainted. I cast away royal silks for deerskin. We remain in the deep forest; Kunti, invoke the devas to grant us sons of divine lineage."
-          },
-          {
-            id: "p5_1A",
-            bg: "/assets/bg_forest.jpg",
-            speaker: "Narrator",
-            caption: "Pandu dies years later breaking his vow. Kunti returns to Hastinapur with five divine orphans whose right to rule is violently contested by Duryodhana."
-          }
-        ],
-        epilogue: {
-          title: "The Seeds of Kurukshetra",
-          summary: "The Pandavas grow up as disputed outsiders in Hastinapur, sealing the path to civil war."
-        }
-      },
-      {
-        id: "1B",
-        label: "The Pragmatic Emperor (Remain on Throne)",
-        type: "subversive",
-        divergence: 45,
-        continuationPanels: [
-          {
-            id: "p4_1B",
-            bg: "/assets/bg_forest.jpg",
-            charImg: "/assets/pandu.png",
-            speaker: "King Pandu",
-            dialogue: "A true king atones through righteous rule, not abandonment of his people. Vidura, assemble the sages in Hastinapur!"
-          },
-          {
-            id: "p5_1B",
-            bg: "/assets/bg_arena.jpg",
-            speaker: "Narrator",
-            caption: "Pandu rules from the capital. Kunti invokes the gods inside the royal palace under royal witness. The Pandavas are born recognized as undisputed crown princes."
-          }
-        ],
-        epilogue: {
-          title: "Pandava Golden Age",
-          summary: "Duryodhana never grows up expecting the crown; the succession crisis is cleanly averted."
-        }
-      },
-      {
-        id: "1C",
-        label: "Total Abdication to Dhritarashtra",
-        type: "radical",
-        divergence: 85,
-        continuationPanels: [
-          {
-            id: "p4_1C",
-            bg: "/assets/bg_forest.jpg",
-            charImg: "/assets/pandu.png",
-            speaker: "King Pandu",
-            dialogue: "I formally sever all claims to the throne for myself and any unborn seed. Dhritarashtra is Emperor absolute."
-          },
-          {
-            id: "p5_1C",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Narrator",
-            caption: "Dhritarashtra is formally consecrated. When the Pandavas arrive later, they hold zero legal claim, living as simple courtiers without war."
-          }
-        ],
-        epilogue: {
-          title: "Kaurava Absolute Hegemony",
-          summary: "The throne passes cleanly down Duryodhana's line, preventing the Kurukshetra War entirely."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Legacy of Shatashringa",
+      summary: "The choices made in the sacred forest determine whether the Pandavas return to Hastinapur as disputed orphans or undisputed heirs."
+    }
   },
   {
     id: "island-2",
@@ -149,108 +189,135 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_arena.jpg",
     era: "Youth of the Princes",
     keyCharacters: ["Guru Drona", "Arjuna", "Karna", "Duryodhana"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_2",
-        bg: "/assets/bg_arena.jpg",
-        speaker: "Narrator",
-        caption: "In the grand amphitheater of Hastinapur, Guru Drona showcases the martial mastery of the Kuru princes."
+        actNumber: 1,
+        actTitle: "Act I: The Inciting Display",
+        panels: [
+          {
+            id: "p2_1_1",
+            bg: "/assets/bg_arena.jpg",
+            caption: "In the grand amphitheater of Hastinapur, Guru Drona showcases the martial mastery of the Kuru princes."
+          },
+          {
+            id: "p2_1_2",
+            bg: "/assets/bg_arena.jpg",
+            charKey: "arjuna",
+            speaker: "Arjuna",
+            dialogue: "Witness the Varunastra! Rain falls at my command, filling the arena with divine brilliance!",
+            sfx: "SHING!"
+          },
+          {
+            id: "p2_1_3",
+            bg: "/assets/bg_arena.jpg",
+            charKey: "karna",
+            speaker: "Karna",
+            dialogue: "Boast not, prince! Whatever feat Arjuna has shown, I shall duplicate—and surpass!",
+            sfx: "THWACK!"
+          }
+        ],
+        prompt: "Decision Gate 1: Karna demands a duel of archers. Kripacharya halts him demanding royal lineage. How shall Karna react?",
+        choices: [
+          {
+            id: "2_1A",
+            label: "Accept Duryodhana's Crown of Anga (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "2_1B",
+            label: "Demonstrate Divine Astras Without Royal Title (Subversive)",
+            type: "subversive",
+            divergence: 45
+          },
+          {
+            id: "2_1C",
+            label: "Challenge Drona Directly to Single Combat (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_2",
-        bg: "/assets/bg_arena.jpg",
-        charImg: "/assets/arjuna.png",
-        speaker: "Arjuna",
-        dialogue: "Witness the Varunastra! Rain falls at my command, filling the arena with divine brilliance!",
-        sfx: "SHING!"
+        actNumber: 2,
+        actTitle: "Act II: The Escalation of Rivalry",
+        panels: [
+          {
+            id: "p2_2_1",
+            bg: "/assets/bg_arena.jpg",
+            charKey: "duryodhana",
+            speaker: "Duryodhana",
+            dialogue: "Anga is yours, Karna! From this day, my arm, my treasury, and my kingdom stand behind your bow!"
+          },
+          {
+            id: "p2_2_2",
+            bg: "/assets/bg_arena.jpg",
+            charKey: "bhima",
+            speaker: "Bhima",
+            dialogue: "A suta's son holding a royal staff? Take a whip instead, Karna, for you are unfit to die by a Kshatriya's arrow!"
+          }
+        ],
+        prompt: "Decision Gate 2: Bhima mocks Karna's caste publicly in the arena. How does Karna respond?",
+        choices: [
+          {
+            id: "2_2A",
+            label: "Hold Tongue in Dignified Silence (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "2_2B",
+            label: "Challenge Bhima to Mace Combat on the Spot (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "2_2C",
+            label: "Reveal Kavacha and Kundala Armour Solar Glow (Radical)",
+            type: "radical",
+            divergence: 88
+          }
+        ]
       },
       {
-        id: "p3_2",
-        bg: "/assets/bg_arena.jpg",
-        charImg: "/assets/karna.png",
-        speaker: "Karna",
-        dialogue: "Boast not, prince! Whatever feat Arjuna has shown, I shall duplicate—and surpass!",
-        sfx: "THWACK!"
+        actNumber: 3,
+        actTitle: "Act III: The Climax of the Tournament",
+        panels: [
+          {
+            id: "p2_3_1",
+            bg: "/assets/bg_arena.jpg",
+            charKey: "drona",
+            speaker: "Guru Drona",
+            dialogue: "The sun sets over the arena! Sun god Surya casts his golden rays upon Karna as Kunti faints in the royal balcony."
+          }
+        ],
+        prompt: "Decision Gate 3: The tournament ends at sunset without a clear victor. What pact is forged in twilight?",
+        choices: [
+          {
+            id: "2_3A",
+            label: "Eternal Lifelong Oath Between Karna & Duryodhana (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "2_3B",
+            label: "Bhishma Mediates Neutral Sovereign Role for Karna (Subversive)",
+            type: "subversive",
+            divergence: 60
+          },
+          {
+            id: "2_3C",
+            label: "Kunti Confesses Truth of Karna's Birth in Secret (Radical)",
+            type: "radical",
+            divergence: 92
+          }
+        ]
       }
     ],
-    choicePrompt: "Karna demands a duel of archers. Kripacharya halts him demanding royal lineage. How shall Karna react?",
-    choices: [
-      {
-        id: "2A",
-        label: "Accept Duryodhana's Crown of Anga (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_2A",
-            bg: "/assets/bg_arena.jpg",
-            charImg: "/assets/karna.png",
-            speaker: "Karna",
-            dialogue: "Duryodhana crowns me King of Anga on the spot! My life, my bow, and my loyalty belong forever to the Kuru prince!"
-          },
-          {
-            id: "p5_2A",
-            bg: "/assets/bg_arena.jpg",
-            speaker: "Narrator",
-            caption: "The bond between Karna and Duryodhana is forged in royal gold, laying the military spine for the Kaurava army."
-          }
-        ],
-        epilogue: {
-          title: "The Unshakeable Alliance",
-          summary: "Karna's eternal gratitude to Duryodhana binds him to the Kaurava camp unto death."
-        }
-      },
-      {
-        id: "2B",
-        label: "Demonstrate Divine Astras Without Permission",
-        type: "subversive",
-        divergence: 50,
-        continuationPanels: [
-          {
-            id: "p4_2B",
-            bg: "/assets/bg_arena.jpg",
-            charImg: "/assets/karna.png",
-            speaker: "Karna",
-            dialogue: "A Kshatriya is defined by martial valour, not bloodlines! Behold the Agneyastra!"
-          },
-          {
-            id: "p5_2B",
-            bg: "/assets/bg_arena.jpg",
-            speaker: "Narrator",
-            caption: "Karna's raw display silences the elders. Bhishma recognizes his divine aura and invites him into royal service independently."
-          }
-        ],
-        epilogue: {
-          title: "Karna the Independent Sovereign",
-          summary: "Karna refuses Duryodhana's patronage, becoming a neutral warrior sought by all realms."
-        }
-      },
-      {
-        id: "2C",
-        label: "Challenge Drona directly to Single Combat",
-        type: "radical",
-        divergence: 90,
-        continuationPanels: [
-          {
-            id: "p4_2C",
-            bg: "/assets/bg_arena.jpg",
-            charImg: "/assets/karna.png",
-            speaker: "Karna",
-            dialogue: "If your students hide behind lineage rules, then master, test your own bow against mine!"
-          },
-          {
-            id: "p5_2C",
-            bg: "/assets/bg_arena.jpg",
-            speaker: "Narrator",
-            caption: "Drona accepts the duel in shock. Karna breaks Drona's bow in three arrows, forcing Drona to publicly acknowledge Karna as the world's greatest archer."
-          }
-        ],
-        epilogue: {
-          title: "The Shattered Hierarchy",
-          summary: "Drona's pride is broken; Arjuna's undisputed claim as top warrior vanishes in a single afternoon."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Crucible of Champions",
+      summary: "The events in the arena determine whether Karna fights for Duryodhana's crown or reshapes the Kuru dynasty from within."
+    }
   },
   {
     id: "island-3",
@@ -259,106 +326,123 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_lac_palace.jpg",
     era: "The Assassination Plot",
     keyCharacters: ["Yudhishthira", "Bhima", "Purochana", "Vidura"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_3",
-        bg: "/assets/bg_lac_palace.jpg",
-        speaker: "Narrator",
-        caption: "Duryodhana builds a royal palace at Varanavata constructed entirely of highly flammable lac, resin, and ghee."
+        actNumber: 1,
+        actTitle: "Act I: The Inciting Trap",
+        panels: [
+          {
+            id: "p3_1_1",
+            bg: "/assets/bg_lac_palace.jpg",
+            caption: "Duryodhana builds a royal palace at Varanavata constructed entirely of highly flammable lac, resin, and ghee."
+          },
+          {
+            id: "p3_1_2",
+            bg: "/assets/bg_lac_palace.jpg",
+            charKey: "yudhishthira",
+            speaker: "Yudhishthira",
+            dialogue: "Uncle Vidura warned us in secret code: 'He who knows the forest survives the wildfire by burrowing like a rat.'"
+          }
+        ],
+        prompt: "Decision Gate 1: The Pandavas discover the lac walls melt under candle heat. How do they prepare?",
+        choices: [
+          {
+            id: "3_1A",
+            label: "Secretly Dig an Underground Escape Tunnel (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "3_1B",
+            label: "Confront & Arrest Architect Purochana Publicly (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "3_1C",
+            label: "Set Fire to the Palace First & March Back (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_3",
-        bg: "/assets/bg_lac_palace.jpg",
-        charImg: "/assets/yudhishthira.png",
-        speaker: "Yudhishthira",
-        dialogue: "Uncle Vidura warned us in secret code: 'He who knows the forest survives the wildfire by burrowing like a rat.'"
+        actNumber: 2,
+        actTitle: "Act II: The Conflagration",
+        panels: [
+          {
+            id: "p3_2_1",
+            bg: "/assets/bg_lac_palace.jpg",
+            caption: "At midnight on the dark moon night, flames erupt along the foundation beams of Varanavata!"
+          },
+          {
+            id: "p3_2_2",
+            bg: "/assets/bg_lac_palace.jpg",
+            charKey: "bhima",
+            speaker: "Bhima",
+            dialogue: "The tunnel entrance is ready! I carry Mother Kunti and my brothers through the subterranean dark!",
+            sfx: "KRZZZT!"
+          }
+        ],
+        prompt: "Decision Gate 2: Flames block the main tunnel exit. How does Bhima break through?",
+        choices: [
+          {
+            id: "3_2A",
+            label: "Bhima Smashes Solid Rock Walls with Bare Fists (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "3_2B",
+            label: "Arjuna Uses Varunastra to Extinguish Flame Path (Subversive)",
+            type: "subversive",
+            divergence: 45
+          },
+          {
+            id: "3_2C",
+            label: "Bhima Carries Family Over Flaming Roof in Sky Leap (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p3_3",
-        bg: "/assets/bg_lac_palace.jpg",
-        speaker: "Purochana (In Shadows)",
-        dialogue: "Tonight, while the Pandavas sleep off the feast, I set torch to the foundation!",
-        sfx: "KRZZZT!"
+        actNumber: 3,
+        actTitle: "Act III: The Aftermath & Forest Disguise",
+        panels: [
+          {
+            id: "p3_3_1",
+            bg: "/assets/bg_forest.jpg",
+            caption: "The palace burns to ashes. Hastinapur believes the Pandavas perished in the inferno."
+          }
+        ],
+        prompt: "Decision Gate 3: Emerging into the wilderness, how shall the Pandavas handle their apparent death?",
+        choices: [
+          {
+            id: "3_3A",
+            label: "Maintain Brahmin Disguise & Travel to Panchala (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "3_3B",
+            label: "Send Secret Messenger to Bhishma Revealing Survival (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "3_3C",
+            label: "Storm Hastinapur Court Carrying Charred Lac Beams (Radical)",
+            type: "radical",
+            divergence: 90
+          }
+        ]
       }
     ],
-    choicePrompt: "The resin walls melt into flame. How do the Pandavas escape Varanavata?",
-    choices: [
-      {
-        id: "3A",
-        label: "Escape via Underground Tunnel (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_3A",
-            bg: "/assets/bg_lac_palace.jpg",
-            charImg: "/assets/bhima.png",
-            speaker: "Bhima",
-            dialogue: "I carry Mother Kunti and my brothers into the secret tunnel dug by Vidura's miner!"
-          },
-          {
-            id: "p5_3A",
-            bg: "/assets/bg_forest.jpg",
-            speaker: "Narrator",
-            caption: "The lac palace burns to ashes. Hastinapur believes the Pandavas dead, forcing them into wilderness exile in disguise."
-          }
-        ],
-        epilogue: {
-          title: "The Phoenix in the Forest",
-          summary: "Disguised as Brahmins, the Pandavas travel unseen to Panchala to reshape their destiny."
-        }
-      },
-      {
-        id: "3B",
-        label: "Confront & Arrest Purochana Publicly",
-        type: "subversive",
-        divergence: 55,
-        continuationPanels: [
-          {
-            id: "p4_3B",
-            bg: "/assets/bg_lac_palace.jpg",
-            charImg: "/assets/bhima.png",
-            speaker: "Bhima",
-            dialogue: "I seize Purochana by the neck before he touches torch to wall! Bound in iron chains, he confesses before the citizens!"
-          },
-          {
-            id: "p5_3B",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Narrator",
-            caption: "Purochana's confession reaches Hastinapur. Dhritarashtra is forced to publicly exile Duryodhana for attempted murder."
-          }
-        ],
-        epilogue: {
-          title: "Duryodhana's Disgrace",
-          summary: "The murder plot backfires entirely; Duryodhana loses all political standing in court."
-        }
-      },
-      {
-        id: "3C",
-        label: "Bhima Carries the Family Over the Roof in Battle Rage",
-        type: "radical",
-        divergence: 85,
-        continuationPanels: [
-          {
-            id: "p4_3C",
-            bg: "/assets/bg_lac_palace.jpg",
-            charImg: "/assets/bhima.png",
-            speaker: "Bhima",
-            dialogue: "No tunnels! I leap through the flaming roof with my family on my shoulders and march straight back to Hastinapur!"
-          },
-          {
-            id: "p5_3C",
-            bg: "/assets/bg_arena.jpg",
-            speaker: "Narrator",
-            caption: "Bhima storms into Dhritarashtra's throne room carrying charred lac beams, forcing an immediate trial of the Kaurava princes."
-          }
-        ],
-        epilogue: {
-          title: "Direct Royal Confrontation",
-          summary: "The Pandavas refuse secrecy and force an early showdown in the Kuru capital."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Phoenix in the Forest",
+      summary: "Surviving the flames of Varanavata forces the Pandavas into secret exile, leading directly to the alliance with Panchala."
+    }
   },
   {
     id: "island-4",
@@ -367,107 +451,118 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_swayamvara.jpg",
     era: "The Alliance of Fire",
     keyCharacters: ["Draupadi", "Arjuna", "Queen Kunti", "King Drupada"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_4",
-        bg: "/assets/bg_swayamvara.jpg",
-        speaker: "Narrator",
-        caption: "In the ornate swayamvara hall of King Drupada, kings from across Aryavarta fail to string the cosmic bow of Lord Shiva."
+        actNumber: 1,
+        actTitle: "Act I: The Archery Test",
+        panels: [
+          {
+            id: "p4_1_1",
+            bg: "/assets/bg_swayamvara.jpg",
+            caption: "In the ornate swayamvara hall of King Drupada, kings fail to lift the cosmic bow of Lord Shiva."
+          },
+          {
+            id: "p4_1_2",
+            bg: "/assets/bg_swayamvara.jpg",
+            charKey: "arjuna",
+            speaker: "Arjuna (Disguised)",
+            dialogue: "A Brahmin steps into the arena! I draw the bowstring and strike the rotating fish eye reflected in water!",
+            sfx: "DHA-DHAM!"
+          }
+        ],
+        prompt: "Decision Gate 1: Disguised Arjuna strikes the fish eye. Rival kings revolt in anger against a Brahmin winning Draupadi. How do they respond?",
+        choices: [
+          {
+            id: "4_1A",
+            label: "Bhima & Arjuna Fight Off Kings with Tree Trunks & Bow (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "4_1B",
+            label: "Krishna Intervenes & Enforces Swayamvara Law (Subversive)",
+            type: "subversive",
+            divergence: 40
+          },
+          {
+            id: "4_1C",
+            label: "Arjuna Reveals True Pandava Prince Identity Immediately (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p2_4",
-        bg: "/assets/bg_swayamvara.jpg",
-        charImg: "/assets/arjuna.png",
-        speaker: "Arjuna (Disguised)",
-        dialogue: "A Brahmin steps into the arena! I draw the bowstring and strike the rotating fish eye reflected in water!",
-        sfx: "DHA-DHAM!"
+        actNumber: 2,
+        actTitle: "Act II: Mother's Unwitting Command",
+        panels: [
+          {
+            id: "p4_2_1",
+            bg: "/assets/bg_swayamvara.jpg",
+            charKey: "draupadi",
+            speaker: "Draupadi",
+            dialogue: "I garland the victor! But when we return to his mother's cottage, Kunti speaks without looking: 'Share whatever alms you brought today.'"
+          }
+        ],
+        prompt: "Decision Gate 2: Kunti commands the brothers to share equal alms. How is mother's word interpreted?",
+        choices: [
+          {
+            id: "4_2A",
+            label: "Honor Word via Five-Fold Marriage to All Brothers (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "4_2B",
+            label: "Clarify Draupadi Weds Arjuna Alone with Vyasa Sanction (Subversive)",
+            type: "subversive",
+            divergence: 60
+          },
+          {
+            id: "4_2C",
+            label: "Draupadi Assumes Independent Regency of Panchala (Radical)",
+            type: "radical",
+            divergence: 90
+          }
+        ]
       },
       {
-        id: "p3_4",
-        bg: "/assets/bg_swayamvara.jpg",
-        charImg: "/assets/draupadi.png",
-        speaker: "Draupadi",
-        dialogue: "I garland the victor! But when we return to his mother's cottage, Kunti speaks without looking: 'Share whatever alms you brought today.'"
+        actNumber: 3,
+        actTitle: "Act III: The Royal Alliance",
+        panels: [
+          {
+            id: "p4_3_1",
+            bg: "/assets/bg_swayamvara.jpg",
+            caption: "King Drupada learns the true identity of the Brahmin archers. Panchala's army pledges total alliance to the Pandavas."
+          }
+        ],
+        prompt: "Decision Gate 3: Armed with Panchala's military power, what message do the Pandavas send to Hastinapur?",
+        choices: [
+          {
+            id: "4_3A",
+            label: "Demand Half the Kingdom Peacefully via Dhritarashtra (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "4_3B",
+            label: "Demand Immediate Coronation of Yudhishthira (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "4_3C",
+            label: "Form Triple Coalition with Yadavas & March on Capital (Radical)",
+            type: "radical",
+            divergence: 88
+          }
+        ]
       }
     ],
-    choicePrompt: "Arjuna wins Draupadi and brings her to Kunti's hut. Kunti speaks: 'Share whatever you brought equally.' How shall they proceed?",
-    choices: [
-      {
-        id: "4A",
-        label: "Honor Mother's Word: Five-Fold Marriage (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_4A",
-            bg: "/assets/bg_swayamvara.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "Mother's word cannot be made untruthful. Draupadi shall be Empress to all five Pandavas."
-          },
-          {
-            id: "p5_4A",
-            bg: "/assets/bg_swayamvara.jpg",
-            speaker: "Narrator",
-            caption: "The five brothers bind themselves in an unbreakable brotherhood, backed by the immense military power of Panchala."
-          }
-        ],
-        epilogue: {
-          title: "The Five-Fold Empire",
-          summary: "Draupadi becomes the common thread holding five super-warriors together as a unified force."
-        }
-      },
-      {
-        id: "4B",
-        label: "Clarify the Words: Draupadi Weds Arjuna Alone",
-        type: "subversive",
-        divergence: 60,
-        continuationPanels: [
-          {
-            id: "p4_4B",
-            bg: "/assets/bg_swayamvara.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "Mother mistook Draupadi for alms. Sage Vyasa confirms: she won her groom through archery and shall wed Arjuna alone."
-          },
-          {
-            id: "p5_4B",
-            bg: "/assets/bg_swayamvara.jpg",
-            speaker: "Narrator",
-            caption: "Arjuna weds Draupadi. Bhima and Yudhishthira marry princesses of neighbouring kingdoms, creating a massive tri-state alliance."
-          }
-        ],
-        epilogue: {
-          title: "The Multi-Kingdom Coalition",
-          summary: "Separate marriages widen the Pandava diplomatic network across northern Aryavarta."
-        }
-      },
-      {
-        id: "4C",
-        label: "Draupadi Assumes Independent Regency of Panchala",
-        type: "radical",
-        divergence: 90,
-        continuationPanels: [
-          {
-            id: "p4_4C",
-            bg: "/assets/bg_swayamvara.jpg",
-            charImg: "/assets/draupadi.png",
-            speaker: "Draupadi",
-            dialogue: "I am born of holy sacrificial fire! I choose Arjuna as my commander, but I rule Panchala in my own divine right!"
-          },
-          {
-            id: "p5_4C",
-            bg: "/assets/bg_swayamvara.jpg",
-            speaker: "Narrator",
-            caption: "Draupadi takes the throne of Panchala herself, transforming Panchala into the dominant superpower of the subcontinent."
-          }
-        ],
-        epilogue: {
-          title: "Empress of Fire",
-          summary: "Draupadi rules Panchala directly, altering the geopolitical landscape of ancient India."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Fire-Born Empress",
+      summary: "Draupadi's swayamvara seals the unbreakable union between Panchala and the Pandavas, altering the fate of Aryavarta."
+    }
   },
   {
     id: "island-5",
@@ -476,106 +571,117 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_khandava.jpg",
     era: "Building the Golden Capital",
     keyCharacters: ["Arjuna", "Lord Krishna", "Agni", "Mayasura"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_5",
-        bg: "/assets/bg_khandava.jpg",
-        speaker: "Narrator",
-        caption: "Dhritarashtra divides the kingdom, granting the Pandavas the barren, serpent-infested wilderness of Khandavaprastha."
+        actNumber: 1,
+        actTitle: "Act I: Agni's Request",
+        panels: [
+          {
+            id: "p5_1_1",
+            bg: "/assets/bg_khandava.jpg",
+            caption: "Dhritarashtra divides the kingdom, granting the Pandavas the barren, serpent-infested wilderness of Khandavaprastha."
+          },
+          {
+            id: "p5_1_2",
+            bg: "/assets/bg_khandava.jpg",
+            charKey: "krishna",
+            speaker: "Lord Krishna",
+            dialogue: "Lord Agni seeks to consume Khandava forest to regain his divine vigor. Arjuna, rain arrows to block the sky!"
+          }
+        ],
+        prompt: "Decision Gate 1: Lord Agni requests the clearing of Khandava forest. How do Arjuna and Krishna proceed?",
+        choices: [
+          {
+            id: "5_1A",
+            label: "Burn Khandava with Divine Arrow Ceiling (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "5_1B",
+            label: "Negotiate Sanctuary Pact with Takshaka Nagas (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "5_1C",
+            label: "Refuse Agni & Build Eco-Sanctuary Capital (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_5",
-        bg: "/assets/bg_khandava.jpg",
-        charImg: "/assets/krishna.png",
-        speaker: "Lord Krishna",
-        dialogue: "Lord Agni seeks to consume Khandava forest to regain his divine vigor. Arjuna, wield Gandiva and rain arrows to block the sky!"
+        actNumber: 2,
+        actTitle: "Act II: The Architect Mayasura",
+        panels: [
+          {
+            id: "p5_2_1",
+            bg: "/assets/bg_khandava.jpg",
+            speaker: "Mayasura (Pleading)",
+            dialogue: "Spare my life from the flames, Arjuna! I am Maya, master architect of the Asuras. I shall build you a palace unmatched in the three worlds!",
+            sfx: "KRZZZT!"
+          }
+        ],
+        prompt: "Decision Gate 2: Arjuna saves Mayasura from the fire. What marvel shall Maya construct for Indraprastha?",
+        choices: [
+          {
+            id: "5_2A",
+            label: "Construct Mayasabha Hall of Illusion Pools (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "5_2B",
+            label: "Construct Impregnable Iron Fortress Defense Grid (Subversive)",
+            type: "subversive",
+            divergence: 45
+          },
+          {
+            id: "5_2C",
+            label: "Construct Subterranean Vaults & Floating Towers (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p3_5",
-        bg: "/assets/bg_khandava.jpg",
-        speaker: "Mayasura (Pleading)",
-        dialogue: "Spare my life from the flames, Arjuna! I am Maya, master architect of the Asuras. I shall build you a palace unmatched in the three worlds!",
-        sfx: "KRZZZT!"
+        actNumber: 3,
+        actTitle: "Act III: Consecration of Indraprastha",
+        panels: [
+          {
+            id: "p5_3_1",
+            bg: "/assets/bg_khandava.jpg",
+            caption: "Indraprastha shines as the supreme capital of Aryavarta. Yudhishthira prepares for the Rajasuya Yajna coronation."
+          }
+        ],
+        prompt: "Decision Gate 3: Yudhishthira performs Rajasuya Yajna. Shishupala insults Krishna in full assembly. How is justice meted out?",
+        choices: [
+          {
+            id: "5_3A",
+            label: "Krishna Decapitates Shishupala with Sudarshana Chakra (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "5_3B",
+            label: "Yudhishthira Banishes Shishupala Without Bloodshed (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "5_3C",
+            label: "Bhima Challenges Shishupala to Single Mace Duel (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       }
     ],
-    choicePrompt: "Agni craves the celestial forest. How shall Arjuna and Krishna handle the woodland clearing?",
-    choices: [
-      {
-        id: "5A",
-        label: "Burn Khandava with Cosmic Fire (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_5A",
-            bg: "/assets/bg_khandava.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "Agni consumes the forest! Mayasura constructs Mayasabha—the Hall of Illusions!"
-          },
-          {
-            id: "p5_5A",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Narrator",
-            caption: "Indraprastha becomes the wonder of Aryavarta. Duryodhana visits, falls into optical illusion pools, and vows revenge."
-          }
-        ],
-        epilogue: {
-          title: "The Jewel of Indraprastha",
-          summary: "The unmatched splendor of Mayasabha ignites Duryodhana's consuming envy."
-        }
-      },
-      {
-        id: "5B",
-        label: "Build Indraprastha with Naga Alliance & Mayasura",
-        type: "subversive",
-        divergence: 50,
-        continuationPanels: [
-          {
-            id: "p4_5B",
-            bg: "/assets/bg_khandava.jpg",
-            charImg: "/assets/krishna.png",
-            speaker: "Lord Krishna",
-            dialogue: "We negotiate with Takshaka's Nagas! Half the forest remains a sacred serpent sanctuary while Mayasura builds the capital."
-          },
-          {
-            id: "p5_5B",
-            bg: "/assets/bg_khandava.jpg",
-            speaker: "Narrator",
-            caption: "The Naga army allies with Indraprastha, giving the Pandavas an invincible subterranean espionage network."
-          }
-        ],
-        epilogue: {
-          title: "The Serpent Treaty",
-          summary: "Indraprastha gains the secret backing of the Naga realms, securing its borders permanently."
-        }
-      },
-      {
-        id: "5C",
-        label: "Reject Agni and Establish Forest Sanctuary",
-        type: "radical",
-        divergence: 85,
-        continuationPanels: [
-          {
-            id: "p4_5C",
-            bg: "/assets/bg_khandava.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "We do not build our capital upon the ashes of living creatures! Agni must look elsewhere."
-          },
-          {
-            id: "p5_5C",
-            bg: "/assets/bg_forest.jpg",
-            speaker: "Narrator",
-            caption: "Indraprastha is constructed as an eco-harmonious forest kingdom, gaining the eternal blessing of Indra and the Devas."
-          }
-        ],
-        epilogue: {
-          title: "The Sacred Woodland Citadel",
-          summary: "The Pandavas build a sustainable ecological empire beloved by all forest clans."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Golden Age of Indraprastha",
+      summary: "The construction of Mayasabha elevates the Pandavas to imperial status, provoking Duryodhana's fatal jealousy."
+    }
   },
   {
     id: "island-6",
@@ -584,436 +690,500 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_dice_hall.jpg",
     era: "The Great Dishonor",
     keyCharacters: ["Shakuni", "Yudhishthira", "Draupadi", "Lord Krishna"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_6",
-        bg: "/assets/bg_dice_hall.jpg",
-        speaker: "Narrator",
-        caption: "Incense clouds the opulent dicing hall of Hastinapur. Shakuni rolls his carved ivory cubes across the blood-red silk."
-      },
-      {
-        id: "p2_6",
-        bg: "/assets/bg_dice_hall.jpg",
-        charImg: "/assets/shakuni.png",
-        speaker: "Shakuni",
-        dialogue: "What is an emperor who fears a pair of dice? Stake Indraprastha, Yudhishthira... or do you cower before your cousins?",
-        sfx: "CLACK-CLACK!"
-      },
-      {
-        id: "p3_6",
-        bg: "/assets/bg_dice_hall.jpg",
-        charImg: "/assets/yudhishthira.png",
-        speaker: "Yudhishthira",
-        dialogue: "A Kshatriya never rejects a challenge to the board. The stakes are laid!",
-        sfx: "DHA-DHAM!"
-      }
-    ],
-    choicePrompt: "Shakuni's rigged dice are primed. How shall the Pandavas navigate the fatal invitation?",
-    choices: [
-      {
-        id: "6A",
-        label: "The Fatal Wager (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
+        actNumber: 1,
+        actTitle: "Act I: The Rigged Invitation",
+        panels: [
           {
-            id: "p4_6A",
+            id: "p6_1_1",
             bg: "/assets/bg_dice_hall.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "I roll! I stake my brothers... I stake myself... and I stake Queen Draupadi!"
+            caption: "Incense clouds the opulent dicing hall of Hastinapur. Shakuni rolls his carved ivory cubes across blood-red silk."
           },
           {
-            id: "p5_6A",
+            id: "p6_1_2",
             bg: "/assets/bg_dice_hall.jpg",
-            charImg: "/assets/draupadi.png",
+            charKey: "shakuni",
+            speaker: "Shakuni",
+            dialogue: "What is an emperor who fears a pair of dice? Stake Indraprastha, Yudhishthira... or do you cower before your cousins?",
+            sfx: "CLACK-CLACK!"
+          },
+          {
+            id: "p6_1_3",
+            bg: "/assets/bg_dice_hall.jpg",
+            charKey: "yudhishthira",
+            speaker: "Yudhishthira",
+            dialogue: "A Kshatriya never rejects a challenge to the board. The stakes are laid!",
+            sfx: "DHA-DHAM!"
+          }
+        ],
+        prompt: "Decision Gate 1: Shakuni's rigged dice are primed. How shall the Pandavas navigate the fatal invitation?",
+        choices: [
+          {
+            id: "6_1A",
+            label: "Accept the Dicing Challenge (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "6_1B",
+            label: "Vidura Invokes Royal Veto to Cancel Game (Subversive)",
+            type: "subversive",
+            divergence: 60
+          },
+          {
+            id: "6_1C",
+            label: "Field Krishna to Roll Dice for Indraprastha (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
+      },
+      {
+        actNumber: 2,
+        actTitle: "Act II: The Losing Wagers",
+        panels: [
+          {
+            id: "p6_2_1",
+            bg: "/assets/bg_dice_hall.jpg",
+            charKey: "yudhishthira",
+            speaker: "Yudhishthira",
+            dialogue: "I roll! I stake my kingdom... I stake my brothers... I stake myself... and I stake Queen Draupadi!"
+          }
+        ],
+        prompt: "Decision Gate 2: Yudhishthira stakes Draupadi after losing himself. Dushasana drags her into court. How does Draupadi challenge the assembly?",
+        choices: [
+          {
+            id: "6_2A",
+            label: "Ask Dhritarashtra Court Legal Question on Ownership (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "6_2B",
+            label: "Bhima Breaks Vow & Attacks Dushasana Immediately (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "6_2C",
+            label: "Draupadi Invokes Divine Cosmic Aura Publicly (Radical)",
+            type: "radical",
+            divergence: 88
+          }
+        ]
+      },
+      {
+        actNumber: 3,
+        actTitle: "Act III: Vastraharan & The Vows",
+        panels: [
+          {
+            id: "p6_3_1",
+            bg: "/assets/bg_dice_hall.jpg",
+            charKey: "draupadi",
             speaker: "Queen Draupadi",
             dialogue: "Elders of Hastinapur, shame upon this court! I vow my hair shall remain untied until washed in Dushasana's blood!"
           }
         ],
-        epilogue: {
-          title: "Vastraharan & The Inevitable War",
-          summary: "The moral legitimacy of the elders crumbles; blood vows make total annihilation of the Kauravas unavoidable."
-        }
-      },
-      {
-        id: "6B",
-        label: "Vidura's Royal Veto (Cancel Game)",
-        type: "subversive",
-        divergence: 60,
-        continuationPanels: [
+        prompt: "Decision Gate 3: Dushasana attempts disrobing. Krishna grants endless sari robes. What terms end the game?",
+        choices: [
           {
-            id: "p4_6B",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Vidura",
-            dialogue: "Halt this unholy gamble! Jackals howl in the royal chambers! Dhritarashtra, overturn this table before your sons burn the world!"
+            id: "6_3A",
+            label: "12-Year Wilderness Exile + 1 Year Incognito Pact (Canonical)",
+            type: "canon",
+            divergence: 0
           },
           {
-            id: "p5_6B",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Narrator",
-            caption: "Terrified by the omens, Dhritarashtra halts the game before the first wager. The Pandavas return to Indraprastha with realm and honor intact."
-          }
-        ],
-        epilogue: {
-          title: "The Fragile Peace",
-          summary: "Indraprastha retains its independence, isolating Duryodhana into bitter impotence."
-        }
-      },
-      {
-        id: "6C",
-        label: "The Champion Roll (Field Krishna)",
-        type: "radical",
-        divergence: 80,
-        continuationPanels: [
-          {
-            id: "p4_6C",
-            bg: "/assets/bg_dice_hall.jpg",
-            charImg: "/assets/krishna.png",
-            speaker: "Lord Krishna",
-            dialogue: "If Duryodhana fields Uncle Shakuni to roll for him, then Yudhishthira fields Vasudeva to roll for Indraprastha. Let us cast the ivory, Shakuni!"
+            id: "6_3B",
+            label: "Dhritarashtra Returns Kingdom & Mandates Peace (Subversive)",
+            type: "subversive",
+            divergence: 65
           },
           {
-            id: "p5_6C",
-            bg: "/assets/bg_dice_hall.jpg",
-            charImg: "/assets/shakuni.png",
-            speaker: "Shakuni",
-            dialogue: "Impossible! The dice roll against my will... Hastinapur's treasury is lost in a single throw!"
+            id: "6_3C",
+            label: "Pandavas Declare Instant Pre-emptive War (Radical)",
+            type: "radical",
+            divergence: 90
           }
-        ],
-        epilogue: {
-          title: "Cosmic Counter-Gamble",
-          summary: "Krishna strips Hastinapur of its wealth and arms, bankrupting Duryodhana and securing the Pandava empire without bloodshed."
-        }
+        ]
       }
-    ]
+    ],
+    epilogue: {
+      title: "Vastraharan & The Inevitable War",
+      summary: "The dishonor in the dicing hall destroys the moral standing of the Kuru elders and seals the destruction of Hastinapur."
+    }
   },
   {
     id: "island-7",
     title: "The Banishment Pact",
     parva: "Vana Parva",
     coverImg: "/assets/bg_exile.jpg",
-    era: "The 12-Year Wilderness Penance",
+    era: "Wilderness Penance",
     keyCharacters: ["Yudhishthira", "Bhima", "Draupadi", "Arjuna"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_7",
-        bg: "/assets/bg_exile.jpg",
-        speaker: "Narrator",
-        caption: "Striped of royal garments, the Pandavas and Draupadi wander deep into Kamyaka forest for 12 years of wilderness exile."
+        actNumber: 1,
+        actTitle: "Act I: Kamyaka Wilderness",
+        panels: [
+          {
+            id: "p7_1_1",
+            bg: "/assets/bg_exile.jpg",
+            caption: "Stripped of royal garments, the Pandavas and Draupadi wander deep into Kamyaka forest for 12 years of wilderness exile."
+          },
+          {
+            id: "p7_1_2",
+            bg: "/assets/bg_exile.jpg",
+            charKey: "draupadi",
+            speaker: "Draupadi",
+            dialogue: "How long shall we eat wild roots while Duryodhana sleeps on silk? Forgiveness to the wicked is treason to Dharma!"
+          }
+        ],
+        prompt: "Decision Gate 1: Draupadi and Bhima urge Yudhishthira to march on Hastinapur immediately. What is ordered?",
+        choices: [
+          {
+            id: "7_1A",
+            label: "Endure 12-Year Exile Oath (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "7_1B",
+            label: "Arjuna Travels to Heavens Early for Pashupatastra (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "7_1C",
+            label: "Form Coalition with Panchala & March on Capital (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_7",
-        bg: "/assets/bg_exile.jpg",
-        charImg: "/assets/draupadi.png",
-        speaker: "Draupadi",
-        dialogue: "How long shall we eat wild roots while Duryodhana sleeps on silk? Yudhishthira, forgiveness to the wicked is treason to Dharma!"
+        actNumber: 2,
+        actTitle: "Act II: Arjuna's Quest for Astras",
+        panels: [
+          {
+            id: "p7_2_1",
+            bg: "/assets/bg_exile.jpg",
+            charKey: "arjuna",
+            speaker: "Arjuna",
+            dialogue: "I ascend Mount Kailash to perform penance to Lord Shiva for the divine Pashupatastra!"
+          }
+        ],
+        prompt: "Decision Gate 2: Shiva tests Arjuna in the guise of a Kirata hunter. How does Arjuna prove his archer worth?",
+        choices: [
+          {
+            id: "7_2A",
+            label: "Wrestle Shiva Kirata in Humble Single Combat (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "7_2B",
+            label: "Recognize Shiva Instantly & Offer Devotional Puja (Subversive)",
+            type: "subversive",
+            divergence: 45
+          },
+          {
+            id: "7_2C",
+            label: "Unleash Full Gandiva Astra Barrage in Combat (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p3_7",
-        bg: "/assets/bg_exile.jpg",
-        charImg: "/assets/bhima.png",
-        speaker: "Bhima",
-        dialogue: "My mace rusts in the forest damp! Give the command, brother, and I crush Hastinapur's gates tonight!"
+        actNumber: 3,
+        actTitle: "Act III: The Yaksha Prashna",
+        panels: [
+          {
+            id: "p7_3_1",
+            bg: "/assets/bg_exile.jpg",
+            charKey: "yudhishthira",
+            speaker: "Yudhishthira",
+            dialogue: "My brothers lie lifeless beside the enchanted crane's lake! I shall answer every riddle asked by the Yaksha!"
+          }
+        ],
+        prompt: "Decision Gate 3: The Yaksha grants life to ONE brother. Whom does Yudhishthira choose to revive?",
+        choices: [
+          {
+            id: "7_3A",
+            label: "Choose Nakula to Honor Stepmother Madri (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "7_3B",
+            label: "Choose Bhima for Invincible Battle Strength (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "7_3C",
+            label: "Choose Arjuna to Preserve Supreme Archery (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       }
     ],
-    choicePrompt: "In the wilderness, Bhima and Draupadi urge Yudhishthira to march back on Hastinapur immediately. What shall Yudhishthira order?",
-    choices: [
-      {
-        id: "7A",
-        label: "Endure 12-Year Exile & 1 Year Incognito (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_7A",
-            bg: "/assets/bg_exile.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "Truth is the foundation of the cosmos. We pledged 12 years in exile and one year hidden. We fulfill the vow to the last second."
-          },
-          {
-            id: "p5_7A",
-            bg: "/assets/bg_exile.jpg",
-            speaker: "Narrator",
-            caption: "During exile, Arjuna travels to the heavens for divine astras, while Bhima gains the strength of thousand elephants."
-          }
-        ],
-        epilogue: {
-          title: "The Cosmic Tempering",
-          summary: "12 years of spiritual penance transform the Pandavas into god-like warriors ready for Kurukshetra."
-        }
-      },
-      {
-        id: "7B",
-        label: "Arjuna Seeks Pashupatastra Early for Pre-emptive War",
-        type: "subversive",
-        divergence: 55,
-        continuationPanels: [
-          {
-            id: "p4_7B",
-            bg: "/assets/bg_exile.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "I ascend Mount Kailash immediately to obtain Shiva's Pashupatastra! Once obtained, we offer Hastinapur one final surrender deadline."
-          },
-          {
-            id: "p5_7B",
-            bg: "/assets/bg_exile.jpg",
-            speaker: "Narrator",
-            caption: "Arjuna wins Shiva's weapon in record time. Armed with cosmic power, the Pandavas issue a 30-day ultimatum to Duryodhana."
-          }
-        ],
-        epilogue: {
-          title: "The Nuclear Ultimatum",
-          summary: "Possession of the Pashupatastra forces Bhishma and Drona to compel Duryodhana to negotiate."
-        }
-      },
-      {
-        id: "7C",
-        label: "Form Alliance with Panchala & Yadavas to March on Hastinapur",
-        type: "radical",
-        divergence: 85,
-        continuationPanels: [
-          {
-            id: "p4_7C",
-            bg: "/assets/bg_exile.jpg",
-            charImg: "/assets/bhima.png",
-            speaker: "Bhima",
-            dialogue: "Drupada and Balarama march with us! A rigged game is legally void!"
-          },
-          {
-            id: "p5_7C",
-            bg: "/assets/bg_kurukshetra.jpg",
-            speaker: "Narrator",
-            caption: "The allied armies lay siege to Hastinapur in Year 2 of exile, catching Duryodhana completely unprepared."
-          }
-        ],
-        epilogue: {
-          title: "The Early Blitzkrieg",
-          summary: "A swift coalition assault overthrows Duryodhana before the Kaurava army can fully assemble."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Cosmic Tempering",
+      summary: "12 years of wilderness penance transform the Pandavas into god-like warriors equipped for Kurukshetra."
+    }
   },
   {
     id: "island-8",
     title: "The Shadow in Matsya Realm",
     parva: "Virata Parva",
     coverImg: "/assets/bg_matsya.jpg",
-    era: "The Year of Incognito Disguise",
+    era: "Year of Incognito Disguise",
     keyCharacters: ["Draupadi (Sairandhri)", "Bhima (Valala)", "Kichaka", "King Virata"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_8",
-        bg: "/assets/bg_matsya.jpg",
-        speaker: "Narrator",
-        caption: "Year 13. The Pandavas live disguised as servants in the court of King Virata of Matsya."
+        actNumber: 1,
+        actTitle: "Act I: Incognito Service",
+        panels: [
+          {
+            id: "p8_1_1",
+            bg: "/assets/bg_matsya.jpg",
+            caption: "Year 13. The Pandavas live disguised as servants in the court of King Virata of Matsya."
+          },
+          {
+            id: "p8_1_2",
+            bg: "/assets/bg_matsya.jpg",
+            speaker: "Commander Kichaka",
+            dialogue: "Beautiful Sairandhri... you serve the Queen, but tonight you shall come to my private chamber!",
+            sfx: "SHING!"
+          }
+        ],
+        prompt: "Decision Gate 1: Kichaka harasses Draupadi in the palace. How do the Pandavas maintain cover while defending her?",
+        choices: [
+          {
+            id: "8_1A",
+            label: "Lure Kichaka to Dark Music Hall for Bhima (Canonical Path)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "8_1B",
+            label: "Expose Pandava Identity & Claim Virata Protection (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "8_1C",
+            label: "Draupadi Invokes Invisible Gandharva Strike (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_8",
-        bg: "/assets/bg_matsya.jpg",
-        speaker: "Commander Kichaka",
-        dialogue: "Beautiful Sairandhri... you serve the Queen, but tonight you shall come to my private chamber!",
-        sfx: "SHING!"
+        actNumber: 2,
+        actTitle: "Act II: Duel in Darkness",
+        panels: [
+          {
+            id: "p8_2_1",
+            bg: "/assets/bg_matsya.jpg",
+            charKey: "bhima",
+            speaker: "Bhima (Cook Valala)",
+            dialogue: "I roll Kichaka into a ball of crushed bone under the silk sheets! Not a scream escapes!",
+            sfx: "DHA-DHAM!"
+          }
+        ],
+        prompt: "Decision Gate 2: Kichaka's death panics the Kuru spies. Duryodhana attacks Matsya to steal cattle. Who leads the defense?",
+        choices: [
+          {
+            id: "8_2A",
+            label: "Arjuna Disguised as Brihannala Leads Uttara (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "8_2B",
+            label: "Bhima & Yudhishthira Lead Matsya Army Openly (Subversive)",
+            type: "subversive",
+            divergence: 45
+          },
+          {
+            id: "8_2C",
+            label: "All Five Pandavas Reveal Full Celestial Armor Early (Radical)",
+            type: "radical",
+            divergence: 80
+          }
+        ]
       },
       {
-        id: "p3_8",
-        bg: "/assets/bg_matsya.jpg",
-        charImg: "/assets/bhima.png",
-        speaker: "Bhima (Cook Valala)",
-        dialogue: "Tell Kichaka to meet you in the dark music hall tonight... I shall be waiting under the silk bed sheet!",
-        sfx: "DHA-DHAM!"
+        actNumber: 3,
+        actTitle: "Act III: Unveiling of the Heroes",
+        panels: [
+          {
+            id: "p8_3_1",
+            bg: "/assets/bg_matsya.jpg",
+            charKey: "arjuna",
+            speaker: "Arjuna",
+            dialogue: "I draw Gandiva and unleash Sammohanastra! The entire Kaurava army falls unconscious on the battlefield!"
+          }
+        ],
+        prompt: "Decision Gate 3: Day 365 ends as Duryodhana claims the 13th year was broken by 1 day. How is time judged?",
+        choices: [
+          {
+            id: "8_3A",
+            label: "Bhishma Calculates Lunar Intercalary Months Proving Oath Fulfilled (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "8_3B",
+            label: "Virata & Drupada Declare Instant War on Kauravas (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "8_3C",
+            label: "Krishna Arbitrates Immediate Restitution of Indraprastha (Radical)",
+            type: "radical",
+            divergence: 90
+          }
+        ]
       }
     ],
-    choicePrompt: "Kichaka enters the dark palace hall expecting Draupadi. Bhima waits in shadows. How shall they strike?",
-    choices: [
-      {
-        id: "8A",
-        label: "Bhima Crushes Kichaka in Darkness (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_8A",
-            bg: "/assets/bg_matsya.jpg",
-            charImg: "/assets/bhima.png",
-            speaker: "Bhima",
-            dialogue: "I roll Kichaka into a ball of crushed bone! Not a single scream escapes his throat!"
-          },
-          {
-            id: "p5_8A",
-            bg: "/assets/bg_matsya.jpg",
-            speaker: "Narrator",
-            caption: "Kichaka's death panics the Kaurava spies, leading Duryodhana to launch the Cattle Raid of Matsya."
-          }
-        ],
-        epilogue: {
-          title: "The Secret Retribution",
-          summary: "Kichaka's elimination clears the way for the Pandavas to reveal themselves on the 365th day."
-        }
-      },
-      {
-        id: "8B",
-        label: "Expose Identity & Claim Virata's Royal Protection",
-        type: "subversive",
-        divergence: 50,
-        continuationPanels: [
-          {
-            id: "p4_8B",
-            bg: "/assets/bg_matsya.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "The 13th year expires at midnight! King Virata, behold Emperor Yudhishthira and the hero Bhima!"
-          },
-          {
-            id: "p5_8B",
-            bg: "/assets/bg_matsya.jpg",
-            speaker: "Narrator",
-            caption: "King Virata pledges his entire royal army to the Pandavas on the spot and marries Princess Uttara to Arjuna's son Abhimanyu."
-          }
-        ],
-        epilogue: {
-          title: "The Matsya Royal Compact",
-          summary: "Matsya's instant mobilization gives the Pandavas their first major royal host."
-        }
-      },
-      {
-        id: "8C",
-        label: "Draupadi Uses Sairandhri Power to Subdue Kichaka Publicly",
-        type: "radical",
-        divergence: 88,
-        continuationPanels: [
-          {
-            id: "p4_8C",
-            bg: "/assets/bg_matsya.jpg",
-            charImg: "/assets/draupadi.png",
-            speaker: "Draupadi",
-            dialogue: "I summon the invisible Gandharva guardians! Divine energy strikes Kichaka down in full view of the royal assembly!"
-          },
-          {
-            id: "p5_8C",
-            bg: "/assets/bg_matsya.jpg",
-            speaker: "Narrator",
-            caption: "The court of Matsya falls to their knees in divine awe, recognizing Draupadi's celestial avatar authority."
-          }
-        ],
-        epilogue: {
-          title: "Divine Wrath Unveiled",
-          summary: "Draupadi's overt spiritual intervention deters any further disrespect from mortal kings."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Matsya Alliance",
+      summary: "The completion of the incognito year unites King Virata with the Pandavas, setting the stage for war."
+    }
   },
   {
     id: "island-9",
-    title: "The Peace Envoy in Dwarka",
+    title: "The Chamber of the God",
     parva: "Udyoga Parva",
     coverImg: "/assets/bg_dwarka.jpg",
-    era: "The Gathering of Armies",
+    era: "Gathering of Armies",
     keyCharacters: ["Lord Krishna", "Arjuna", "Duryodhana", "Balarama"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_9",
-        bg: "/assets/bg_dwarka.jpg",
-        speaker: "Narrator",
-        caption: "Both Arjuna and Duryodhana arrive simultaneously in Dwarka to seek Lord Krishna's alliance for the impending war."
+        actNumber: 1,
+        actTitle: "Act I: The Envoy in Dwarka",
+        panels: [
+          {
+            id: "p9_1_1",
+            bg: "/assets/bg_dwarka.jpg",
+            caption: "Both Arjuna and Duryodhana arrive simultaneously in Dwarka to seek Lord Krishna's alliance."
+          },
+          {
+            id: "p9_1_2",
+            bg: "/assets/bg_dwarka.jpg",
+            charKey: "duryodhana",
+            speaker: "Duryodhana",
+            dialogue: "I arrived first! I take the place of honor at Krishna's head while he slumbers!"
+          },
+          {
+            id: "p9_1_3",
+            bg: "/assets/bg_dwarka.jpg",
+            charKey: "krishna",
+            speaker: "Lord Krishna",
+            dialogue: "I awaken and see Arjuna at my feet first. Both shall choose: My million Narayani warriors OR my unarmed self!",
+            sfx: "TWAAANG!"
+          }
+        ],
+        prompt: "Decision Gate 1: Arjuna chooses first between unarmed Krishna and the Narayani Sena. What is chosen?",
+        choices: [
+          {
+            id: "9_1A",
+            label: "Arjuna Chooses Unarmed Krishna as Charioteer (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "9_1B",
+            label: "Duryodhana Demands Neutrality for Both Krishna & Army (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "9_1C",
+            label: "Krishna Enforces Yadava Arms Embargo on Both Sides (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p2_9",
-        bg: "/assets/bg_dwarka.jpg",
-        charImg: "/assets/duryodhana.png",
-        speaker: "Duryodhana",
-        dialogue: "I arrived first! I take the place of honor at Krishna's head while he slumbers!"
+        actNumber: 2,
+        actTitle: "Act II: The Peace Mission to Hastinapur",
+        panels: [
+          {
+            id: "p9_2_1",
+            bg: "/assets/bg_dwarka.jpg",
+            charKey: "krishna",
+            speaker: "Lord Krishna",
+            dialogue: "I travel to Hastinapur as peace envoy. Grant the Pandavas just five villages, Duryodhana, and avoid war!"
+          }
+        ],
+        prompt: "Decision Gate 2: Duryodhana refuses: 'Not even needle-point land without war!' He attempts binding Krishna in iron chains. How does Krishna respond?",
+        choices: [
+          {
+            id: "9_2A",
+            label: "Reveal Cosmic Vishwaroopa Form in Hastinapur Assembly (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "9_2B",
+            label: "Balarama Convenes Emergency Kings' Arbitration Council (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "9_2C",
+            label: "Krishna Arrests Duryodhana & Shakuni Instantly (Radical)",
+            type: "radical",
+            divergence: 92
+          }
+        ]
       },
       {
-        id: "p3_9",
-        bg: "/assets/bg_dwarka.jpg",
-        charImg: "/assets/krishna.png",
-        speaker: "Lord Krishna",
-        dialogue: "I awaken and see Arjuna standing at my feet first. Duryodhana, you arrived first, but Arjuna was seen first. Therefore, both shall choose!",
-        sfx: "TWAAANG!"
+        actNumber: 3,
+        actTitle: "Act III: The Secret Temptation of Karna",
+        panels: [
+          {
+            id: "p9_3_1",
+            bg: "/assets/bg_dwarka.jpg",
+            charKey: "krishna",
+            speaker: "Lord Krishna",
+            dialogue: "Karna, ride with me! You are Kunti's firstborn son. Join your brothers and rule as Emperor of Aryavarta!"
+          }
+        ],
+        prompt: "Decision Gate 3: Krishna offers Karna the supreme imperial crown. How does Karna respond?",
+        choices: [
+          {
+            id: "9_3A",
+            label: "Refuse Crown to Remain Loyal to Duryodhana (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "9_3B",
+            label: "Accept Lineage & Assume Neutral Mediation Role (Subversive)",
+            type: "subversive",
+            divergence: 65
+          },
+          {
+            id: "9_3C",
+            label: "Accept Crown & Force Immediate Kaurava Surrender (Radical)",
+            type: "radical",
+            divergence: 95
+          }
+        ]
       }
     ],
-    choicePrompt: "Krishna offers his aid: His million Narayani Sena warriors OR his unarmed self. Arjuna chooses first!",
-    choices: [
-      {
-        id: "9A",
-        label: "Arjuna Chooses Unarmed Krishna (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_9A",
-            bg: "/assets/bg_dwarka.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "I choose Vasudeva alone! Be my charioteer, Lord, and guide my bow through the darkness!"
-          },
-          {
-            id: "p5_9A",
-            bg: "/assets/bg_dwarka.jpg",
-            charImg: "/assets/duryodhana.png",
-            speaker: "Duryodhana",
-            dialogue: "Foolish Arjuna! He takes an unarmed man while I walk away with a million invincible Narayani warriors!"
-          }
-        ],
-        epilogue: {
-          title: "The Charioteer of Destiny",
-          summary: "Krishna becomes Arjuna's guide, preparing the stage for the revelation of the Bhagavad Gita."
-        }
-      },
-      {
-        id: "9B",
-        label: "Duryodhana Demands Both Army & Lord to Avoid War",
-        type: "subversive",
-        divergence: 65,
-        continuationPanels: [
-          {
-            id: "p4_9B",
-            bg: "/assets/bg_dwarka.jpg",
-            charImg: "/assets/duryodhana.png",
-            speaker: "Duryodhana",
-            dialogue: "If Krishna refuses to fight, then Krishna shall remain neutral judge in Dwarka while the armies clash!"
-          },
-          {
-            id: "p5_9B",
-            bg: "/assets/bg_dwarka.jpg",
-            speaker: "Narrator",
-            caption: "Without Krishna on the battlefield, the cosmic balance shifts, turning Kurukshetra into a purely mortal war of attrition."
-          }
-        ],
-        epilogue: {
-          title: "The Mortal Clash",
-          summary: "Without divine intervention on either side, the war relies entirely on mortal strategy."
-        }
-      },
-      {
-        id: "9C",
-        label: "Krishna Enforces Immediate Peace Mandate in Assembly",
-        type: "radical",
-        divergence: 92,
-        continuationPanels: [
-          {
-            id: "p4_9C",
-            bg: "/assets/bg_dwarka.jpg",
-            charImg: "/assets/krishna.png",
-            speaker: "Lord Krishna",
-            dialogue: "Dwarka shall not supply a single arrow or soldier to either side! We declare an absolute embargo on all Kuru warlords!"
-          },
-          {
-            id: "p5_9C",
-            bg: "/assets/bg_dice_hall.jpg",
-            speaker: "Narrator",
-            caption: "Deprived of Yadava support, both sides are forced into a permanent peace summit arbitrated by Balarama."
-          }
-        ],
-        epilogue: {
-          title: "The Yadava Peace Accord",
-          summary: "Krishna's strict neutrality halts the mobilization of ancient India's armies."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Charioteer of Destiny",
+      summary: "Krishna's peace mission proves that war is unavoidable, setting the stage for the Bhagavad Gita at Kurukshetra."
+    }
   },
   {
     id: "island-10",
@@ -1022,107 +1192,117 @@ export const webtoonIslands: WebtoonIsland[] = [
     coverImg: "/assets/bg_kurukshetra.jpg",
     era: "The Climax of Kurukshetra",
     keyCharacters: ["Guru Drona", "Yudhishthira", "Bhima", "Lord Krishna"],
-    initialPanels: [
+    acts: [
       {
-        id: "p1_10",
-        bg: "/assets/bg_kurukshetra.jpg",
-        speaker: "Narrator",
-        caption: "Day 15 of Kurukshetra. Commander Drona annihilates entire divisions with divine astras. No mortal warrior can defeat him."
+        actNumber: 1,
+        actTitle: "Act I: Drona's Rampage",
+        panels: [
+          {
+            id: "p10_1_1",
+            bg: "/assets/bg_kurukshetra.jpg",
+            caption: "Day 15 of Kurukshetra. Commander Drona annihilates entire divisions with divine astras. No mortal warrior can defeat him."
+          },
+          {
+            id: "p10_1_2",
+            bg: "/assets/bg_kurukshetra.jpg",
+            charKey: "krishna",
+            speaker: "Lord Krishna",
+            dialogue: "Drona is invincible while holding his bow! Only news of his son Ashwatthama's death will cause him to lay down his arms."
+          }
+        ],
+        prompt: "Decision Gate 1: Bhima slays the giant elephant named Ashwatthama. Drona turns to Yudhishthira for the absolute truth. What is spoken?",
+        choices: [
+          {
+            id: "10_1A",
+            label: "Speak Half-Truth: 'Ashwatthama is Dead... Gaja Iti' (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "10_1B",
+            label: "Refuse to Lie & Challenge Drona in Open Combat (Subversive)",
+            type: "subversive",
+            divergence: 55
+          },
+          {
+            id: "10_1C",
+            label: "Arjuna Disarms Drona via Pure Archery Mastery (Radical)",
+            type: "radical",
+            divergence: 88
+          }
+        ]
       },
       {
-        id: "p2_10",
-        bg: "/assets/bg_kurukshetra.jpg",
-        charImg: "/assets/krishna.png",
-        speaker: "Lord Krishna",
-        dialogue: "Drona is invincible while holding his bow! Only news of his son Ashwatthama's death will cause him to lay down his arms."
+        actNumber: 2,
+        actTitle: "Act II: The Fall of the Commander",
+        panels: [
+          {
+            id: "p10_2_1",
+            bg: "/assets/bg_kurukshetra.jpg",
+            charKey: "drona",
+            speaker: "Guru Drona",
+            dialogue: "Hearing Yudhishthira's words, I lay down my weapons and sit in yogic meditation on the chariot floor...",
+            sfx: "KRZZZT!"
+          }
+        ],
+        prompt: "Decision Gate 2: Drona enters yogic trance. Dhrishtadyumna advances with drawn sword. How is the Guru slain?",
+        choices: [
+          {
+            id: "10_2A",
+            label: "Dhrishtadyumna Beheads Drona in Yogic Trance (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "10_2B",
+            label: "Arjuna Intervenes to Prevent Unarmed Beheading (Subversive)",
+            type: "subversive",
+            divergence: 50
+          },
+          {
+            id: "10_2C",
+            label: "Drona Ascends Spiritually to Heavens Before Strike (Radical)",
+            type: "radical",
+            divergence: 85
+          }
+        ]
       },
       {
-        id: "p3_10",
-        bg: "/assets/bg_kurukshetra.jpg",
-        charImg: "/assets/bhima.png",
-        speaker: "Bhima",
-        dialogue: "I have slain Indravarman's giant elephant named Ashwatthama! Drona approaches Yudhishthira to ask for the absolute truth!",
-        sfx: "DHA-DHAM!"
+        actNumber: 3,
+        actTitle: "Act III: Ashwatthama's Wrath",
+        panels: [
+          {
+            id: "p10_3_1",
+            bg: "/assets/bg_kurukshetra.jpg",
+            caption: "Ashwatthama learns of his father's death and unleashes the apocalyptic Narayanastra upon the Pandava army."
+          }
+        ],
+        prompt: "Decision Gate 3: The Narayanastra rains fire on any warrior holding weapons. How does Krishna instruct the army to survive?",
+        choices: [
+          {
+            id: "10_3A",
+            label: "Lay Down All Arms & Bow Flat to Earth in Humility (Canonical)",
+            type: "canon",
+            divergence: 0
+          },
+          {
+            id: "10_3B",
+            label: "Arjuna Counters with Pashupatastra Cosmic Defense (Subversive)",
+            type: "subversive",
+            divergence: 60
+          },
+          {
+            id: "10_3C",
+            label: "Krishna Absorbs Fire into Divine Body Directly (Radical)",
+            type: "radical",
+            divergence: 90
+          }
+        ]
       }
     ],
-    choicePrompt: "Drona turns to Yudhishthira—the man who has never uttered a lie. How shall Yudhishthira answer?",
-    choices: [
-      {
-        id: "10A",
-        label: "Yudhishthira Speaks the Half-Truth (Canonical Itihasa)",
-        type: "canon",
-        divergence: 0,
-        continuationPanels: [
-          {
-            id: "p4_10A",
-            bg: "/assets/bg_kurukshetra.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "Ashwatthama is dead... (gaja iti - whether man or elephant)...",
-            sfx: "KRZZZT!"
-          },
-          {
-            id: "p5_10A",
-            bg: "/assets/bg_kurukshetra.jpg",
-            speaker: "Narrator",
-            caption: "The blare of Krishna's conch drowns out 'gaja iti'. Drona drops his bow in grief and sits in meditation as Dhrishtadyumna strikes."
-          }
-        ],
-        epilogue: {
-          title: "The Chariot Touches Earth",
-          summary: "Yudhishthira's single moral compromise causes his divine levitating chariot to touch the dusty ground."
-        }
-      },
-      {
-        id: "10B",
-        label: "Yudhishthira Refuses to Lie & Fights Drona Fairly",
-        type: "subversive",
-        divergence: 55,
-        continuationPanels: [
-          {
-            id: "p4_10B",
-            bg: "/assets/bg_kurukshetra.jpg",
-            charImg: "/assets/yudhishthira.png",
-            speaker: "Yudhishthira",
-            dialogue: "Master Drona! An elephant named Ashwatthama was slain by Bhima. Your son lives!"
-          },
-          {
-            id: "p5_10B",
-            bg: "/assets/bg_kurukshetra.jpg",
-            speaker: "Narrator",
-            caption: "Drona smiles in relief and fights on with redoubled fury, extending the war into its 20th catastrophic day."
-          }
-        ],
-        epilogue: {
-          title: "Unstained Righteousness",
-          summary: "Yudhishthira preserves his untarnished truth, though the cost in Pandava lives is immense."
-        }
-      },
-      {
-        id: "10C",
-        label: "Arjuna Disarms Drona via Pure Archery Duel",
-        type: "radical",
-        divergence: 88,
-        continuationPanels: [
-          {
-            id: "p4_10C",
-            bg: "/assets/bg_kurukshetra.jpg",
-            charImg: "/assets/arjuna.png",
-            speaker: "Arjuna",
-            dialogue: "No deceit! I face my Guru in single combat! Gandiva against Brahmashira!"
-          },
-          {
-            id: "p5_10C",
-            bg: "/assets/bg_kurukshetra.jpg",
-            speaker: "Narrator",
-            caption: "Arjuna severs Drona's bowstring seven times in a row, convincing Drona that his student has surpassed him and earning Drona's peaceful retirement."
-          }
-        ],
-        epilogue: {
-          title: "The Guru's Farewell",
-          summary: "Drona voluntarily lays down his arms out of pride in Arjuna's flawless martial ethics."
-        }
-      }
-    ]
+    epilogue: {
+      title: "The Chariot Touches Earth",
+      summary: "The fall of Guru Drona leads to the final catastrophic days of Kurukshetra, testing the moral fabric of the Pandavas."
+    }
   }
 ];

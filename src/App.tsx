@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { webtoonIslands } from './data/webtoonData';
-import type { WebtoonIsland, WebtoonChoice } from './data/webtoonData';
+import type { WebtoonIsland } from './data/webtoonData';
 import { VedicHeader } from './components/VedicHeader';
 import { WebtoonOverworldMap } from './components/WebtoonOverworldMap';
 import { WebtoonComicStage } from './components/WebtoonComicStage';
@@ -20,11 +20,11 @@ export function App() {
   };
 
   // Choice Made inside Webtoon Stage
-  const handleChoiceMade = (islandId: string, choice: WebtoonChoice) => {
+  const handleChoiceMade = (islandId: string, totalDivergence: number) => {
     if (!completedIslandIds.includes(islandId)) {
       setCompletedIslandIds(prev => [...prev, islandId]);
     }
-    setDivergenceScore(choice.divergence);
+    setDivergenceScore(totalDivergence);
   };
 
   // Return to World Map
