@@ -1,96 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
     color-scheme: dark;
+    --font-comic: 'Bangers', cursive, system-ui;
+    --font-epic: 'Cinzel', serif;
+    --font-ui: 'Rajdhani', sans-serif;
   }
   
   body {
     margin: 0;
     padding: 0;
-    background-color: #06040a;
-    color: #e2e8f0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background-color: #09090d;
+    color: #f3f4f6;
+    font-family: var(--font-ui), system-ui, sans-serif;
     overflow-x: hidden;
   }
 }
 
-/* Custom animations and visual effects */
-@keyframes pulse-gold {
+.font-comic {
+  font-family: 'Bangers', cursive, system-ui;
+  letter-spacing: 0.05em;
+}
+
+.font-epic {
+  font-family: 'Cinzel', serif;
+}
+
+.font-ui {
+  font-family: 'Rajdhani', sans-serif;
+}
+
+/* Halftone Comic Dots Pattern */
+.bg-halftone {
+  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1.5px, transparent 1.5px);
+  background-size: 14px 14px;
+}
+
+.bg-halftone-dark {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.4) 1.5px, transparent 1.5px);
+  background-size: 10px 10px;
+}
+
+/* Graphic Novel Polygon Panels */
+.clip-panel-left {
+  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+}
+
+.clip-panel-right {
+  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+}
+
+.clip-card-angled {
+  clip-path: polygon(0 0, 100% 3%, 97% 100%, 2% 97%);
+}
+
+.clip-speech-bubble {
+  position: relative;
+  border-radius: 1rem;
+}
+
+/* Comic Speech Bubble Tail */
+.speech-bubble-tail-left::after {
+  content: '';
+  position: absolute;
+  left: 28px;
+  bottom: -14px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 14px solid #14151e;
+  filter: drop-shadow(0 4px 3px rgba(0,0,0,0.5));
+}
+
+.speech-bubble-tail-right::after {
+  content: '';
+  position: absolute;
+  right: 28px;
+  bottom: -14px;
+  width: 0;
+  height: 0;
+  border-left: 14px solid transparent;
+  border-right: 14px solid transparent;
+  border-top: 14px solid #14151e;
+  filter: drop-shadow(0 4px 3px rgba(0,0,0,0.5));
+}
+
+/* Animations */
+@keyframes float-island {
   0%, 100% {
-    box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(212, 175, 55, 0.2);
+    transform: translateY(0px) rotate(0deg);
   }
   50% {
-    box-shadow: 0 0 30px rgba(243, 156, 18, 0.7), inset 0 0 20px rgba(243, 156, 18, 0.4);
+    transform: translateY(-14px) rotate(0.8deg);
   }
 }
 
-@keyframes divine-flash {
-  0% { opacity: 0; transform: scale(0.95); }
-  50% { opacity: 1; filter: brightness(1.8) drop-shadow(0 0 30px #d4af37); }
-  100% { opacity: 0; }
+@keyframes leyline-glow {
+  0%, 100% {
+    stroke-opacity: 0.4;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-opacity: 0.95;
+    stroke-dashoffset: -20;
+  }
 }
 
-@keyframes screen-shake {
-  0%, 100% { transform: translate(0, 0) rotate(0deg); }
-  10%, 30%, 50%, 70%, 90% { transform: translate(-4px, 2px) rotate(-1deg); }
-  20%, 40%, 60%, 80% { transform: translate(4px, -2px) rotate(1deg); }
+@keyframes sticker-pop {
+  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
+  60% { transform: scale(1.25) rotate(5deg); opacity: 1; }
+  100% { transform: scale(1) rotate(-5deg); opacity: 1; }
 }
 
-@keyframes ink-splash {
-  0% { transform: scale(0); opacity: 0.9; }
-  50% { opacity: 0.5; }
-  100% { transform: scale(4); opacity: 0; }
+@keyframes comic-slash {
+  0% { transform: translateX(-100%) skewX(-30deg); opacity: 0; }
+  50% { opacity: 1; }
+  100% { transform: translateX(200%) skewX(-30deg); opacity: 0; }
 }
 
-@keyframes float-slow {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-8px); }
+.animate-float-island {
+  animation: float-island 5s infinite ease-in-out;
 }
 
-@keyframes scanline {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(1000%); }
+.animate-leyline {
+  stroke-dasharray: 8 4;
+  animation: leyline-glow 3s infinite linear;
 }
 
-.animate-pulse-gold {
-  animation: pulse-gold 3s infinite ease-in-out;
+.animate-sticker {
+  animation: sticker-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
 }
 
-.animate-screen-shake {
-  animation: screen-shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+.animate-slash {
+  animation: comic-slash 0.6s ease-out forwards;
 }
 
-.animate-float {
-  animation: float-slow 4s infinite ease-in-out;
+/* Stylized Graphic Novel Color Gradients & Shadows */
+.gold-glow {
+  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.2);
 }
 
-.gold-text-gradient {
-  background: linear-gradient(135deg, #fff2a3 0%, #d4af37 40%, #aa7c11 75%, #ffd700 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.gold-glow:hover {
+  box-shadow: 0 0 40px rgba(245, 158, 11, 0.6), inset 0 0 25px rgba(245, 158, 11, 0.4);
 }
 
-.ruby-text-gradient {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 20%, #e74c3c 70%, #900c3f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+.crimson-glow {
+  box-shadow: 0 0 25px rgba(220, 38, 38, 0.4), inset 0 0 15px rgba(220, 38, 38, 0.2);
 }
 
-.cyan-text-gradient {
-  background: linear-gradient(135deg, #e0f7fa 0%, #80deea 40%, #00bcd4 75%, #00838f 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.gold-border-glow {
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
-}
-
-.gold-border-glow:hover {
-  border-color: rgba(243, 156, 18, 0.6);
-  box-shadow: 0 0 25px rgba(243, 156, 18, 0.3);
+.cyan-glow {
+  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4), inset 0 0 15px rgba(6, 182, 212, 0.2);
 }
 
 /* Custom Scrollbar */
@@ -98,17 +160,11 @@
   width: 8px;
   height: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: #090610;
+  background: #09090d;
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #2a1b3d;
+  background: #1e1b4b;
   border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #442a63;
+  border: 1px solid rgba(245, 158, 11, 0.3);
 }

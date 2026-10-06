@@ -1,5 +1,5 @@
-// Native Web Audio API Generative Synthesizer for Dharmakshetra
-// Provides atmospheric D-minor drone, tanpura harmonic resonance, and custom sound effects.
+// Native Web Audio API Generative Synthesizer for Dharmakshetra Graphic Novel Game
+// Provides atmospheric D-minor drone, tanpura harmonic resonance, and comic sound triggers.
 
 class AudioEngine {
   private ctx: AudioContext | null = null;
@@ -39,13 +39,11 @@ class AudioEngine {
   private startDrone() {
     if (!this.ctx || !this.masterGain) return;
 
-    // Stop old drone if any
     this.stopDrone();
 
     this.droneGain = this.ctx.createGain();
     this.droneGain.gain.setValueAtTime(0.2, this.ctx.currentTime);
 
-    // Filter for warmth
     const filter = this.ctx.createBiquadFilter();
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(280, this.ctx.currentTime);
@@ -58,11 +56,9 @@ class AudioEngine {
       const osc = this.ctx.createOscillator();
       const gain = this.ctx.createGain();
 
-      // Mix sine & triangle for tanpura timbre
       osc.type = idx % 2 === 0 ? 'sine' : 'triangle';
       osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
 
-      // Micro detuning for organic resonance
       const detuneAmount = (idx - 2) * 2.5;
       osc.detune.setValueAtTime(detuneAmount, this.ctx.currentTime);
 
@@ -75,11 +71,10 @@ class AudioEngine {
       this.droneOscillators.push(osc);
     });
 
-    // LFO for Tanpura breathing rhythm (shimmer effect)
     this.lfoOsc = this.ctx.createOscillator();
     const lfoGain = this.ctx.createGain();
-    this.lfoOsc.frequency.setValueAtTime(0.15, this.ctx.currentTime); // slow pulse
-    lfoGain.gain.setValueAtTime(80, this.ctx.currentTime); // filter modulation depth
+    this.lfoOsc.frequency.setValueAtTime(0.15, this.ctx.currentTime);
+    lfoGain.gain.setValueAtTime(80, this.ctx.currentTime);
 
     this.lfoOsc.connect(lfoGain);
     lfoGain.connect(filter.frequency);
@@ -110,7 +105,6 @@ class AudioEngine {
     this.activePreset = preset;
     if (!this.ctx || !this.droneGain) return;
 
-    // Adjust drone gain & filter based on atmosphere
     if (this.activePreset === 'divine') {
       this.droneGain.gain.setTargetAtTime(0.25, this.ctx.currentTime, 1);
     } else if (this.activePreset === 'embers') {
@@ -120,13 +114,47 @@ class AudioEngine {
     }
   }
 
-  public playSoundFx(type: 'bell' | 'gong' | 'thunder' | 'divine' | 'click') {
+  public playSoundFx(type: 'bell' | 'gong' | 'thunder' | 'divine' | 'click' | 'slash' | 'thwack') {
     if (!this.isInitialized || this.isMuted || !this.ctx || !this.masterGain) return;
     this.resumeContext();
 
     const now = this.ctx.currentTime;
 
     switch (type) {
+      case 'slash': { // SHING! Sword slash sound
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(1400, now);
+        osc.frequency.exponentialRampToValueAtTime(200, now + 0.15);
+
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.15);
+        break;
+      }
+
+      case 'thwack': { // THWACK! Heavy mace impact
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(180, now);
+        osc.frequency.exponentialRampToValueAtTime(30, now + 0.2);
+
+        gain.gain.setValueAtTime(0.5, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+
+        osc.connect(gain);
+        gain.connect(this.masterGain);
+        osc.start(now);
+        osc.stop(now + 0.2);
+        break;
+      }
+
       case 'click': {
         const osc = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
@@ -144,8 +172,8 @@ class AudioEngine {
         break;
       }
 
-      case 'bell': { // Resonant Temple Bell
-        const frequencies = [587.33, 880, 1174.66, 1760]; // D5, A5, D6, A6
+      case 'bell': {
+        const frequencies = [587.33, 880, 1174.66, 1760];
         frequencies.forEach((f, i) => {
           if (!this.ctx || !this.masterGain) return;
           const osc = this.ctx.createOscillator();
@@ -166,7 +194,7 @@ class AudioEngine {
         break;
       }
 
-      case 'gong': { // Deep War Gong
+      case 'gong': {
         const osc1 = this.ctx.createOscillator();
         const osc2 = this.ctx.createOscillator();
         const gain = this.ctx.createGain();
@@ -174,8 +202,8 @@ class AudioEngine {
         osc1.type = 'sine';
         osc2.type = 'triangle';
 
-        osc1.frequency.setValueAtTime(110, now); // A2
-        osc2.frequency.setValueAtTime(113.5, now); // Detuned for wobble
+        osc1.frequency.setValueAtTime(110, now);
+        osc2.frequency.setValueAtTime(113.5, now);
 
         gain.gain.setValueAtTime(0.4, now);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + 4.0);
@@ -191,8 +219,7 @@ class AudioEngine {
         break;
       }
 
-      case 'thunder': { // Cataclysmic Thunder Clap
-        // White noise buffer
+      case 'thunder': {
         const bufferSize = this.ctx.sampleRate * 1.5;
         const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
         const output = buffer.getChannelData(0);
@@ -212,7 +239,6 @@ class AudioEngine {
         noiseGain.gain.setValueAtTime(0.5, now);
         noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
 
-        // Low impact boom sub oscillator
         const subOsc = this.ctx.createOscillator();
         subOsc.type = 'sawtooth';
         subOsc.frequency.setValueAtTime(90, now);
@@ -236,8 +262,8 @@ class AudioEngine {
         break;
       }
 
-      case 'divine': { // Cosmic celestial shimmer
-        const notes = [440, 554.37, 659.25, 880, 1108.73]; // A4, C#5, E5, A5, C#6
+      case 'divine': {
+        const notes = [440, 554.37, 659.25, 880, 1108.73];
         notes.forEach((freq, idx) => {
           if (!this.ctx || !this.masterGain) return;
           const osc = this.ctx.createOscillator();

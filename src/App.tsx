@@ -1,20 +1,21 @@
 import { useState } from 'react';
 import { ISLANDS_DATA } from './data/islandsData';
-import type { Island, Choice, PathStep, ActiveView, IslandEnding } from './types';
+import type { Island, Choice, PathStep, IslandEnding } from './types';
 import { ParticleCanvas } from './components/ParticleCanvas';
 import { Header } from './components/Header';
-import { TypewriterText } from './components/TypewriterText';
-import { SceneVignette, CharacterAvatar } from './components/ProceduralArtwork';
-import { DecisionCard } from './components/DecisionCard';
+import { OverworldCosmosMap } from './components/OverworldCosmosMap';
+import { ComicStage } from './components/ComicStage';
+import { ActionComicSplash } from './components/ActionComicSplash';
 import { TelemetryPanel } from './components/TelemetryPanel';
 import { EndingModal } from './components/EndingModal';
 import { TimelineVisualizer } from './components/TimelineVisualizer';
 import { CodexView } from './components/CodexView';
 import { audioEngine } from './utils/audioEngine';
-import { Sparkles, HelpCircle } from 'lucide-react';
+
+export type AppViewMode = 'overworld' | 'stage' | 'timeline' | 'codex';
 
 export function App() {
-  // 1. App Core State
+  // 1. Core Game State
   const [activeIslandId, setActiveIslandId] = useState<string>('island-1');
   const activeIsland: Island = ISLANDS_DATA.find(i => i.id === activeIslandId) || ISLANDS_DATA[0];
 
@@ -27,11 +28,16 @@ export function App() {
   const [divergenceScore, setDivergenceScore] = useState<number>(0);
 
   const [audioEnabled, setAudioEnabled] = useState<boolean>(false);
-  const [activeView, setActiveView] = useState<ActiveView>('sandbox');
+  const [viewMode, setViewMode] = useState<AppViewMode>('overworld');
   const [activeEnding, setActiveEnding] = useState<IslandEnding | null>(null);
-  const [vfxEffect, setVfxEffect] = useState<'none' | 'shake' | 'divine_flash' | 'red_vignette'>('none');
 
-  // 2. Island Change Handler (Complete State Decoupling)
+  // Action Splash State
+  const [splashState, setSplashState] = useState<{ active: boolean; text: string; tag?: string }>({
+    active: false,
+    text: 'SHING!'
+  });
+
+  // 2. Select Island / Breach Realm
   const handleSelectIsland = (islandId: string) => {
     const targetIsland = ISLANDS_DATA.find(i => i.id === islandId);
     if (!targetIsland) return;
@@ -44,11 +50,12 @@ export function App() {
     setDivergenceScore(0);
     setActiveEnding(null);
 
-    // Update audio atmosphere preset
+    // Switch to Comic Stage View
+    setViewMode('stage');
     audioEngine.setAtmospherePreset(targetIsland.atmosphere);
   };
 
-  // 3. Reset Current Island Handler
+  // 3. Reset Island State
   const handleResetIsland = () => {
     setCurrentSceneId(activeIsland.initialSceneId);
     setPathHistory([]);
@@ -65,16 +72,32 @@ export function App() {
     setAudioEnabled(!muted);
   };
 
-  // 5. Choice Selection Handler (Core Sandbox Engine)
+  // 5. Choice Selection Handler with Comic Action Splash
   const handleSelectChoice = (choice: Choice) => {
-    // Play sound FX
-    audioEngine.playSoundFx(choice.soundFx);
+    // Pick sound FX & Sticker text based on alignment tag / choice impact
+    let stickerText = 'SHING!';
+    let sfxType: 'slash' | 'thwack' | 'gong' | 'thunder' | 'divine' = 'slash';
 
-    // Trigger Screen VFX animation
-    setVfxEffect(choice.vfxEffect);
-    setTimeout(() => setVfxEffect('none'), 700);
+    if (choice.alignmentTag === 'Adharma (Selfish Gain)' || choice.soundFx === 'thunder') {
+      stickerText = 'KRZZZT!';
+      sfxType = 'thunder';
+    } else if (choice.alignmentTag === 'Swadharma (Duty)') {
+      stickerText = 'THWACK!';
+      sfxType = 'thwack';
+    } else if (choice.alignmentTag === 'Satya (Absolute Truth)') {
+      stickerText = 'DIVINE SHINE!';
+      sfxType = 'divine';
+    }
 
-    // Calculate updated metrics
+    // Trigger audio & sticker splash
+    audioEngine.playSoundFx(sfxType);
+    setSplashState({ active: true, text: stickerText, tag: choice.alignmentTag });
+
+    setTimeout(() => {
+      setSplashState({ active: false, text: 'SHING!' });
+    }, 650);
+
+    // Update metrics
     const newDharma = Math.min(100, Math.max(0, dharmaScore + choice.deltaDharma));
     const newKarma = Math.min(100, Math.max(0, karmaScore + choice.deltaKarma));
     const newDivergence = Math.min(100, Math.max(0, divergenceScore + choice.divergenceImpact));
@@ -83,7 +106,7 @@ export function App() {
     setKarmaScore(newKarma);
     setDivergenceScore(newDivergence);
 
-    // Log decision step
+    // Record decision step
     const newStep: PathStep = {
       sceneId: currentSceneId,
       choiceId: choice.id,
@@ -104,7 +127,7 @@ export function App() {
     }
   };
 
-  // Advance to next Island in order
+  // Advance to next Island
   const handleNextIsland = () => {
     const currentIndex = ISLANDS_DATA.findIndex(i => i.id === activeIslandId);
     if (currentIndex >= 0 && currentIndex < ISLANDS_DATA.length - 1) {
@@ -115,123 +138,64 @@ export function App() {
   const hasNextIsland = ISLANDS_DATA.findIndex(i => i.id === activeIslandId) < ISLANDS_DATA.length - 1;
 
   return (
-    <div className={`min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans relative overflow-x-hidden ${
-      vfxEffect === 'shake' ? 'animate-screen-shake' : ''
-    }`}>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-ui relative overflow-x-hidden">
       
-      {/* Dynamic Continuous HTML5 Canvas Particles */}
+      {/* Background HTML5 Canvas Particles */}
       <ParticleCanvas atmosphere={activeIsland.atmosphere} />
 
-      {/* Screen VFX Flash Overlay */}
-      {vfxEffect === 'divine_flash' && (
-        <div className="fixed inset-0 z-50 bg-amber-300/30 backdrop-blur-sm pointer-events-none animate-pulse duration-500" />
-      )}
-      {vfxEffect === 'red_vignette' && (
-        <div className="fixed inset-0 z-50 ring-[30px] ring-rose-600/40 pointer-events-none transition-all duration-500" />
-      )}
+      {/* Comic Action Splash Screen Overlay */}
+      <ActionComicSplash
+        active={splashState.active}
+        soundText={splashState.text}
+        tag={splashState.tag}
+      />
 
-      {/* Sticky Header Navigation */}
+      {/* Navigation Header */}
       <Header
         islands={ISLANDS_DATA}
         activeIsland={activeIsland}
-        activeView={activeView}
+        activeView={viewMode === 'overworld' ? 'sandbox' : (viewMode as any)}
         onSelectIsland={handleSelectIsland}
-        onSelectView={setActiveView}
+        onSelectView={(v) => {
+          if (v === 'sandbox') setViewMode('stage');
+          else setViewMode(v as AppViewMode);
+        }}
         divergenceScore={divergenceScore}
         audioEnabled={audioEnabled}
         onToggleAudio={handleToggleAudio}
         onResetIsland={handleResetIsland}
       />
 
-      {/* Main View Container */}
-      <main className="flex-1 w-full max-w-7xl mx-auto px-4 py-6 z-10 space-y-6">
+      {/* View Switcher Main Container */}
+      <main className="flex-1 w-full z-10">
         
-        {/* Sandbox Playground View */}
-        {activeView === 'sandbox' && (
-          <div className="space-y-6">
-            
-            {/* Island Prelude Header Card */}
-            <div className="p-6 rounded-2xl bg-gradient-to-r from-slate-950 via-slate-900 to-amber-950/40 border border-amber-500/30 shadow-2xl relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
-                <Sparkles className="w-32 h-32 text-amber-400" />
-              </div>
+        {/* VIEW 1: OVERWORLD COSMOS MAP */}
+        {viewMode === 'overworld' && (
+          <OverworldCosmosMap
+            islands={ISLANDS_DATA}
+            onBreachRealm={handleSelectIsland}
+          />
+        )}
 
-              <div className="max-w-3xl space-y-2">
-                <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-                  <span className="bg-amber-500/20 text-amber-300 border border-amber-500/40 px-2.5 py-0.5 rounded-full font-bold">
-                    ISLAND {activeIsland.number}
-                  </span>
-                  <span className="text-slate-400 font-medium">• {activeIsland.era}</span>
-                  <span className="text-amber-400/80">• {activeIsland.location}</span>
-                </div>
-
-                <h2 className="text-2xl sm:text-3xl font-serif font-bold gold-text-gradient">
-                  {activeIsland.title}
-                </h2>
-                
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-serif italic">
-                  "{activeIsland.prelude}"
-                </p>
-              </div>
-            </div>
-
-            {/* Main Interactive Grid */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        {/* VIEW 2: GRAPHIC NOVEL SCENARIO STAGE */}
+        {viewMode === 'stage' && (
+          <div className="py-6 px-2 sm:px-4">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 max-w-7xl mx-auto">
               
-              {/* Left & Center: Scene Narrative & Decision Crossroads (2 Columns) */}
-              <div className="lg:col-span-2 space-y-6">
-                
-                {/* Scene Card */}
-                <div className="p-5 sm:p-6 rounded-2xl bg-slate-950/90 border border-amber-500/30 shadow-2xl space-y-5 backdrop-blur-md">
-                  
-                  {/* Scene Vignette Header Graphic */}
-                  <SceneVignette vignetteType={currentScene.vignetteType} />
-
-                  {/* Speaker Badge & Scene Title */}
-                  <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
-                    <CharacterAvatar svgKey={currentScene.speakerAvatarSvgKey} className="w-12 h-12 flex-shrink-0" />
-                    <div>
-                      <h3 className="text-lg sm:text-xl font-serif font-bold text-amber-200">
-                        {currentScene.title}
-                      </h3>
-                      <p className="text-xs text-slate-400 font-mono">
-                        Speaker: <strong className="text-amber-300 font-semibold">{currentScene.speaker}</strong> ({currentScene.speakerRole})
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Typewriter Narrative Display */}
-                  <TypewriterText text={currentScene.narrative} speed={22} />
-                </div>
-
-                {/* Decision Crossroads Section */}
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between px-1">
-                    <h3 className="text-xs sm:text-sm font-semibold text-amber-400 uppercase tracking-widest flex items-center gap-2">
-                      <HelpCircle className="w-4 h-4 text-amber-400" />
-                      Dharma Crossroads • Choose Your Destiny
-                    </h3>
-                    <span className="text-[11px] text-slate-400 font-mono">
-                      {currentScene.choices.length} Available Path(s)
-                    </span>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    {currentScene.choices.map((choice, idx) => (
-                      <DecisionCard
-                        key={choice.id}
-                        choice={choice}
-                        onSelect={handleSelectChoice}
-                        index={idx}
-                      />
-                    ))}
-                  </div>
-                </div>
-
+              {/* Main Comic Widescreen Canvas (3 Columns) */}
+              <div className="lg:col-span-3">
+                <ComicStage
+                  island={activeIsland}
+                  currentScene={currentScene}
+                  pathHistory={pathHistory}
+                  divergenceScore={divergenceScore}
+                  onSelectChoice={handleSelectChoice}
+                  onFleeToCosmos={() => setViewMode('overworld')}
+                />
               </div>
 
-              {/* Right Column: Telemetry & Path Log (1 Column) */}
-              <div className="lg:col-span-1">
+              {/* Right Column: Telemetry & Decision Trail (1 Column) */}
+              <div className="lg:col-span-1 pt-6">
                 <TelemetryPanel
                   island={activeIsland}
                   dharmaScore={dharmaScore}
@@ -242,42 +206,45 @@ export function App() {
               </div>
 
             </div>
-
           </div>
         )}
 
-        {/* Timeline Visualizer View */}
-        {activeView === 'timeline' && (
-          <TimelineVisualizer
-            island={activeIsland}
-            currentSceneId={currentSceneId}
-            pathHistory={pathHistory}
-            onResetIsland={handleResetIsland}
-          />
+        {/* VIEW 3: MULTIVERSE TIMELINE MAP */}
+        {viewMode === 'timeline' && (
+          <div className="py-6">
+            <TimelineVisualizer
+              island={activeIsland}
+              currentSceneId={currentSceneId}
+              pathHistory={pathHistory}
+              onResetIsland={handleResetIsland}
+            />
+          </div>
         )}
 
-        {/* Lore Codex View */}
-        {activeView === 'codex' && (
-          <CodexView />
+        {/* VIEW 4: LORE & AI PROMPT CODEX */}
+        {viewMode === 'codex' && (
+          <div className="py-6">
+            <CodexView />
+          </div>
         )}
 
       </main>
 
-      {/* Ending Modal Modal Popup */}
+      {/* Resolution Ending Modal */}
       <EndingModal
         ending={activeEnding}
         onRestartIsland={handleResetIsland}
         onNextIsland={handleNextIsland}
         onOpenTimelineView={() => {
           setActiveEnding(null);
-          setActiveView('timeline');
+          setViewMode('timeline');
         }}
         hasNextIsland={hasNextIsland}
       />
 
       {/* Footer */}
-      <footer className="w-full py-4 px-6 border-t border-slate-900 bg-slate-950/90 text-center text-xs text-slate-500 font-mono z-10">
-        Dharmakshetra: Fractured Fates • Interactive Mythological Decision Sandbox • Powered by React & Web Audio API
+      <footer className="w-full py-4 px-6 border-t border-slate-900 bg-slate-950/95 text-center text-xs text-slate-500 font-mono z-10">
+        Dharmakshetra: Fractured Fates • Graphic Novel Interactive Decision Game • Powered by React & Web Audio API
       </footer>
     </div>
   );
