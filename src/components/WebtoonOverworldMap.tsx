@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React from 'react';
 import type { WebtoonIsland } from '../data/webtoonData';
 import { ASSETS } from '../assets/gameAssets';
-import { Scroll, Sparkles } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 
 interface WebtoonOverworldMapProps {
@@ -16,208 +14,102 @@ export const WebtoonOverworldMap: React.FC<WebtoonOverworldMapProps> = ({
   onSelectIsland,
   completedIslandIds,
 }) => {
-  const [hoveredIslandId, setHoveredIslandId] = useState<string | null>(null);
+  // Map 10 islands with high-fidelity images from ASSETS
+  const galleryIslands = islands.map((island, index) => {
+    let img = ASSETS.scenes.forest;
+    if (island.id === 'island-1') img = ASSETS.scenes.forest;
+    else if (island.id === 'island-2') img = ASSETS.scenes.arena;
+    else if (island.id === 'island-3') img = ASSETS.scenes.lac;
+    else if (island.id === 'island-4') img = ASSETS.scenes.swayamvara;
+    else if (island.id === 'island-5') img = ASSETS.scenes.khandava;
+    else if (island.id === 'island-6') img = ASSETS.scenes.dice;
+    else if (island.id === 'island-7') img = ASSETS.scenes.exile;
+    else if (island.id === 'island-8') img = ASSETS.scenes.matsya;
+    else if (island.id === 'island-9') img = ASSETS.scenes.dwarka;
+    else if (island.id === 'island-10') img = ASSETS.scenes.kurukshetra;
 
-  // 10 Coordinates for Floating Medallions across Aryavarta Map
-  const nodePositions = [
-    { top: '18%', left: '15%' }, // 1. Forest of Shatashringa
-    { top: '22%', left: '42%' }, // 2. Arena of Prodigies
-    { top: '34%', left: '26%' }, // 3. House of Lac
-    { top: '46%', left: '16%' }, // 4. Swayamvara of Panchala
-    { top: '38%', left: '60%' }, // 5. Khandavaprastha
-    { top: '56%', left: '48%' }, // 6. Hall of Loaded Dice
-    { top: '64%', left: '25%' }, // 7. Banishment Pact
-    { top: '72%', left: '68%' }, // 8. Shadow in Matsya
-    { top: '80%', left: '38%' }, // 9. Peace Envoy in Dwarka
-    { top: '85%', left: '80%' }, // 10. Fall of Guru at Kurukshetra
-  ];
+    return {
+      ...island,
+      index: index + 1,
+      img,
+    };
+  });
 
   return (
-    <div className="relative min-h-[calc(100vh-65px)] w-full bg-[#fffdf7] text-[#2a1810] overflow-hidden flex flex-col items-center justify-center p-4">
+    <main className="min-h-screen bg-[#FAF4E6] py-12 px-6 text-[#2C1810] font-serif">
       
-      {/* Background Layer: Real Local Map Image with Warm Parchment Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img
-          src={ASSETS.mapBg}
-          alt="Map of Aryavarta"
-          className="w-full h-full object-cover object-center opacity-40 mix-blend-multiply"
-          onError={(e) => {
-            // Fallback if image path fails
-            (e.target as HTMLElement).style.display = 'none';
-          }}
-        />
-        {/* Soft Parchment Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-[#fffdf7]/80 via-[#f5eedb]/70 to-[#ead8b1]/80" />
-      </div>
-
-      {/* Rotating Sacred Yantra Motif */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-25 z-0">
-        <svg className="w-[700px] h-[700px] text-[#aa7c11] animate-yantra" viewBox="0 0 100 100">
-          <polygon points="50,5 90,85 10,85" fill="none" stroke="currentColor" strokeWidth="0.8" />
-          <polygon points="50,95 90,15 10,15" fill="none" stroke="currentColor" strokeWidth="0.8" />
-          <circle cx="50" cy="50" r="42" fill="none" stroke="currentColor" strokeWidth="0.5" strokeDasharray="2,2" />
-          <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="0.8" />
-        </svg>
-      </div>
-
-      {/* Connecting Golden Ley-Lines */}
-      <svg className="absolute inset-0 w-full h-full pointer-events-none z-10 opacity-60">
-        {nodePositions.map((pos, idx) => {
-          if (idx === nodePositions.length - 1) return null;
-          const next = nodePositions[idx + 1];
-          return (
-            <line
-              key={`line-${idx}`}
-              x1={pos.left}
-              y1={pos.top}
-              x2={next.left}
-              y2={next.top}
-              stroke="#aa7c11"
-              strokeWidth="2.5"
-              strokeDasharray="6,4"
-              className="animate-pulse"
-            />
-          );
-        })}
-      </svg>
-
-      {/* Header Banner */}
-      <div className="relative z-20 text-center max-w-2xl my-4 px-4">
-        <div className="inline-flex items-center gap-2 bg-[#fffdf7] border-2 border-[#d4af37] px-4 py-1.5 rounded-full shadow-md mb-2">
-          <Sparkles className="w-4 h-4 text-[#8c3b22]" />
-          <span className="text-xs font-parchment text-[#8c3b22] font-bold tracking-widest uppercase">
-            SACRED OVERWORLD MAP OF ARYAVARTA
-          </span>
-        </div>
-        <h2 className="font-vedic text-3xl sm:text-4xl text-[#8c3b22] font-extrabold drop-shadow-sm">
+      {/* Page Title & Subtitle */}
+      <div className="text-center max-w-2xl mx-auto mb-12">
+        <span className="px-3 py-1 bg-[#8E2800]/10 border border-[#8E2800]/30 text-[#8E2800] text-xs uppercase tracking-widest font-bold rounded-full">
+          Interactive Webtoon Nexus
+        </span>
+        <h1 className="text-3xl sm:text-4xl font-extrabold text-[#2C1810] mt-3 font-serif">
           Tales of the 10 Sacred Isles
-        </h2>
-        <p className="text-sm font-parchment text-[#2a1810] font-medium mt-1 max-w-xl mx-auto">
-          Click any floating temple medallion to unroll the vertical Webtoon comic scroll.
+        </h1>
+        <p className="text-sm text-[#684C32] mt-2 font-serif">
+          Click any floating sanctuary below to open its scroll and alter the epic.
         </p>
       </div>
 
-      {/* Interactive Map Stage (10 Floating Medallions) */}
-      <div className="relative z-20 w-full max-w-5xl h-[620px] my-2 rounded-2xl border-4 border-[#d4af37] bg-[#f5eedb]/80 shadow-2xl overflow-hidden backdrop-blur-sm">
-        
-        {/* Render 10 Floating Medallion Nodes */}
-        {islands.map((island, index) => {
-          const pos = nodePositions[index] || { top: '50%', left: '50%' };
-          const isHovered = hoveredIslandId === island.id;
+      {/* 10 Floating Island Cards Gallery Grid (No Numbered Circles, Real Landscape Cards) */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+        {galleryIslands.map((island) => {
           const isCompleted = completedIslandIds.includes(island.id);
 
           return (
             <div
               key={island.id}
-              style={{ top: pos.top, left: pos.left }}
-              className="absolute -translate-x-1/2 -translate-y-1/2 z-30"
-              onMouseEnter={() => {
-                setHoveredIslandId(island.id);
-                audioEngine.playSoundFx('click');
+              onClick={() => {
+                audioEngine.playSoundFx('gong');
+                onSelectIsland(island);
               }}
-              onMouseLeave={() => setHoveredIslandId(null)}
+              className="group bg-[#FFFDF7] border-2 border-[#D4AF37] rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 cursor-pointer flex flex-col"
             >
-              {/* Floating Medallion Node Button */}
-              <motion.button
-                onClick={() => {
-                  audioEngine.playSoundFx('gong');
-                  onSelectIsland(island);
-                }}
-                animate={{
-                  y: [0, -10, 0],
-                  scale: isHovered ? 1.15 : 1,
-                }}
-                transition={{
-                  y: { duration: 4, repeat: Infinity, ease: 'easeInOut', delay: index * 0.3 },
-                  scale: { duration: 0.2 },
-                }}
-                className={`group relative flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 rounded-full cursor-pointer transition-all ${
-                  isHovered
-                    ? 'bg-gradient-to-br from-[#d4af37] via-[#e25822] to-[#8c3b22] shadow-[0_0_25px_#d4af37]'
-                    : isCompleted
-                    ? 'bg-[#8c3b22] border-4 border-[#d4af37] shadow-md'
-                    : 'bg-[#fffdf7] border-4 border-[#aa7c11] shadow-md'
-                }`}
-              >
-                {/* Medallion Inner Ring */}
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-full border-2 border-[#d4af37] flex items-center justify-center bg-[#f5eedb]">
-                  <span className={`font-heading text-base font-bold ${isHovered || isCompleted ? 'text-[#8c3b22]' : 'text-[#aa7c11]'}`}>
-                    {index + 1}
+              {/* Island Thumbnail Image */}
+              <div className="h-40 w-full relative overflow-hidden bg-amber-100">
+                <img 
+                  src={island.img} 
+                  alt={island.title} 
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).src = "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=600&q=80";
+                  }}
+                />
+                <span className="absolute top-2 left-2 bg-[#8E2800] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                  Island #{island.index}
+                </span>
+                <span className="absolute bottom-2 left-2 bg-black/60 backdrop-blur-xs text-white text-[10px] font-bold px-2 py-0.5 rounded">
+                  {island.parva}
+                </span>
+
+                {isCompleted && (
+                  <span className="absolute top-2 right-2 bg-[#D4AF37] text-[#8E2800] text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                    ✓ Completed
                   </span>
+                )}
+              </div>
+
+              {/* Island Details */}
+              <div className="p-4 flex-1 flex flex-col justify-between">
+                <div>
+                  <h3 className="font-bold text-sm text-[#2C1810] group-hover:text-[#8E2800] transition line-clamp-2">
+                    {island.title}
+                  </h3>
+                  <p className="text-[11px] text-[#684C32] italic mt-1">
+                    {island.era}
+                  </p>
                 </div>
 
-                {/* Status Indicator Badge */}
-                {isCompleted && (
-                  <span className="absolute -top-1 -right-1 w-5 h-5 bg-[#d4af37] text-[#8c3b22] text-[10px] font-bold rounded-full flex items-center justify-center shadow">
-                    ✓
-                  </span>
-                )}
-
-                {/* Pulse Ring on Hover */}
-                {isHovered && (
-                  <span className="absolute inset-0 rounded-full border-2 border-[#8c3b22] animate-ping pointer-events-none" />
-                )}
-              </motion.button>
-
-              {/* Hover Parchment Preview Card */}
-              <AnimatePresence>
-                {isHovered && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 15, scale: 0.95 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
-                    className="absolute bottom-20 left-1/2 -translate-x-1/2 w-64 sm:w-72 bg-[#fffdf7] text-[#2a1810] p-4 rounded-xl border-4 border-[#d4af37] gold-card-shadow z-50 pointer-events-auto"
-                  >
-                    {/* Parva Tag & Era */}
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="bg-[#8c3b22] text-[#fffdf7] text-[10px] font-bold font-ui px-2 py-0.5 rounded uppercase tracking-wider">
-                        {island.parva}
-                      </span>
-                      <span className="text-[10px] font-parchment italic text-[#aa7c11] font-bold">
-                        Isle #{index + 1}
-                      </span>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="font-heading text-base font-bold text-[#8c3b22] leading-tight mb-1">
-                      {island.title}
-                    </h3>
-                    <p className="text-xs font-parchment text-[#2a1810]/80 italic mb-2">
-                      {island.era}
-                    </p>
-
-                    {/* Key Figures */}
-                    <div className="text-[11px] font-parchment border-t border-[#d8c4a0] pt-2 mb-3">
-                      <span className="font-bold text-[#aa7c11]">Key Figures: </span>
-                      {island.keyCharacters.join(', ')}
-                    </div>
-
-                    {/* CTA Button */}
-                    <button
-                      onClick={() => {
-                        audioEngine.playSoundFx('gong');
-                        onSelectIsland(island);
-                      }}
-                      className="w-full py-2 bg-gradient-to-r from-[#aa7c11] via-[#d4af37] to-[#aa7c11] hover:brightness-110 text-[#fffdf7] font-ui font-extrabold text-xs uppercase tracking-widest rounded border border-[#aa7c11] shadow transition-all active:scale-95 cursor-pointer flex items-center justify-center gap-1"
-                    >
-                      <Scroll className="w-3.5 h-3.5" />
-                      <span>Enter the Scroll →</span>
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
+                <div className="mt-4 flex items-center justify-between text-xs font-bold text-[#A06D12]">
+                  <span>Enter Scroll</span>
+                  <span className="group-hover:translate-x-1 transition">➔</span>
+                </div>
+              </div>
             </div>
           );
         })}
-
       </div>
 
-      {/* Footer Info */}
-      <div className="relative z-20 text-center text-xs font-parchment text-[#8c3b22] font-bold mt-2">
-        <span>Chronicles Unlocked: {completedIslandIds.length} / {islands.length}</span>
-      </div>
-
-    </div>
+    </main>
   );
 };
