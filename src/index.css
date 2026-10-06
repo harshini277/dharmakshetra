@@ -3,7 +3,7 @@
 
 @layer base {
   :root {
-    color-scheme: light dark;
+    color-scheme: light;
     --font-vedic: 'Cinzel Decorative', 'Cinzel', serif;
     --font-heading: 'Rozha One', 'Yatra One', serif;
     --font-parchment: 'Eczar', serif;
@@ -13,7 +13,7 @@
   body {
     margin: 0;
     padding: 0;
-    background-color: #17110e;
+    background-color: #fffdf7;
     color: #2a1810;
     font-family: var(--font-parchment), serif;
     overflow-x: hidden;
@@ -36,26 +36,30 @@
   font-family: 'Cinzel', serif;
 }
 
-/* Authentic Ancient Parchment & Palm Leaf Textures */
+/* Bright Warm Royal Vedic Parchment Textures */
+.bg-ivory {
+  background-color: #fffdf7;
+}
+
 .bg-parchment {
-  background-color: #f7eed3;
+  background-color: #f5eedb;
   background-image: 
-    radial-gradient(#ead8b1 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, rgba(216, 196, 160, 0.3), rgba(247, 238, 211, 0.8));
+    radial-gradient(rgba(212, 175, 55, 0.15) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(255, 253, 247, 0.9), rgba(245, 238, 219, 0.95));
   background-size: 20px 20px, 100% 100%;
 }
 
-.bg-parchment-dark {
-  background-color: #241913;
+.bg-parchment-warm {
+  background-color: #ead8b1;
   background-image: 
-    radial-gradient(rgba(212, 175, 55, 0.1) 1.5px, transparent 1.5px),
-    linear-gradient(to bottom, #1d140f, #281d16);
+    radial-gradient(rgba(169, 74, 45, 0.08) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, #f5eedb, #ead8b1);
   background-size: 16px 16px, 100% 100%;
 }
 
 .bg-sandstone {
   background-color: #d8c4a0;
-  background-image: linear-gradient(135deg, #d8c4a0 0%, #c4af88 100%);
+  background-image: linear-gradient(135deg, #f5eedb 0%, #d8c4a0 100%);
 }
 
 .bg-terracotta {
@@ -78,19 +82,19 @@
 
 .gold-border-frame {
   border: 4px solid #d4af37;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3), inset 0 0 10px rgba(170, 124, 17, 0.3);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.4), inset 0 0 10px rgba(170, 124, 17, 0.2);
 }
 
 .gold-card-shadow {
-  box-shadow: 0 8px 24px rgba(42, 24, 16, 0.25), 0 0 12px rgba(212, 175, 55, 0.2);
+  box-shadow: 0 8px 24px rgba(42, 24, 16, 0.15), 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 /* Speech Balloons with Directional Pointer Tails */
 .speech-balloon-cream {
-  background-color: #fffbeb;
+  background-color: #fffdf7;
   border: 2px solid #aa7c11;
   color: #2a1810;
-  box-shadow: 3px 4px 0px #8c3b22;
+  box-shadow: 4px 4px 0px #d4af37;
   position: relative;
   border-radius: 12px;
 }
@@ -132,11 +136,11 @@
 @keyframes pulse-yantra {
   0%, 100% {
     transform: scale(1) rotate(0deg);
-    opacity: 0.2;
+    opacity: 0.15;
   }
   50% {
     transform: scale(1.05) rotate(180deg);
-    opacity: 0.45;
+    opacity: 0.35;
   }
 }
 
@@ -170,10 +174,10 @@
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #17110e;
+  background: #fffdf7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #aa7c11;
+  background: #d4af37;
   border-radius: 5px;
-  border: 2px solid #241913;
+  border: 2px solid #f5eedb;
 }

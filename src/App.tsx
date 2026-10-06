@@ -40,7 +40,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#17110e] text-[#f7eed3] flex flex-col font-parchment relative overflow-x-hidden selection:bg-[#aa7c11] selection:text-[#f7eed3]">
+    <div className="min-h-screen bg-[#fffdf7] text-[#2a1810] flex flex-col font-parchment relative overflow-x-hidden selection:bg-[#d4af37] selection:text-[#fffdf7]">
       
       {/* Top Vedic HUD Header */}
       <VedicHeader
@@ -53,7 +53,7 @@ export function App() {
       />
 
       {/* Main Experience Container */}
-      <main className="flex-1 w-full z-10">
+      <main className="flex-1 w-full z-10 bg-[#fffdf7]">
         {viewMode === 'map' ? (
           <WebtoonOverworldMap
             islands={webtoonIslands}
@@ -70,7 +70,7 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <footer className="w-full py-4 px-6 border-t border-[#aa7c11]/40 bg-[#140e0a] text-center text-xs text-[#d8c4a0] font-ui z-10">
+      <footer className="w-full py-4 px-6 border-t-2 border-[#d4af37] bg-[#f5eedb] text-center text-xs text-[#8c3b22] font-ui font-bold z-10">
         Dharmakshetra: Tales of the 10 Isles • Ancient Vedic Webtoon Comic Game Engine
       </footer>
 
