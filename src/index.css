@@ -1,91 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Bangers&family=Cinzel:wght@700;900&family=Rajdhani:wght@600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@600;800;900&family=Rozha+One&family=Yatra+One&family=Eczar:wght@500;700;800&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    color-scheme: dark;
-    --font-comic: 'Bangers', cursive, system-ui;
-    --font-epic: 'Cinzel', serif;
-    --font-ui: 'Rajdhani', sans-serif;
+    color-scheme: light dark;
+    --font-vedic: 'Cinzel Decorative', 'Cinzel', serif;
+    --font-heading: 'Rozha One', 'Yatra One', serif;
+    --font-parchment: 'Eczar', serif;
+    --font-ui: 'Cinzel', serif;
   }
   
   body {
     margin: 0;
     padding: 0;
-    background-color: #09090d;
-    color: #f3f4f6;
-    font-family: var(--font-ui), system-ui, sans-serif;
+    background-color: #17110e;
+    color: #2a1810;
+    font-family: var(--font-parchment), serif;
     overflow-x: hidden;
   }
 }
 
-.font-comic {
-  font-family: 'Bangers', cursive, system-ui;
-  letter-spacing: 0.05em;
+.font-vedic {
+  font-family: 'Cinzel Decorative', 'Cinzel', serif;
 }
 
-.font-epic {
-  font-family: 'Cinzel', serif;
+.font-heading {
+  font-family: 'Rozha One', 'Yatra One', serif;
+}
+
+.font-parchment {
+  font-family: 'Eczar', serif;
 }
 
 .font-ui {
-  font-family: 'Rajdhani', sans-serif;
+  font-family: 'Cinzel', serif;
 }
 
-/* Halftone Comic Dots Pattern */
-.bg-halftone {
-  background-image: radial-gradient(rgba(245, 158, 11, 0.12) 1.5px, transparent 1.5px);
-  background-size: 14px 14px;
+/* Authentic Ancient Parchment & Palm Leaf Textures */
+.bg-parchment {
+  background-color: #f7eed3;
+  background-image: 
+    radial-gradient(#ead8b1 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, rgba(216, 196, 160, 0.3), rgba(247, 238, 211, 0.8));
+  background-size: 20px 20px, 100% 100%;
 }
 
-.bg-halftone-dark {
-  background-image: radial-gradient(rgba(0, 0, 0, 0.4) 1.5px, transparent 1.5px);
-  background-size: 10px 10px;
+.bg-parchment-dark {
+  background-color: #241913;
+  background-image: 
+    radial-gradient(rgba(212, 175, 55, 0.1) 1.5px, transparent 1.5px),
+    linear-gradient(to bottom, #1d140f, #281d16);
+  background-size: 16px 16px, 100% 100%;
 }
 
-/* Graphic Novel Polygon Panels */
-.clip-panel-left {
-  clip-path: polygon(0 0, 100% 0, 92% 100%, 0% 100%);
+.bg-sandstone {
+  background-color: #d8c4a0;
+  background-image: linear-gradient(135deg, #d8c4a0 0%, #c4af88 100%);
 }
 
-.clip-panel-right {
-  clip-path: polygon(8% 0, 100% 0, 100% 100%, 0% 100%);
+.bg-terracotta {
+  background-color: #a94a2d;
+  background-image: linear-gradient(135deg, #a94a2d 0%, #8c3b22 100%);
 }
 
-.clip-card-angled {
-  clip-path: polygon(0 0, 100% 3%, 97% 100%, 2% 97%);
+/* Gold Foiled & Temple Borders */
+.border-temple-gold {
+  border-color: #d4af37;
 }
 
-.clip-speech-bubble {
+.border-burnished-brass {
+  border-color: #aa7c11;
+}
+
+.border-terracotta-trim {
+  border-color: #a94a2d;
+}
+
+.gold-border-frame {
+  border: 4px solid #d4af37;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3), inset 0 0 10px rgba(170, 124, 17, 0.3);
+}
+
+.gold-card-shadow {
+  box-shadow: 0 8px 24px rgba(42, 24, 16, 0.25), 0 0 12px rgba(212, 175, 55, 0.2);
+}
+
+/* Speech Balloons with Directional Pointer Tails */
+.speech-balloon-cream {
+  background-color: #fffbeb;
+  border: 2px solid #aa7c11;
+  color: #2a1810;
+  box-shadow: 3px 4px 0px #8c3b22;
   position: relative;
-  border-radius: 1rem;
+  border-radius: 12px;
 }
 
-/* Comic Speech Bubble Tail */
-.speech-bubble-tail-left::after {
+.speech-balloon-tail-bottom::after {
   content: '';
   position: absolute;
-  left: 28px;
-  bottom: -14px;
+  left: 32px;
+  bottom: -12px;
   width: 0;
   height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 14px solid #14151e;
-  filter: drop-shadow(0 4px 3px rgba(0,0,0,0.5));
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 12px solid #aa7c11;
 }
 
-.speech-bubble-tail-right::after {
+.speech-balloon-tail-left::after {
   content: '';
   position: absolute;
-  right: 28px;
-  bottom: -14px;
+  left: -12px;
+  top: 24px;
   width: 0;
   height: 0;
-  border-left: 14px solid transparent;
-  border-right: 14px solid transparent;
-  border-top: 14px solid #14151e;
-  filter: drop-shadow(0 4px 3px rgba(0,0,0,0.5));
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid #aa7c11;
 }
 
 /* Animations */
@@ -94,77 +125,55 @@
     transform: translateY(0px) rotate(0deg);
   }
   50% {
-    transform: translateY(-14px) rotate(0.8deg);
+    transform: translateY(-12px) rotate(0.6deg);
   }
 }
 
-@keyframes leyline-glow {
+@keyframes pulse-yantra {
   0%, 100% {
-    stroke-opacity: 0.4;
-    stroke-dashoffset: 0;
+    transform: scale(1) rotate(0deg);
+    opacity: 0.2;
   }
   50% {
-    stroke-opacity: 0.95;
-    stroke-dashoffset: -20;
+    transform: scale(1.05) rotate(180deg);
+    opacity: 0.45;
   }
 }
 
-@keyframes sticker-pop {
-  0% { transform: scale(0) rotate(-15deg); opacity: 0; }
-  60% { transform: scale(1.25) rotate(5deg); opacity: 1; }
-  100% { transform: scale(1) rotate(-5deg); opacity: 1; }
-}
-
-@keyframes comic-slash {
-  0% { transform: translateX(-100%) skewX(-30deg); opacity: 0; }
-  50% { opacity: 1; }
-  100% { transform: translateX(200%) skewX(-30deg); opacity: 0; }
+@keyframes unroll-scroll {
+  0% {
+    max-height: 0px;
+    opacity: 0;
+    transform: scaleY(0.8);
+  }
+  100% {
+    max-height: 2000px;
+    opacity: 1;
+    transform: scaleY(1);
+  }
 }
 
 .animate-float-island {
-  animation: float-island 5s infinite ease-in-out;
+  animation: float-island 4s ease-in-out infinite;
 }
 
-.animate-leyline {
-  stroke-dasharray: 8 4;
-  animation: leyline-glow 3s infinite linear;
+.animate-yantra {
+  animation: pulse-yantra 25s linear infinite;
 }
 
-.animate-sticker {
-  animation: sticker-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-.animate-slash {
-  animation: comic-slash 0.6s ease-out forwards;
-}
-
-/* Stylized Graphic Novel Color Gradients & Shadows */
-.gold-glow {
-  box-shadow: 0 0 25px rgba(245, 158, 11, 0.35), inset 0 0 15px rgba(245, 158, 11, 0.2);
-}
-
-.gold-glow:hover {
-  box-shadow: 0 0 40px rgba(245, 158, 11, 0.6), inset 0 0 25px rgba(245, 158, 11, 0.4);
-}
-
-.crimson-glow {
-  box-shadow: 0 0 25px rgba(220, 38, 38, 0.4), inset 0 0 15px rgba(220, 38, 38, 0.2);
-}
-
-.cyan-glow {
-  box-shadow: 0 0 25px rgba(6, 182, 212, 0.4), inset 0 0 15px rgba(6, 182, 212, 0.2);
+.animate-unroll {
+  animation: unroll-scroll 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #09090d;
+  background: #17110e;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e1b4b;
-  border-radius: 4px;
-  border: 1px solid rgba(245, 158, 11, 0.3);
+  background: #aa7c11;
+  border-radius: 5px;
+  border: 2px solid #241913;
 }
