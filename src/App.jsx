@@ -1,18 +1,18 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
 import { LoreDrawer } from './components/LoreDrawer';
 import { webtoonIslands } from './data/webtoonData';
 
-export function App() {
-  const [activeIslandId, setActiveIslandId] = useState<string | null>(null);
-  const [timelineFeed, setTimelineFeed] = useState<any[]>([]);
-  const [loreIsland, setLoreIsland] = useState<any>(null);
-  const feedEndRef = useRef<HTMLDivElement | null>(null);
+export default function App() {
+  const [activeIslandId, setActiveIslandId] = useState(null);
+  const [timelineFeed, setTimelineFeed] = useState([]);
+  const [loreIsland, setLoreIsland] = useState(null);
+  const feedEndRef = useRef(null);
 
-  const handleLaunchIsland = (id: string) => {
+  const handleLaunchIsland = (id) => {
     setActiveIslandId(id);
-    const island = (STORY_GRAPH as Record<string, any>)[id] || (STORY_GRAPH as Record<string, any>)["island-1"];
+    const island = STORY_GRAPH[id] || STORY_GRAPH["island-1"];
     const root = island.rootStep;
     setTimelineFeed([
       {
@@ -23,9 +23,8 @@ export function App() {
     ]);
   };
 
-  const handlePickChoice = (stepIndex: number, choice: any) => {
-    if (!activeIslandId) return;
-    const island = (STORY_GRAPH as Record<string, any>)[activeIslandId] || (STORY_GRAPH as Record<string, any>)["island-1"];
+  const handlePickChoice = (stepIndex, choice) => {
+    const island = STORY_GRAPH[activeIslandId] || STORY_GRAPH["island-1"];
     const nextNodeData = island.nodes[choice.nextNode];
 
     const updated = [...timelineFeed];
@@ -48,7 +47,7 @@ export function App() {
     }
   }, [timelineFeed]);
 
-  const activeIsland = activeIslandId ? (STORY_GRAPH as Record<string, any>)[activeIslandId] : null;
+  const activeIsland = STORY_GRAPH[activeIslandId];
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C1810] font-serif selection:bg-[#D4AF37] selection:text-white">
@@ -105,7 +104,7 @@ export function App() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {webtoonIslands.map((island: any, index: number) => (
+            {webtoonIslands.map((island, index) => (
               <div
                 key={island.id}
                 className="group bg-[#FFFDF9] border-2 border-[#D4AF37] rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
@@ -115,7 +114,7 @@ export function App() {
                   onClick={() => handleLaunchIsland(island.id)}
                 >
                   <img
-                    src={(ASSETS.scenes as Record<string, string>)[island.sceneKey] || (ASSETS as any).mapBg}
+                    src={(ASSETS.scenes as Record<string, string>)[island.sceneKey] || ASSETS.scenes[island.sceneKey] || ASSETS.mapBg}
                     alt={island.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
@@ -174,14 +173,14 @@ export function App() {
 
           {timelineFeed.map((step, stepIdx) => (
             <div key={stepIdx} className="space-y-8 mb-10 animate-in fade-in duration-500">
-              {step.stepData.panels.map((panel: any, pIdx: number) => (
+              {step.stepData.panels.map((panel, pIdx) => (
                 <div
                   key={pIdx}
                   className="bg-[#FFFDF9] border-2 border-[#D4AF37] rounded-xl overflow-hidden shadow-md"
                 >
                   <div className="relative w-full aspect-video md:h-80 bg-stone-900 overflow-hidden">
                     <img
-                      src={(ASSETS.scenes as Record<string, string>)[panel.bgKey] || panel.bg || (ASSETS as any).mapBg}
+                      src={(ASSETS.scenes as Record<string, string>)[panel.bgKey] || panel.bg || ASSETS.mapBg}
                       alt="Scene"
                       className="w-full h-full object-cover"
                     />
@@ -226,7 +225,7 @@ export function App() {
                   </h3>
 
                   <div className="space-y-3">
-                    {step.stepData.choices.map((choice: any, cIdx: number) => {
+                    {step.stepData.choices.map((choice, cIdx) => {
                       const isChosen = step.selectedChoice?.text === choice.text;
                       const hasChosen = step.selectedChoice !== null;
 
@@ -296,5 +295,3 @@ export function App() {
     </div>
   );
 }
-
-export default App;

@@ -101,7 +101,7 @@ export const WebtoonOverworldMap: React.FC<WebtoonOverworldMapProps> = ({
                 </div>
 
                 <div className="mt-4 flex items-center justify-between text-xs font-bold text-[#A06D12]">
-                  <span>Enter Scroll</span>
+                  <span>Enter Island</span>
                   <span className="group-hover:translate-x-1 transition">➔</span>
                 </div>
               </div>
