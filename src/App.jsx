@@ -1,13 +1,11 @@
 import React, { useState, useRef } from 'react';
 import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
-import { LoreDrawer } from './components/LoreDrawer';
 import { webtoonIslands } from './data/webtoonData';
 
 export default function App() {
   const [activeIslandId, setActiveIslandId] = useState(null);
   const [timelineFeed, setTimelineFeed] = useState([]);
-  const [loreIsland, setLoreIsland] = useState(null);
   const stepRefs = useRef([]);
 
   const handleLaunchIsland = (id) => {
@@ -57,8 +55,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C1810] font-serif selection:bg-[#D4AF37] selection:text-white">
-      <LoreDrawer isOpen={!!loreIsland} island={loreIsland} onClose={() => setLoreIsland(null)} />
-
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#FFFDF9]/95 backdrop-blur-md border-b-2 border-[#D4AF37] px-6 py-3.5 shadow-sm flex items-center justify-between">
         <div className="flex items-center space-x-3">
@@ -74,23 +70,12 @@ export default function App() {
         </div>
 
         {activeIslandId && (
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={() => {
-                const lore = webtoonIslands.find(i => i.id === activeIslandId);
-                setLoreIsland(lore);
-              }}
-              className="px-3 py-1.5 bg-[#FAF2E1] hover:bg-[#FAF0D7] text-[#8E2800] text-xs font-bold rounded border border-[#D4AF37] transition cursor-pointer"
-            >
-              📜 Original Itihasa
-            </button>
-            <button
-              onClick={() => setActiveIslandId(null)}
-              className="px-3.5 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white text-xs font-bold rounded border border-[#D4AF37] shadow transition cursor-pointer"
-            >
-              ← Return to Realm Map
-            </button>
-          </div>
+          <button
+            onClick={() => setActiveIslandId(null)}
+            className="px-3.5 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white text-xs font-bold rounded border border-[#D4AF37] shadow transition cursor-pointer"
+          >
+            ← Return to Realm Map
+          </button>
         )}
       </header>
 
@@ -120,7 +105,7 @@ export default function App() {
                   onClick={() => handleLaunchIsland(island.id)}
                 >
                   <img
-                    src={(ASSETS.scenes as Record<string, string>)[island.sceneKey] || ASSETS.scenes[island.sceneKey] || ASSETS.mapBg}
+                    src={ASSETS.scenes[island.sceneKey] || ASSETS.mapBg}
                     alt={island.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
                   />
@@ -141,18 +126,12 @@ export default function App() {
                       {island.title}
                     </h3>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-between text-xs font-bold">
-                    <button
-                      onClick={() => setLoreIsland(island)}
-                      className="text-[#8E2800] hover:underline cursor-pointer"
-                    >
-                      Lore ➔
-                    </button>
+                  <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-end">
                     <button
                       onClick={() => handleLaunchIsland(island.id)}
-                      className="px-3 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-[11px] shadow transition cursor-pointer"
+                      className="w-full py-2 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-xs font-bold shadow transition text-center cursor-pointer"
                     >
-                      Enter Island
+                      Enter Island ➔
                     </button>
                   </div>
                 </div>
@@ -190,7 +169,7 @@ export default function App() {
                 >
                   <div className="relative w-full aspect-video md:h-80 bg-stone-900 overflow-hidden">
                     <img
-                      src={(ASSETS.scenes as Record<string, string>)[panel.bgKey] || panel.bg || ASSETS.mapBg}
+                      src={ASSETS.scenes[panel.bgKey] || panel.bg || ASSETS.mapBg}
                       alt="Scene"
                       className="w-full h-full object-cover"
                     />
@@ -202,10 +181,10 @@ export default function App() {
                   </div>
 
                   <div className="p-4 md:p-6 bg-[#FAF4E6] flex items-start gap-4 border-t border-[#D4AF37]/50">
-                    {panel.charKey && (ASSETS.characters as Record<string, string>)[panel.charKey] && (
+                    {panel.charKey && ASSETS.characters[panel.charKey] && (
                       <div className="w-16 h-16 md:w-20 md:h-20 shrink-0 rounded-full border-2 border-[#D4AF37] overflow-hidden bg-white shadow-md">
                         <img
-                          src={(ASSETS.characters as Record<string, string>)[panel.charKey]}
+                          src={ASSETS.characters[panel.charKey]}
                           alt={panel.speaker || "Speaker"}
                           className="w-full h-full object-cover object-top"
                         />

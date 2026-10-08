@@ -1,13 +1,11 @@
 import { useState, useRef } from 'react';
 import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
-import { LoreDrawer } from './components/LoreDrawer';
 import { webtoonIslands } from './data/webtoonData';
 
 export function App() {
   const [activeIslandId, setActiveIslandId] = useState<string | null>(null);
   const [timelineFeed, setTimelineFeed] = useState<any[]>([]);
-  const [loreIsland, setLoreIsland] = useState<any>(null);
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleLaunchIsland = (id: string) => {
@@ -58,8 +56,6 @@ export function App() {
 
   return (
     <div className="min-h-screen bg-[#FDFBF7] text-[#2C1810] font-serif selection:bg-[#D4AF37] selection:text-white">
-      <LoreDrawer isOpen={!!loreIsland} island={loreIsland} onClose={() => setLoreIsland(null)} />
-
       {/* Header */}
       <header className="sticky top-0 z-50 bg-[#FFFDF9]/95 backdrop-blur-md border-b-2 border-[#D4AF37] px-6 py-3.5 shadow-sm flex items-center justify-between">
         <div className="flex items-center space-x-3">
@@ -75,23 +71,12 @@ export function App() {
         </div>
 
         {activeIslandId && (
-          <div className="flex items-center space-x-3">
-            <button
-              onClick={() => {
-                const lore = webtoonIslands.find((i: any) => i.id === activeIslandId);
-                setLoreIsland(lore);
-              }}
-              className="px-3 py-1.5 bg-[#FAF2E1] hover:bg-[#FAF0D7] text-[#8E2800] text-xs font-bold rounded border border-[#D4AF37] transition cursor-pointer"
-            >
-              📜 Original Itihasa
-            </button>
-            <button
-              onClick={() => setActiveIslandId(null)}
-              className="px-3.5 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white text-xs font-bold rounded border border-[#D4AF37] shadow transition cursor-pointer"
-            >
-              ← Return to Realm Map
-            </button>
-          </div>
+          <button
+            onClick={() => setActiveIslandId(null)}
+            className="px-3.5 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white text-xs font-bold rounded border border-[#D4AF37] shadow transition cursor-pointer"
+          >
+            ← Return to Realm Map
+          </button>
         )}
       </header>
 
@@ -142,18 +127,12 @@ export function App() {
                       {island.title}
                     </h3>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-between text-xs font-bold">
-                    <button
-                      onClick={() => setLoreIsland(island)}
-                      className="text-[#8E2800] hover:underline cursor-pointer"
-                    >
-                      Lore ➔
-                    </button>
+                  <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-end">
                     <button
                       onClick={() => handleLaunchIsland(island.id)}
-                      className="px-3 py-1.5 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-[11px] shadow transition cursor-pointer"
+                      className="w-full py-2 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-xs font-bold shadow transition text-center cursor-pointer"
                     >
-                      Enter Island
+                      Enter Island ➔
                     </button>
                   </div>
                 </div>
