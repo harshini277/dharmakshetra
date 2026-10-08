@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
 import { LoreDrawer } from './components/LoreDrawer';
@@ -8,7 +8,7 @@ export function App() {
   const [activeIslandId, setActiveIslandId] = useState<string | null>(null);
   const [timelineFeed, setTimelineFeed] = useState<any[]>([]);
   const [loreIsland, setLoreIsland] = useState<any>(null);
-  const feedEndRef = useRef<HTMLDivElement | null>(null);
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const handleLaunchIsland = (id: string) => {
     setActiveIslandId(id);
@@ -32,21 +32,27 @@ export function App() {
     updated[stepIndex].selectedChoice = choice;
 
     if (nextNodeData) {
+      const nextIndex = updated.length;
       updated.push({
         nodeId: choice.nextNode,
         stepData: nextNodeData,
         selectedChoice: null
       });
-    }
 
-    setTimelineFeed(updated);
+      setTimelineFeed(updated);
+
+      setTimeout(() => {
+        if (stepRefs.current[nextIndex]) {
+          stepRefs.current[nextIndex]?.scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        }
+      }, 100);
+    } else {
+      setTimelineFeed(updated);
+    }
   };
-
-  useEffect(() => {
-    if (timelineFeed.length > 1) {
-      feedEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [timelineFeed]);
 
   const activeIsland = activeIslandId ? (STORY_GRAPH as Record<string, any>)[activeIslandId] : null;
 
@@ -72,7 +78,7 @@ export function App() {
           <div className="flex items-center space-x-3">
             <button
               onClick={() => {
-                const lore = webtoonIslands.find(i => i.id === activeIslandId);
+                const lore = webtoonIslands.find((i: any) => i.id === activeIslandId);
                 setLoreIsland(lore);
               }}
               className="px-3 py-1.5 bg-[#FAF2E1] hover:bg-[#FAF0D7] text-[#8E2800] text-xs font-bold rounded border border-[#D4AF37] transition cursor-pointer"
@@ -173,7 +179,11 @@ export function App() {
           </div>
 
           {timelineFeed.map((step, stepIdx) => (
-            <div key={stepIdx} className="space-y-8 mb-10 animate-in fade-in duration-500">
+            <div
+              key={stepIdx}
+              ref={(el) => { stepRefs.current[stepIdx] = el; }}
+              className="space-y-8 mb-10 animate-in fade-in duration-500 scroll-mt-24"
+            >
               {step.stepData.panels.map((panel: any, pIdx: number) => (
                 <div
                   key={pIdx}
@@ -289,8 +299,6 @@ export function App() {
               )}
             </div>
           ))}
-
-          <div ref={feedEndRef} />
         </main>
       )}
     </div>

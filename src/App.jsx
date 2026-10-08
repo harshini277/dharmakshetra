@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
 import { LoreDrawer } from './components/LoreDrawer';
@@ -8,7 +8,7 @@ export default function App() {
   const [activeIslandId, setActiveIslandId] = useState(null);
   const [timelineFeed, setTimelineFeed] = useState([]);
   const [loreIsland, setLoreIsland] = useState(null);
-  const feedEndRef = useRef(null);
+  const stepRefs = useRef([]);
 
   const handleLaunchIsland = (id) => {
     setActiveIslandId(id);
@@ -31,21 +31,27 @@ export default function App() {
     updated[stepIndex].selectedChoice = choice;
 
     if (nextNodeData) {
+      const nextIndex = updated.length;
       updated.push({
         nodeId: choice.nextNode,
         stepData: nextNodeData,
         selectedChoice: null
       });
-    }
 
-    setTimelineFeed(updated);
+      setTimelineFeed(updated);
+
+      setTimeout(() => {
+        if (stepRefs.current[nextIndex]) {
+          stepRefs.current[nextIndex].scrollIntoView({ 
+            behavior: 'smooth', 
+            block: 'start' 
+          });
+        }
+      }, 100);
+    } else {
+      setTimelineFeed(updated);
+    }
   };
-
-  useEffect(() => {
-    if (timelineFeed.length > 1) {
-      feedEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-    }
-  }, [timelineFeed]);
 
   const activeIsland = STORY_GRAPH[activeIslandId];
 
@@ -172,7 +178,11 @@ export default function App() {
           </div>
 
           {timelineFeed.map((step, stepIdx) => (
-            <div key={stepIdx} className="space-y-8 mb-10 animate-in fade-in duration-500">
+            <div
+              key={stepIdx}
+              ref={(el) => { stepRefs.current[stepIdx] = el; }}
+              className="space-y-8 mb-10 animate-in fade-in duration-500 scroll-mt-24"
+            >
               {step.stepData.panels.map((panel, pIdx) => (
                 <div
                   key={pIdx}
@@ -288,8 +298,6 @@ export default function App() {
               )}
             </div>
           ))}
-
-          <div ref={feedEndRef} />
         </main>
       )}
     </div>
