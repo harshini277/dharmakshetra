@@ -265,9 +265,6 @@ export function App() {
 
               {step.stepData.isEnding && (
                 <div className="my-10 p-6 md:p-8 bg-[#FAF2E1] border-2 border-[#D4AF37] rounded-xl text-center shadow-xl">
-                  <span className="text-[10px] font-bold uppercase tracking-wider bg-[#8E2800] text-white px-3.5 py-1 rounded-full inline-block mb-3">
-                    Divergence: {step.stepData.divergence}% From Itihasa
-                  </span>
                   <h4 className="text-xl md:text-2xl font-bold text-[#2C1810]">
                     {step.stepData.verdictTitle}
                   </h4>

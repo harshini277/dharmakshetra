@@ -47,7 +47,7 @@ export const EndingModal: React.FC<EndingModalProps> = ({
                 ? 'bg-amber-500/20 text-amber-300 border-amber-500/40'
                 : 'bg-purple-500/20 text-purple-300 border-purple-500/40'
             }`}>
-              {ending.isCanonical ? 'Canonical Vyasa Lore (0% Div)' : `Fractured Timeline (${ending.divergencePercentage}% Div)`}
+              {ending.isCanonical ? 'Canonical Vyasa Lore' : 'Fractured Timeline'}
             </span>
           </div>
 

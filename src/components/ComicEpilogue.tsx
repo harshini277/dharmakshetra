@@ -49,35 +49,6 @@ export const ComicEpilogue: React.FC<ComicEpilogueProps> = ({
             
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent pointer-events-none" />
 
-            {/* Timeline Divergence Radial Meter Badge Overlay */}
-            <div className="absolute top-4 right-4 bg-slate-950/90 border-3 border-amber-400 p-3 rounded-2xl flex items-center gap-3 shadow-xl backdrop-blur-md">
-              <div className="relative w-12 h-12 flex items-center justify-center">
-                <svg className="w-12 h-12 -rotate-90">
-                  <circle cx="24" cy="24" r="20" fill="none" stroke="#1e293b" strokeWidth="4" />
-                  <circle
-                    cx="24"
-                    cy="24"
-                    r="20"
-                    fill="none"
-                    stroke={choice.divergence === 0 ? "#f59e0b" : choice.divergence < 60 ? "#06b6d4" : "#e11d48"}
-                    strokeWidth="4"
-                    strokeDasharray="125"
-                    strokeDashoffset={125 - (125 * choice.divergence) / 100}
-                    className="transition-all duration-1000"
-                  />
-                </svg>
-                <span className="absolute font-mono font-bold text-xs text-amber-300">
-                  {choice.divergence}%
-                </span>
-              </div>
-              <div>
-                <div className="text-[10px] font-mono text-slate-400 uppercase">Divergence Radial Meter</div>
-                <div className="text-xs font-comic text-amber-200">
-                  {choice.divergence === 0 ? 'Pure Canon Lore' : choice.divergence < 60 ? 'Subversive Shift' : 'Radical Multiverse Fracture'}
-                </div>
-              </div>
-            </div>
-
             {/* Bottom Overlay Label */}
             <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
               <div className="bg-slate-950/90 border-2 border-black px-3 py-1 rounded-xl">

@@ -197,12 +197,6 @@ export const WebtoonComicStage: React.FC<WebtoonComicStageProps> = ({
                   {island.epilogue.summary}
                 </p>
 
-                {/* Cumulative Divergence Metric */}
-                <div className="w-full max-w-md bg-[#FFFDF7] p-4 rounded-xl border-2 border-[#D4AF37] my-4 flex items-center justify-between shadow-sm">
-                  <span className="text-xs font-bold text-[#8E2800] uppercase">Cumulative Timeline Divergence</span>
-                  <span className="text-base font-extrabold text-[#A06D12]">{currentDivergence}%</span>
-                </div>
-
                 {/* Actions */}
                 <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md mt-2">
                   <button
