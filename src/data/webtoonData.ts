@@ -42,7 +42,7 @@ export interface WebtoonIsland {
 export const webtoonIslands: WebtoonIsland[] = [
   {
     id: "island-1",
-    title: "The Cursed Hunt of Shatashringa",
+    title: "The Cursed Hunt",
     parva: "Adi Parva",
     sceneKey: "forest",
     coverImg: "/assets/bg_forest.jpg",
@@ -186,9 +186,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-2",
-    title: "The Arena of Prodigies",
-    parva: "Adi Parva",
-    sceneKey: "arena",
+    title: "The Hall of Loaded Dice",
+    parva: "Sabha Parva",
+    sceneKey: "dice",
     coverImg: "/assets/bg_arena.jpg",
     era: "Youth of the Princes",
     keyCharacters: ["Guru Drona", "Arjuna", "Karna", "Duryodhana"],
@@ -324,9 +324,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-3",
-    title: "The House of Lac at Varanavata",
+    title: "The Cursed Hunt",
     parva: "Adi Parva",
-    sceneKey: "lac",
+    sceneKey: "forest",
     coverImg: "/assets/bg_lac_palace.jpg",
     era: "The Assassination Plot",
     keyCharacters: ["Yudhishthira", "Bhima", "Purochana", "Vidura"],
@@ -450,9 +450,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-4",
-    title: "The Swayamvara of Panchala",
+    title: "The House of Lac",
     parva: "Adi Parva",
-    sceneKey: "swayamvara",
+    sceneKey: "lac",
     coverImg: "/assets/bg_swayamvara.jpg",
     era: "The Alliance of Fire",
     keyCharacters: ["Draupadi", "Arjuna", "Queen Kunti", "King Drupada"],
@@ -571,9 +571,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-5",
-    title: "The Partition of Khandavaprastha",
-    parva: "Sabha Parva",
-    sceneKey: "khandava",
+    title: "Draupadi's Swayamvara",
+    parva: "Adi Parva",
+    sceneKey: "swayamvara",
     coverImg: "/assets/bg_khandava.jpg",
     era: "Building the Golden Capital",
     keyCharacters: ["Arjuna", "Lord Krishna", "Agni", "Mayasura"],
@@ -691,9 +691,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-6",
-    title: "The Hall of Loaded Dice",
+    title: "The Khandava Partition",
     parva: "Sabha Parva",
-    sceneKey: "dice",
+    sceneKey: "khandava",
     coverImg: "/assets/bg_dice_hall.jpg",
     era: "The Great Dishonor",
     keyCharacters: ["Shakuni", "Yudhishthira", "Draupadi", "Lord Krishna"],
@@ -944,7 +944,7 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-8",
-    title: "The Shadow in Matsya Realm",
+    title: "The Shadow in Matsya",
     parva: "Virata Parva",
     sceneKey: "matsya",
     coverImg: "/assets/bg_matsya.jpg",
@@ -1197,7 +1197,7 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-10",
-    title: "Fall of the Guru at Kurukshetra",
+    title: "The Fallen Guru",
     parva: "Drona Parva",
     sceneKey: "kurukshetra",
     coverImg: "/assets/bg_kurukshetra.jpg",

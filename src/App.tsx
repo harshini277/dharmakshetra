@@ -96,48 +96,55 @@ export function App() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
-            {webtoonIslands.map((island: any, index: number) => (
-              <div
-                key={island.id}
-                className="group bg-[#FFFDF9] border-2 border-[#D4AF37] rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
-              >
-                <div 
-                  className="h-36 w-full relative overflow-hidden bg-stone-900 cursor-pointer"
-                  onClick={() => handleLaunchIsland(island.id)}
-                >
-                  <img
-                    src={(ASSETS.scenes as Record<string, string>)[island.sceneKey] || (ASSETS as any).mapBg}
-                    alt={island.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                  />
-                  <span className="absolute top-2 left-2 bg-[#8E2800] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
-                    #{index + 1}
-                  </span>
-                  <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold bg-black/60 px-2 py-0.5 rounded backdrop-blur-xs">
-                    {island.parva}
-                  </span>
-                </div>
+            {webtoonIslands.map((island: any, index: number) => {
+              const story = (STORY_GRAPH as Record<string, any>)[island.id];
+              const displayTitle = story?.title || island.title;
+              const displayParva = story?.parva || island.parva;
+              const sceneKey = island.sceneKey;
 
-                <div className="p-4 flex-1 flex flex-col justify-between bg-[#FAF4E6]">
-                  <div>
-                    <h3 
-                      onClick={() => handleLaunchIsland(island.id)}
-                      className="font-bold text-[#2C1810] text-sm group-hover:text-[#8E2800] transition cursor-pointer line-clamp-2"
-                    >
-                      {island.title}
-                    </h3>
+              return (
+                <div
+                  key={island.id}
+                  className="group bg-[#FFFDF9] border-2 border-[#D4AF37] rounded-xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
+                >
+                  <div 
+                    className="h-36 w-full relative overflow-hidden bg-stone-900 cursor-pointer"
+                    onClick={() => handleLaunchIsland(island.id)}
+                  >
+                    <img
+                      src={(ASSETS.scenes as Record<string, string>)[sceneKey] || (ASSETS as any).mapBg}
+                      alt={displayTitle}
+                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                    />
+                    <span className="absolute top-2 left-2 bg-[#8E2800] text-white text-[10px] font-bold px-2 py-0.5 rounded shadow">
+                      #{index + 1}
+                    </span>
+                    <span className="absolute bottom-2 left-2 text-white text-[10px] font-bold bg-black/60 px-2 py-0.5 rounded backdrop-blur-xs">
+                      {displayParva}
+                    </span>
                   </div>
-                  <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-end">
-                    <button
-                      onClick={() => handleLaunchIsland(island.id)}
-                      className="w-full py-2 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-xs font-bold shadow transition text-center cursor-pointer"
-                    >
-                      Enter Island ➔
-                    </button>
+
+                  <div className="p-4 flex-1 flex flex-col justify-between bg-[#FAF4E6]">
+                    <div>
+                      <h3 
+                        onClick={() => handleLaunchIsland(island.id)}
+                        className="font-bold text-[#2C1810] text-sm group-hover:text-[#8E2800] transition cursor-pointer line-clamp-2"
+                      >
+                        {displayTitle}
+                      </h3>
+                    </div>
+                    <div className="mt-4 pt-3 border-t border-[#D4AF37]/40 flex items-center justify-end">
+                      <button
+                        onClick={() => handleLaunchIsland(island.id)}
+                        className="w-full py-2 bg-[#8E2800] hover:bg-[#6D1F00] text-white rounded text-xs font-bold shadow transition text-center cursor-pointer"
+                      >
+                        Enter Island ➔
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </main>
       )}
