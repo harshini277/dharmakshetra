@@ -79,19 +79,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "1_1A",
-            label: "Renounce the Crown for Forest Penance (Canonical Path)",
+            label: "Renounce the Crown for Forest Penance",
             type: "canon",
             divergence: 0
           },
           {
             id: "1_1B",
-            label: "Remain Emperor & Seek Sages' Ritual Solution (Subversive)",
+            label: "Remain Emperor & Seek Sages' Ritual Solution",
             type: "subversive",
             divergence: 40
           },
           {
             id: "1_1C",
-            label: "Abdicate Entirely to Dhritarashtra Immediately (Radical)",
+            label: "Abdicate Entirely to Dhritarashtra Immediately",
             type: "radical",
             divergence: 80
           }
@@ -120,19 +120,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "1_2A",
-            label: "Invoke Dharma, Vayu, and Indra (Canonical Triad)",
+            label: "Invoke Dharma, Vayu, and Indra",
             type: "canon",
             divergence: 0
           },
           {
             id: "1_2B",
-            label: "Invoke Surya First to Reveal Karna as Eldest Brother (Subversive)",
+            label: "Invoke Surya First to Reveal Karna as Eldest Brother",
             type: "subversive",
             divergence: 55
           },
           {
             id: "1_2C",
-            label: "Share the Mantra with Madri & Hastinapur Queens (Radical)",
+            label: "Share the Mantra with Madri & Hastinapur Queens",
             type: "radical",
             divergence: 85
           }
@@ -160,19 +160,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "1_3A",
-            label: "Pandu Succumbs to the Curse & Dies in Madri's Arms (Canonical)",
+            label: "Pandu Succumbs to the Curse & Dies in Madri's Arms",
             type: "canon",
             divergence: 0
           },
           {
             id: "1_3B",
-            label: "Kunti Intervenes in Time to Restrain Pandu (Subversive)",
+            label: "Kunti Intervenes in Time to Restrain Pandu",
             type: "subversive",
             divergence: 60
           },
           {
             id: "1_3C",
-            label: "Pandu Overcomes Curse via Yogic Transmutation (Radical)",
+            label: "Pandu Overcomes Curse via Yogic Transmutation",
             type: "radical",
             divergence: 90
           }
@@ -223,19 +223,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "2_1A",
-            label: "Accept Duryodhana's Crown of Anga (Canonical Path)",
+            label: "Accept Duryodhana's Crown of Anga",
             type: "canon",
             divergence: 0
           },
           {
             id: "2_1B",
-            label: "Demonstrate Divine Astras Without Royal Title (Subversive)",
+            label: "Demonstrate Divine Astras Without Royal Title",
             type: "subversive",
             divergence: 45
           },
           {
             id: "2_1C",
-            label: "Challenge Drona Directly to Single Combat (Radical)",
+            label: "Challenge Drona Directly to Single Combat",
             type: "radical",
             divergence: 85
           }
@@ -264,19 +264,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "2_2A",
-            label: "Hold Tongue in Dignified Silence (Canonical Path)",
+            label: "Hold Tongue in Dignified Silence",
             type: "canon",
             divergence: 0
           },
           {
             id: "2_2B",
-            label: "Challenge Bhima to Mace Combat on the Spot (Subversive)",
+            label: "Challenge Bhima to Mace Combat on the Spot",
             type: "subversive",
             divergence: 50
           },
           {
             id: "2_2C",
-            label: "Reveal Kavacha and Kundala Armour Solar Glow (Radical)",
+            label: "Reveal Kavacha and Kundala Armour Solar Glow",
             type: "radical",
             divergence: 88
           }
@@ -298,19 +298,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "2_3A",
-            label: "Eternal Lifelong Oath Between Karna & Duryodhana (Canonical)",
+            label: "Eternal Lifelong Oath Between Karna & Duryodhana",
             type: "canon",
             divergence: 0
           },
           {
             id: "2_3B",
-            label: "Bhishma Mediates Neutral Sovereign Role for Karna (Subversive)",
+            label: "Bhishma Mediates Neutral Sovereign Role for Karna",
             type: "subversive",
             divergence: 60
           },
           {
             id: "2_3C",
-            label: "Kunti Confesses Truth of Karna's Birth in Secret (Radical)",
+            label: "Kunti Confesses Truth of Karna's Birth in Secret",
             type: "radical",
             divergence: 92
           }
@@ -352,19 +352,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "3_1A",
-            label: "Secretly Dig an Underground Escape Tunnel (Canonical Path)",
+            label: "Secretly Dig an Underground Escape Tunnel",
             type: "canon",
             divergence: 0
           },
           {
             id: "3_1B",
-            label: "Confront & Arrest Architect Purochana Publicly (Subversive)",
+            label: "Confront & Arrest Architect Purochana Publicly",
             type: "subversive",
             divergence: 50
           },
           {
             id: "3_1C",
-            label: "Set Fire to the Palace First & March Back (Radical)",
+            label: "Set Fire to the Palace First & March Back",
             type: "radical",
             divergence: 85
           }
@@ -392,19 +392,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "3_2A",
-            label: "Bhima Smashes Solid Rock Walls with Bare Fists (Canonical)",
+            label: "Bhima Smashes Solid Rock Walls with Bare Fists",
             type: "canon",
             divergence: 0
           },
           {
             id: "3_2B",
-            label: "Arjuna Uses Varunastra to Extinguish Flame Path (Subversive)",
+            label: "Arjuna Uses Varunastra to Extinguish Flame Path",
             type: "subversive",
             divergence: 45
           },
           {
             id: "3_2C",
-            label: "Bhima Carries Family Over Flaming Roof in Sky Leap (Radical)",
+            label: "Bhima Carries Family Over Flaming Roof in Sky Leap",
             type: "radical",
             divergence: 80
           }
@@ -424,19 +424,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "3_3A",
-            label: "Maintain Brahmin Disguise & Travel to Panchala (Canonical)",
+            label: "Maintain Brahmin Disguise & Travel to Panchala",
             type: "canon",
             divergence: 0
           },
           {
             id: "3_3B",
-            label: "Send Secret Messenger to Bhishma Revealing Survival (Subversive)",
+            label: "Send Secret Messenger to Bhishma Revealing Survival",
             type: "subversive",
             divergence: 55
           },
           {
             id: "3_3C",
-            label: "Storm Hastinapur Court Carrying Charred Lac Beams (Radical)",
+            label: "Storm Hastinapur Court Carrying Charred Lac Beams",
             type: "radical",
             divergence: 90
           }
@@ -450,9 +450,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-4",
-    title: "The House of Lac",
+    title: "Draupadi's Swayamvara",
     parva: "Adi Parva",
-    sceneKey: "lac",
+    sceneKey: "swayamvara",
     coverImg: "/assets/bg_swayamvara.jpg",
     era: "The Alliance of Fire",
     keyCharacters: ["Draupadi", "Arjuna", "Queen Kunti", "King Drupada"],
@@ -479,19 +479,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "4_1A",
-            label: "Bhima & Arjuna Fight Off Kings with Tree Trunks & Bow (Canonical)",
+            label: "Bhima & Arjuna Fight Off Kings with Tree Trunks & Bow",
             type: "canon",
             divergence: 0
           },
           {
             id: "4_1B",
-            label: "Krishna Intervenes & Enforces Swayamvara Law (Subversive)",
+            label: "Krishna Intervenes & Enforces Swayamvara Law",
             type: "subversive",
             divergence: 40
           },
           {
             id: "4_1C",
-            label: "Arjuna Reveals True Pandava Prince Identity Immediately (Radical)",
+            label: "Arjuna Reveals True Pandava Prince Identity Immediately",
             type: "radical",
             divergence: 80
           }
@@ -513,19 +513,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "4_2A",
-            label: "Honor Word via Five-Fold Marriage to All Brothers (Canonical)",
+            label: "Honor Word via Five-Fold Marriage to All Brothers",
             type: "canon",
             divergence: 0
           },
           {
             id: "4_2B",
-            label: "Clarify Draupadi Weds Arjuna Alone with Vyasa Sanction (Subversive)",
+            label: "Clarify Draupadi Weds Arjuna Alone with Vyasa Sanction",
             type: "subversive",
             divergence: 60
           },
           {
             id: "4_2C",
-            label: "Draupadi Assumes Independent Regency of Panchala (Radical)",
+            label: "Draupadi Assumes Independent Regency of Panchala",
             type: "radical",
             divergence: 90
           }
@@ -545,19 +545,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "4_3A",
-            label: "Demand Half the Kingdom Peacefully via Dhritarashtra (Canonical)",
+            label: "Demand Half the Kingdom Peacefully via Dhritarashtra",
             type: "canon",
             divergence: 0
           },
           {
             id: "4_3B",
-            label: "Demand Immediate Coronation of Yudhishthira (Subversive)",
+            label: "Demand Immediate Coronation of Yudhishthira",
             type: "subversive",
             divergence: 55
           },
           {
             id: "4_3C",
-            label: "Form Triple Coalition with Yadavas & March on Capital (Radical)",
+            label: "Form Triple Coalition with Yadavas & March on Capital",
             type: "radical",
             divergence: 88
           }
@@ -571,9 +571,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-5",
-    title: "Draupadi's Swayamvara",
+    title: "The Khandava Partition",
     parva: "Adi Parva",
-    sceneKey: "swayamvara",
+    sceneKey: "khandava",
     coverImg: "/assets/bg_khandava.jpg",
     era: "Building the Golden Capital",
     keyCharacters: ["Arjuna", "Lord Krishna", "Agni", "Mayasura"],
@@ -599,19 +599,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "5_1A",
-            label: "Burn Khandava with Divine Arrow Ceiling (Canonical Path)",
+            label: "Burn Khandava with Divine Arrow Ceiling",
             type: "canon",
             divergence: 0
           },
           {
             id: "5_1B",
-            label: "Negotiate Sanctuary Pact with Takshaka Nagas (Subversive)",
+            label: "Negotiate Sanctuary Pact with Takshaka Nagas",
             type: "subversive",
             divergence: 50
           },
           {
             id: "5_1C",
-            label: "Refuse Agni & Build Eco-Sanctuary Capital (Radical)",
+            label: "Refuse Agni & Build Eco-Sanctuary Capital",
             type: "radical",
             divergence: 85
           }
@@ -633,19 +633,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "5_2A",
-            label: "Construct Mayasabha Hall of Illusion Pools (Canonical)",
+            label: "Construct Mayasabha Hall of Illusion Pools",
             type: "canon",
             divergence: 0
           },
           {
             id: "5_2B",
-            label: "Construct Impregnable Iron Fortress Defense Grid (Subversive)",
+            label: "Construct Impregnable Iron Fortress Defense Grid",
             type: "subversive",
             divergence: 45
           },
           {
             id: "5_2C",
-            label: "Construct Subterranean Vaults & Floating Towers (Radical)",
+            label: "Construct Subterranean Vaults & Floating Towers",
             type: "radical",
             divergence: 80
           }
@@ -665,19 +665,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "5_3A",
-            label: "Krishna Decapitates Shishupala with Sudarshana Chakra (Canonical)",
+            label: "Krishna Decapitates Shishupala with Sudarshana Chakra",
             type: "canon",
             divergence: 0
           },
           {
             id: "5_3B",
-            label: "Yudhishthira Banishes Shishupala Without Bloodshed (Subversive)",
+            label: "Yudhishthira Banishes Shishupala Without Bloodshed",
             type: "subversive",
             divergence: 50
           },
           {
             id: "5_3C",
-            label: "Bhima Challenges Shishupala to Single Mace Duel (Radical)",
+            label: "Bhima Challenges Shishupala to Single Mace Duel",
             type: "radical",
             divergence: 85
           }
@@ -691,9 +691,9 @@ export const webtoonIslands: WebtoonIsland[] = [
   },
   {
     id: "island-6",
-    title: "The Khandava Partition",
+    title: "The Hall of Loaded Dice",
     parva: "Sabha Parva",
-    sceneKey: "khandava",
+    sceneKey: "dice",
     coverImg: "/assets/bg_dice_hall.jpg",
     era: "The Great Dishonor",
     keyCharacters: ["Shakuni", "Yudhishthira", "Draupadi", "Lord Krishna"],
@@ -728,19 +728,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "6_1A",
-            label: "Accept the Dicing Challenge (Canonical Path)",
+            label: "Accept the Dicing Challenge",
             type: "canon",
             divergence: 0
           },
           {
             id: "6_1B",
-            label: "Vidura Invokes Royal Veto to Cancel Game (Subversive)",
+            label: "Vidura Invokes Royal Veto to Cancel Game",
             type: "subversive",
             divergence: 60
           },
           {
             id: "6_1C",
-            label: "Field Krishna to Roll Dice for Indraprastha (Radical)",
+            label: "Field Krishna to Roll Dice for Indraprastha",
             type: "radical",
             divergence: 80
           }
@@ -762,19 +762,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "6_2A",
-            label: "Ask Dhritarashtra Court Legal Question on Ownership (Canonical)",
+            label: "Ask Dhritarashtra Court Legal Question on Ownership",
             type: "canon",
             divergence: 0
           },
           {
             id: "6_2B",
-            label: "Bhima Breaks Vow & Attacks Dushasana Immediately (Subversive)",
+            label: "Bhima Breaks Vow & Attacks Dushasana Immediately",
             type: "subversive",
             divergence: 55
           },
           {
             id: "6_2C",
-            label: "Draupadi Invokes Divine Cosmic Aura Publicly (Radical)",
+            label: "Draupadi Invokes Divine Cosmic Aura Publicly",
             type: "radical",
             divergence: 88
           }
@@ -796,19 +796,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "6_3A",
-            label: "12-Year Wilderness Exile + 1 Year Incognito Pact (Canonical)",
+            label: "12-Year Wilderness Exile + 1 Year Incognito Pact",
             type: "canon",
             divergence: 0
           },
           {
             id: "6_3B",
-            label: "Dhritarashtra Returns Kingdom & Mandates Peace (Subversive)",
+            label: "Dhritarashtra Returns Kingdom & Mandates Peace",
             type: "subversive",
             divergence: 65
           },
           {
             id: "6_3C",
-            label: "Pandavas Declare Instant Pre-emptive War (Radical)",
+            label: "Pandavas Declare Instant Pre-emptive War",
             type: "radical",
             divergence: 90
           }
@@ -850,19 +850,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "7_1A",
-            label: "Endure 12-Year Exile Oath (Canonical Path)",
+            label: "Endure 12-Year Exile Oath",
             type: "canon",
             divergence: 0
           },
           {
             id: "7_1B",
-            label: "Arjuna Travels to Heavens Early for Pashupatastra (Subversive)",
+            label: "Arjuna Travels to Heavens Early for Pashupatastra",
             type: "subversive",
             divergence: 50
           },
           {
             id: "7_1C",
-            label: "Form Coalition with Panchala & March on Capital (Radical)",
+            label: "Form Coalition with Panchala & March on Capital",
             type: "radical",
             divergence: 85
           }
@@ -884,19 +884,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "7_2A",
-            label: "Wrestle Shiva Kirata in Humble Single Combat (Canonical)",
+            label: "Wrestle Shiva Kirata in Humble Single Combat",
             type: "canon",
             divergence: 0
           },
           {
             id: "7_2B",
-            label: "Recognize Shiva Instantly & Offer Devotional Puja (Subversive)",
+            label: "Recognize Shiva Instantly & Offer Devotional Puja",
             type: "subversive",
             divergence: 45
           },
           {
             id: "7_2C",
-            label: "Unleash Full Gandiva Astra Barrage in Combat (Radical)",
+            label: "Unleash Full Gandiva Astra Barrage in Combat",
             type: "radical",
             divergence: 80
           }
@@ -918,19 +918,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "7_3A",
-            label: "Choose Nakula to Honor Stepmother Madri (Canonical)",
+            label: "Choose Nakula to Honor Stepmother Madri",
             type: "canon",
             divergence: 0
           },
           {
             id: "7_3B",
-            label: "Choose Bhima for Invincible Battle Strength (Subversive)",
+            label: "Choose Bhima for Invincible Battle Strength",
             type: "subversive",
             divergence: 50
           },
           {
             id: "7_3C",
-            label: "Choose Arjuna to Preserve Supreme Archery (Radical)",
+            label: "Choose Arjuna to Preserve Supreme Archery",
             type: "radical",
             divergence: 80
           }
@@ -972,19 +972,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "8_1A",
-            label: "Lure Kichaka to Dark Music Hall for Bhima (Canonical Path)",
+            label: "Lure Kichaka to Dark Music Hall for Bhima",
             type: "canon",
             divergence: 0
           },
           {
             id: "8_1B",
-            label: "Expose Pandava Identity & Claim Virata Protection (Subversive)",
+            label: "Expose Pandava Identity & Claim Virata Protection",
             type: "subversive",
             divergence: 50
           },
           {
             id: "8_1C",
-            label: "Draupadi Invokes Invisible Gandharva Strike (Radical)",
+            label: "Draupadi Invokes Invisible Gandharva Strike",
             type: "radical",
             divergence: 85
           }
@@ -1007,19 +1007,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "8_2A",
-            label: "Arjuna Disguised as Brihannala Leads Uttara (Canonical)",
+            label: "Arjuna Disguised as Brihannala Leads Uttara",
             type: "canon",
             divergence: 0
           },
           {
             id: "8_2B",
-            label: "Bhima & Yudhishthira Lead Matsya Army Openly (Subversive)",
+            label: "Bhima & Yudhishthira Lead Matsya Army Openly",
             type: "subversive",
             divergence: 45
           },
           {
             id: "8_2C",
-            label: "All Five Pandavas Reveal Full Celestial Armor Early (Radical)",
+            label: "All Five Pandavas Reveal Full Celestial Armor Early",
             type: "radical",
             divergence: 80
           }
@@ -1041,19 +1041,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "8_3A",
-            label: "Bhishma Calculates Lunar Intercalary Months Proving Oath Fulfilled (Canonical)",
+            label: "Bhishma Calculates Lunar Intercalary Months Proving Oath Fulfilled",
             type: "canon",
             divergence: 0
           },
           {
             id: "8_3B",
-            label: "Virata & Drupada Declare Instant War on Kauravas (Subversive)",
+            label: "Virata & Drupada Declare Instant War on Kauravas",
             type: "subversive",
             divergence: 55
           },
           {
             id: "8_3C",
-            label: "Krishna Arbitrates Immediate Restitution of Indraprastha (Radical)",
+            label: "Krishna Arbitrates Immediate Restitution of Indraprastha",
             type: "radical",
             divergence: 90
           }
@@ -1103,19 +1103,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "9_1A",
-            label: "Arjuna Chooses Unarmed Krishna as Charioteer (Canonical)",
+            label: "Arjuna Chooses Unarmed Krishna as Charioteer",
             type: "canon",
             divergence: 0
           },
           {
             id: "9_1B",
-            label: "Duryodhana Demands Neutrality for Both Krishna & Army (Subversive)",
+            label: "Duryodhana Demands Neutrality for Both Krishna & Army",
             type: "subversive",
             divergence: 55
           },
           {
             id: "9_1C",
-            label: "Krishna Enforces Yadava Arms Embargo on Both Sides (Radical)",
+            label: "Krishna Enforces Yadava Arms Embargo on Both Sides",
             type: "radical",
             divergence: 85
           }
@@ -1137,19 +1137,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "9_2A",
-            label: "Reveal Cosmic Vishwaroopa Form in Hastinapur Assembly (Canonical)",
+            label: "Reveal Cosmic Vishwaroopa Form in Hastinapur Assembly",
             type: "canon",
             divergence: 0
           },
           {
             id: "9_2B",
-            label: "Balarama Convenes Emergency Kings' Arbitration Council (Subversive)",
+            label: "Balarama Convenes Emergency Kings' Arbitration Council",
             type: "subversive",
             divergence: 50
           },
           {
             id: "9_2C",
-            label: "Krishna Arrests Duryodhana & Shakuni Instantly (Radical)",
+            label: "Krishna Arrests Duryodhana & Shakuni Instantly",
             type: "radical",
             divergence: 92
           }
@@ -1171,19 +1171,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "9_3A",
-            label: "Refuse Crown to Remain Loyal to Duryodhana (Canonical)",
+            label: "Refuse Crown to Remain Loyal to Duryodhana",
             type: "canon",
             divergence: 0
           },
           {
             id: "9_3B",
-            label: "Accept Lineage & Assume Neutral Mediation Role (Subversive)",
+            label: "Accept Lineage & Assume Neutral Mediation Role",
             type: "subversive",
             divergence: 65
           },
           {
             id: "9_3C",
-            label: "Accept Crown & Force Immediate Kaurava Surrender (Radical)",
+            label: "Accept Crown & Force Immediate Kaurava Surrender",
             type: "radical",
             divergence: 95
           }
@@ -1225,19 +1225,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "10_1A",
-            label: "Speak Half-Truth: 'Ashwatthama is Dead... Gaja Iti' (Canonical)",
+            label: "Speak Half-Truth: 'Ashwatthama is Dead... Gaja Iti'",
             type: "canon",
             divergence: 0
           },
           {
             id: "10_1B",
-            label: "Refuse to Lie & Challenge Drona in Open Combat (Subversive)",
+            label: "Refuse to Lie & Challenge Drona in Open Combat",
             type: "subversive",
             divergence: 55
           },
           {
             id: "10_1C",
-            label: "Arjuna Disarms Drona via Pure Archery Mastery (Radical)",
+            label: "Arjuna Disarms Drona via Pure Archery Mastery",
             type: "radical",
             divergence: 88
           }
@@ -1260,19 +1260,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "10_2A",
-            label: "Dhrishtadyumna Beheads Drona in Yogic Trance (Canonical)",
+            label: "Dhrishtadyumna Beheads Drona in Yogic Trance",
             type: "canon",
             divergence: 0
           },
           {
             id: "10_2B",
-            label: "Arjuna Intervenes to Prevent Unarmed Beheading (Subversive)",
+            label: "Arjuna Intervenes to Prevent Unarmed Beheading",
             type: "subversive",
             divergence: 50
           },
           {
             id: "10_2C",
-            label: "Drona Ascends Spiritually to Heavens Before Strike (Radical)",
+            label: "Drona Ascends Spiritually to Heavens Before Strike",
             type: "radical",
             divergence: 85
           }
@@ -1292,19 +1292,19 @@ export const webtoonIslands: WebtoonIsland[] = [
         choices: [
           {
             id: "10_3A",
-            label: "Lay Down All Arms & Bow Flat to Earth in Humility (Canonical)",
+            label: "Lay Down All Arms & Bow Flat to Earth in Humility",
             type: "canon",
             divergence: 0
           },
           {
             id: "10_3B",
-            label: "Arjuna Counters with Pashupatastra Cosmic Defense (Subversive)",
+            label: "Arjuna Counters with Pashupatastra Cosmic Defense",
             type: "subversive",
             divergence: 60
           },
           {
             id: "10_3C",
-            label: "Krishna Absorbs Fire into Divine Body Directly (Radical)",
+            label: "Krishna Absorbs Fire into Divine Body Directly",
             type: "radical",
             divergence: 90
           }

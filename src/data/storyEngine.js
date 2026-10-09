@@ -67,7 +67,7 @@ export const STORY_GRAPH = {
         ],
         prompt: "With Pandu in the forest and succession uncertain, what is decided for the future of Hastinapur?",
         choices: [
-          { text: "Raise Pandu's sons as rightful heirs to the Kuru dynasty (Canon)", badge: "Heirs", nextNode: "i1_end_heirs" },
+          { text: "Raise Pandu's sons as rightful heirs to the Kuru dynasty", badge: "Heirs", nextNode: "i1_end_heirs" },
           { text: "Place the succession under a council until Pandu's fate is resolved", badge: "Council", nextNode: "i1_end_council" },
           { text: "Pandu renounces the throne permanently and prepares his sons for destiny", badge: "Renounce", nextNode: "i1_end_renounce" }
         ]
@@ -150,7 +150,7 @@ export const STORY_GRAPH = {
         ],
         prompt: "Kripacharya halts Karna, demanding royal lineage. How shall the confrontation unfold?",
         choices: [
-          { text: "Duryodhana crowns Karna King of Anga on the spot (Canon)", badge: "Canon", nextNode: "i2_act2_crowned" },
+          { text: "Duryodhana crowns Karna King of Anga on the spot", badge: "Canon", nextNode: "i2_act2_crowned" },
           { text: "Kunti steps forward to reveal Karna as her firstborn son", badge: "Subversive", nextNode: "i2_act2_kunti" },
           { text: "Bhima steps forward to mock Karna's charioteer roots", badge: "Radical", nextNode: "i2_act2_bhima_scorn" }
         ]
@@ -163,8 +163,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "Crowned King of Anga, Karna challenges Arjuna as sunset approaches. How is the duel resolved?",
         choices: [
-          { text: "Sunset halts the duel; Karna and Duryodhana swear a lifelong oath (1A1)", badge: "Lifelong Oath", nextNode: "i2_end_lifelong_oath" },
-          { text: "Karna and Arjuna agree to a private night duel away from the arena (1A2)", badge: "Night Duel", nextNode: "i2_end_night_duel" }
+          { text: "Sunset halts the duel; Karna and Duryodhana swear a lifelong oath", badge: "Lifelong Oath", nextNode: "i2_end_lifelong_oath" },
+          { text: "Karna and Arjuna agree to a private night duel away from the arena", badge: "Night Duel", nextNode: "i2_end_night_duel" }
         ]
       },
       "i2_act2_kunti": {
@@ -175,8 +175,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "With Karna revealed as the eldest Pandava, how is the Kuru succession altered?",
         choices: [
-          { text: "Karna ascends as rightful eldest Pandava heir, uniting the brothers (1B1)", badge: "Eldest Prince", nextNode: "i2_end_eldest_heir" },
-          { text: "Karna refuses the royal title to remain independent (1B2)", badge: "Independent Hero", nextNode: "i2_end_independent" }
+          { text: "Karna ascends as rightful eldest Pandava heir, uniting the brothers", badge: "Eldest Prince", nextNode: "i2_end_eldest_heir" },
+          { text: "Karna refuses the royal title to remain independent", badge: "Independent Hero", nextNode: "i2_end_independent" }
         ]
       },
       "i2_act2_bhima_scorn": {
@@ -187,8 +187,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "Outraged by Bhima's insults, how does Karna respond?",
         choices: [
-          { text: "Karna challenges Bhima to single mace combat (1C1)", badge: "Mace Challenge", nextNode: "i2_end_mace_duel" },
-          { text: "Karna displays his glowing divine armor (Kavacha & Kundala) (1C2)", badge: "Divine Armor", nextNode: "i2_end_divine_armor" }
+          { text: "Karna challenges Bhima to single mace combat", badge: "Mace Challenge", nextNode: "i2_end_mace_duel" },
+          { text: "Karna displays his glowing divine armor (Kavacha & Kundala)", badge: "Divine Armor", nextNode: "i2_end_divine_armor" }
         ]
       },
       "i2_end_lifelong_oath": {
@@ -271,9 +271,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "The Pandavas discover that the House of Lac is designed to burn them alive. How shall they respond?",
         choices: [
-          { text: "Secretly prepare an underground escape tunnel (1A)", badge: "Tunnel", nextNode: "i3_act2_tunnel" },
-          { text: "Confront Purochana and expose the assassination plot (1B)", badge: "Confront", nextNode: "i3_act2_confront" },
-          { text: "Secretly leave Varanavata before the palace can be ignited (1C)", badge: "Depart", nextNode: "i3_act2_depart" }
+          { text: "Secretly prepare an underground escape tunnel", badge: "Tunnel", nextNode: "i3_act2_tunnel" },
+          { text: "Confront Purochana and expose the assassination plot", badge: "Confront", nextNode: "i3_act2_confront" },
+          { text: "Secretly leave Varanavata before the palace can be ignited", badge: "Depart", nextNode: "i3_act2_depart" }
         ]
       },
       "i3_act2_tunnel": {
@@ -284,9 +284,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "Purochana prepares to ignite the House of Lac. How shall the Pandavas execute their escape?",
         choices: [
-          { text: "Set the House of Lac ablaze and escape through the tunnel (2A)", badge: "Torch", nextNode: "i3_act3_torch" },
-          { text: "Escape without setting the palace on fire (2B)", badge: "Preserve", nextNode: "i3_act3_preserve" },
-          { text: "Trap Purochana inside his own palace and escape (2C)", badge: "Trap", nextNode: "i3_act3_trap" }
+          { text: "Set the House of Lac ablaze and escape through the tunnel", badge: "Torch", nextNode: "i3_act3_torch" },
+          { text: "Escape without setting the palace on fire", badge: "Preserve", nextNode: "i3_act3_preserve" },
+          { text: "Trap Purochana inside his own palace and escape", badge: "Trap", nextNode: "i3_act3_trap" }
         ]
       },
       "i3_act2_confront": {
@@ -321,9 +321,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "Believed to be dead, where shall the Pandavas go and how shall they prepare?",
         choices: [
-          { text: "Remain hidden in the forest and travel in disguise (3A)", badge: "Disguise", nextNode: "i3_end_forest" },
-          { text: "Seek refuge with trusted allies and reveal the conspiracy (3B)", badge: "Allies", nextNode: "i3_end_allies" },
-          { text: "Travel toward Panchala and seek a new political alliance (3C)", badge: "Panchala", nextNode: "i3_end_panchala" }
+          { text: "Remain hidden in the forest and travel in disguise", badge: "Disguise", nextNode: "i3_end_forest" },
+          { text: "Seek refuge with trusted allies and reveal the conspiracy", badge: "Allies", nextNode: "i3_end_allies" },
+          { text: "Travel toward Panchala and seek a new political alliance", badge: "Panchala", nextNode: "i3_end_panchala" }
         ]
       },
       "i3_act3_preserve": {
@@ -403,7 +403,7 @@ export const STORY_GRAPH = {
         ],
         prompt: "Mother Kunti commands the brothers to share equal alms. How is her word fulfilled?",
         choices: [
-          { text: "Five-Fold Marriage to all five Pandava brothers (Canon)", badge: "Canon", nextNode: "i4_act1_fivefold" },
+          { text: "Five-Fold Marriage to all five Pandava brothers", badge: "Canon", nextNode: "i4_act1_fivefold" },
           { text: "Clarify words: Draupadi weds Arjuna alone with Vyasa sanction", badge: "Arjuna Solo", nextNode: "i4_act1_arjuna_solo" }
         ]
       },
@@ -415,8 +415,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "How shall the five Pandava brothers structure their internal household to preserve eternal harmony?",
         choices: [
-          { text: "Establish a strict annual rotation vow under Sage Narada's guidance (1A1)", badge: "Narada Vow", nextNode: "i4_end_narada_vow" },
-          { text: "Form a joint imperial counsel where Draupadi governs alongside Yudhishthira (1A2)", badge: "Chief Empress", nextNode: "i4_end_joint_counsel" }
+          { text: "Establish a strict annual rotation vow under Sage Narada's guidance", badge: "Narada Vow", nextNode: "i4_end_narada_vow" },
+          { text: "Form a joint imperial counsel where Draupadi governs alongside Yudhishthira", badge: "Chief Empress", nextNode: "i4_end_joint_counsel" }
         ]
       },
       "i4_act1_arjuna_solo": {
@@ -427,8 +427,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "With Arjuna as sole groom, how do the Pandavas manage their new political alliance?",
         choices: [
-          { text: "Arjuna remains in Panchala as Drupada's primary military commander (1B1)", badge: "Panchala General", nextNode: "i4_end_arjuna_panchala" },
-          { text: "The five brothers return to Hastinapur together to claim inherited titles (1B2)", badge: "Hastinapur Return", nextNode: "i4_end_return_hastinapur" }
+          { text: "Arjuna remains in Panchala as Drupada's primary military commander", badge: "Panchala General", nextNode: "i4_end_arjuna_panchala" },
+          { text: "The five brothers return to Hastinapur together to claim inherited titles", badge: "Hastinapur Return", nextNode: "i4_end_return_hastinapur" }
         ]
       },
       "i4_end_narada_vow": {
@@ -495,7 +495,7 @@ export const STORY_GRAPH = {
         ],
         prompt: "Lord Agni requests Khandava forest. How shall Arjuna and Krishna proceed?",
         choices: [
-          { text: "Burn Khandava & build Mayasabha Palace (Canon)", badge: "Canon", nextNode: "i5_act1_burn" },
+          { text: "Burn Khandava & build Mayasabha Palace", badge: "Canon", nextNode: "i5_act1_burn" },
           { text: "Negotiate sanctuary treaty with Takshaka Nagas", badge: "Subversive", nextNode: "i5_act1_treaty" }
         ]
       },
@@ -507,8 +507,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "With Mayasabha constructed, how do the Pandavas utilize their newfound grand palace?",
         choices: [
-          { text: "Host the Rajasuya Yajna and crown Yudhishthira Sovereign Emperor (2A1)", badge: "Rajasuya", nextNode: "i5_end_rajasuya" },
-          { text: "Open Mayasabha as a universal sanctuary for scholars and delegates (2A2)", badge: "Sanctuary", nextNode: "i5_end_sanctuary" }
+          { text: "Host the Rajasuya Yajna and crown Yudhishthira Sovereign Emperor", badge: "Rajasuya", nextNode: "i5_end_rajasuya" },
+          { text: "Open Mayasabha as a universal sanctuary for scholars and delegates", badge: "Sanctuary", nextNode: "i5_end_sanctuary" }
         ]
       },
       "i5_act1_treaty": {
@@ -519,8 +519,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "How do the Pandavas integrate the Nagas into the defense and governance of Indraprastha?",
         choices: [
-          { text: "Form an elite subterranean defensive force under Takshaka (2B1)", badge: "Underground Force", nextNode: "i5_end_subterranean" },
-          { text: "Establish an agrarian trade alliance using Naga water knowledge (2B2)", badge: "Agrarian Trade", nextNode: "i5_end_agrarian" }
+          { text: "Form an elite subterranean defensive force under Takshaka", badge: "Underground Force", nextNode: "i5_end_subterranean" },
+          { text: "Establish an agrarian trade alliance using Naga water knowledge", badge: "Agrarian Trade", nextNode: "i5_end_agrarian" }
         ]
       },
       "i5_end_rajasuya": {
@@ -588,9 +588,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "Shakuni begins with small wagers, but quickly raises the stakes. How shall Yudhishthira respond?",
         choices: [
-          { text: "Accept the escalating wagers and continue the game (1A)", badge: "Wager", nextNode: "i6_act1_accept" },
-          { text: "Refuse further wagers and question Shakuni's dice (1B)", badge: "Question", nextNode: "i6_act1_refuse" },
-          { text: "Allow the elders to supervise the game before continuing (1C)", badge: "Supervise", nextNode: "i6_act1_elders" }
+          { text: "Accept the escalating wagers and continue the game", badge: "Wager", nextNode: "i6_act1_accept" },
+          { text: "Refuse further wagers and question Shakuni's dice", badge: "Question", nextNode: "i6_act1_refuse" },
+          { text: "Allow the elders to supervise the game before continuing", badge: "Supervise", nextNode: "i6_act1_elders" }
         ]
       },
       "i6_act1_accept": {
@@ -601,9 +601,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "After Yudhishthira loses his wealth and kingdom, Shakuni urges him to stake Draupadi. What shall Yudhishthira do?",
         choices: [
-          { text: "Stake Draupadi as the final wager (2A)", badge: "Stake", nextNode: "i6_act2_stake" },
-          { text: "Refuse to stake Draupadi and end the game (2B)", badge: "Refuse", nextNode: "i6_act2_refuse_draupadi" },
-          { text: "Ask the elders whether Draupadi can legally be wagered (2C)", badge: "Legal", nextNode: "i6_act2_ask_elders" }
+          { text: "Stake Draupadi as the final wager", badge: "Stake", nextNode: "i6_act2_stake" },
+          { text: "Refuse to stake Draupadi and end the game", badge: "Refuse", nextNode: "i6_act2_refuse_draupadi" },
+          { text: "Ask the elders whether Draupadi can legally be wagered", badge: "Legal", nextNode: "i6_act2_ask_elders" }
         ]
       },
       "i6_act1_refuse": {
@@ -638,9 +638,9 @@ export const STORY_GRAPH = {
         ],
         prompt: "The gambling hall descends into chaos as Draupadi's dignity is threatened. How shall the Kuru court intervene?",
         choices: [
-          { text: "Dhritarashtra intervenes and restores Draupadi's freedom (3A)", badge: "Freedom", nextNode: "i6_end_dhritarashtra" },
-          { text: "Bhishma and Vidura stop the game and declare proceedings unjust (3B)", badge: "Halt", nextNode: "i6_end_bhishma_stop" },
-          { text: "The court demands a final ruling from elders before any punishment (3C)", badge: "Ruling", nextNode: "i6_end_elders_ruling" }
+          { text: "Dhritarashtra intervenes and restores Draupadi's freedom", badge: "Freedom", nextNode: "i6_end_dhritarashtra" },
+          { text: "Bhishma and Vidura stop the game and declare proceedings unjust", badge: "Halt", nextNode: "i6_end_bhishma_stop" },
+          { text: "The court demands a final ruling from elders before any punishment", badge: "Ruling", nextNode: "i6_end_elders_ruling" }
         ]
       },
       "i6_act2_refuse_draupadi": {
@@ -720,7 +720,7 @@ export const STORY_GRAPH = {
         ],
         prompt: "Bhima and Draupadi urge Yudhishthira to march back on Hastinapur immediately. What is ordered?",
         choices: [
-          { text: "Endure 12-year wilderness exile oath (Canon)", badge: "Canon", nextNode: "i7_act1_endure" },
+          { text: "Endure 12-year wilderness exile oath", badge: "Canon", nextNode: "i7_act1_endure" },
           { text: "Arjuna seeks Pashupatastra early for an ultimatum", badge: "Subversive", nextNode: "i7_act1_ultimatum" }
         ]
       },
@@ -732,8 +732,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "How shall the Pandavas utilize their twelve years of wilderness exile?",
         choices: [
-          { text: "Dispatch Arjuna to perform penance for celestial weapons (Pasupatastra) (3A1)", badge: "Pasupata", nextNode: "i7_end_arjuna_penance" },
-          { text: "Build secret diplomatic alliances with forest kingdoms and tribal realms (3A2)", badge: "Forest Allies", nextNode: "i7_end_forest_alliances" }
+          { text: "Dispatch Arjuna to perform penance for celestial weapons (Pasupatastra)", badge: "Pasupata", nextNode: "i7_end_arjuna_penance" },
+          { text: "Build secret diplomatic alliances with forest kingdoms and tribal realms", badge: "Forest Allies", nextNode: "i7_end_forest_alliances" }
         ]
       },
       "i7_act1_ultimatum": {
@@ -744,8 +744,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "Upon returning with the Pashupatastra, how does Arjuna deliver the ultimatum to Hastinapur?",
         choices: [
-          { text: "Present the ultimatum through Lord Krishna in the Kuru Court (3B1)", badge: "Krishna Envoy", nextNode: "i7_end_krishna_envoy" },
-          { text: "Demonstrate the Pasupatastra's power outside Hastinapur's gates (3B2)", badge: "Show of Force", nextNode: "i7_end_show_of_force" }
+          { text: "Present the ultimatum through Lord Krishna in the Kuru Court", badge: "Krishna Envoy", nextNode: "i7_end_krishna_envoy" },
+          { text: "Demonstrate the Pasupatastra's power outside Hastinapur's gates", badge: "Show of Force", nextNode: "i7_end_show_of_force" }
         ]
       },
       "i7_end_arjuna_penance": {
@@ -829,8 +829,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "After Keechaka's defeat, rumors spread throughout Matsya. How should Draupadi protect the Pandavas' identities?",
         choices: [
-          { text: "Claim that her Gandharva protectors punished Keechaka (1A1)", badge: "Gandharvas", nextNode: "i8_end_gandharvas" },
-          { text: "Reveal the truth to King Virata (1A2)", badge: "Reveal Truth", nextNode: "i8_end_reveal_virata" }
+          { text: "Claim that her Gandharva protectors punished Keechaka", badge: "Gandharvas", nextNode: "i8_end_gandharvas" },
+          { text: "Reveal the truth to King Virata", badge: "Reveal Truth", nextNode: "i8_end_reveal_virata" }
         ]
       },
       "i8_act2_cattle": {
@@ -842,8 +842,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "The battle is won. The Pandavas' identities can no longer remain hidden. What should King Virata do?",
         choices: [
-          { text: "Accept the Pandavas as allies and offer an alliance (1B1)", badge: "Alliance", nextNode: "i8_end_virata_alliance" },
-          { text: "Keep the discovery secret until the exile officially ends (1B2)", badge: "Secret Kept", nextNode: "i8_end_virata_secret" }
+          { text: "Accept the Pandavas as allies and offer an alliance", badge: "Alliance", nextNode: "i8_end_virata_alliance" },
+          { text: "Keep the discovery secret until the exile officially ends", badge: "Secret Kept", nextNode: "i8_end_virata_secret" }
         ]
       },
       "i8_end_gandharvas": {
@@ -922,8 +922,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "Krishna promises not to fight. How should Arjuna use his presence?",
         choices: [
-          { text: "Ask Krishna to become his charioteer (2A1)", badge: "Charioteer", nextNode: "i9_end_charioteer" },
-          { text: "Ask Krishna to advise the Pandava council (2A2)", badge: "Council Advisor", nextNode: "i9_end_council_advisor" }
+          { text: "Ask Krishna to become his charioteer", badge: "Charioteer", nextNode: "i9_end_charioteer" },
+          { text: "Ask Krishna to advise the Pandava council", badge: "Council Advisor", nextNode: "i9_end_council_advisor" }
         ]
       },
       "i9_act1_choose_army": {
@@ -935,8 +935,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "As war approaches, what should the chosen alliance prioritize?",
         choices: [
-          { text: "Build overwhelming military strength (2B1)", badge: "Military Power", nextNode: "i9_end_military_strength" },
-          { text: "Build strategy around dharma and leadership (2B2)", badge: "Dharma Strategy", nextNode: "i9_end_dharma_strategy" }
+          { text: "Build overwhelming military strength", badge: "Military Power", nextNode: "i9_end_military_strength" },
+          { text: "Build strategy around dharma and leadership", badge: "Dharma Strategy", nextNode: "i9_end_dharma_strategy" }
         ]
       },
       "i9_end_charioteer": {
@@ -1014,8 +1014,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "Drona refuses to lower his weapons unless he believes Ashwatthama is dead. What should the Pandavas do?",
         choices: [
-          { text: "Tell Drona the truth about Ashwatthama (3A1)", badge: "Truth Told", nextNode: "i10_end_truth_told" },
-          { text: "Search for a strategic alternative (Elephant Ambiguity) (3A2)", badge: "Elephant Stratagem", nextNode: "i10_act1_half_truth" }
+          { text: "Tell Drona the truth about Ashwatthama", badge: "Truth Told", nextNode: "i10_end_truth_told" },
+          { text: "Search for a strategic alternative (Elephant Ambiguity)", badge: "Elephant Stratagem", nextNode: "i10_act1_half_truth" }
         ]
       },
       "i10_act1_half_truth": {
@@ -1030,8 +1030,8 @@ export const STORY_GRAPH = {
         ],
         prompt: "After Drona lays down his weapons, how should Yudhishthira respond to what he has done?",
         choices: [
-          { text: "Accept the victory without regret (3B1)", badge: "No Regret", nextNode: "i10_end_no_regret" },
-          { text: "Accept victory but carry the burden of the choice (3B2)", badge: "Carry Burden", nextNode: "i10_end_carry_burden" }
+          { text: "Accept the victory without regret", badge: "No Regret", nextNode: "i10_end_no_regret" },
+          { text: "Accept victory but carry the burden of the choice", badge: "Carry Burden", nextNode: "i10_end_carry_burden" }
         ]
       },
       "i10_end_truth_told": {

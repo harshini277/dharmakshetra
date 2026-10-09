@@ -3,6 +3,14 @@ import { ASSETS } from './assets/gameAssets';
 import { STORY_GRAPH } from './data/storyEngine';
 import { webtoonIslands } from './data/webtoonData';
 
+const cleanChoiceText = (text: string): string => {
+  if (!text) return '';
+  return text
+    .replace(/\s*\([1-3]?[A-C][1-2]?\)\s*$/gi, '')
+    .replace(/\s*\((?:Canon|Canonical|Subversive|Radical)\)\s*$/gi, '')
+    .trim();
+};
+
 export function App() {
   const [activeIslandId, setActiveIslandId] = useState<string | null>(null);
   const [timelineFeed, setTimelineFeed] = useState<any[]>([]);
@@ -243,7 +251,7 @@ export function App() {
                             <span className="text-[9px] font-bold uppercase tracking-wider block opacity-80 mb-0.5">
                               {choice.badge} Path
                             </span>
-                            <span className="font-bold text-xs md:text-sm">{choice.text}</span>
+                            <span className="font-bold text-xs md:text-sm">{cleanChoiceText(choice.text)}</span>
                           </div>
                           <span className="text-sm font-bold">
                             {isChosen ? '✓ Selected' : hasChosen ? '' : 'Choose ➔'}
